@@ -17,11 +17,25 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: #111;
+  color: #bbb;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  /* cursor: pointer; */
+}
+.container {
+  max-width: 1366px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 0 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: 1s all ease;
+
+  /* background-color: palevioletred; */
 }

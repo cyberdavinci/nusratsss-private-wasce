@@ -1,0 +1,19 @@
+.title {
+  /* font-size: 72px; */
+  background: linear-gradient(to bottom, #194c33, #bbb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* font-weight: 700; */
+}
+/*  */
+.costum_animation {
+  animation: bounce infinite alternate ease 3s;
+}
+@keyframes bounce {
+  from {
+    transform: translateY(-15px);
+  }
+  to {
+    transform: translateY(0) scale(1.1);
+  }
+}
