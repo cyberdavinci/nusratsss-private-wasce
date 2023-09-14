@@ -1,9 +1,17 @@
 import React from "react";
-const subjects = [
-  {name:"English"}
-]
+import SubjectsList from "@/components/subjectsList/SubjectsList";
+import PrivateWasscePriceList from "@/components/priceLists/nusratsss/PrivateWasscePriceList";
 const Subjects = () => {
-  return <div></div>;
+  return (
+    <div>
+      <div>
+        <PrivateWasscePriceList />
+      </div>
+      <div>
+        <SubjectsList />
+      </div>
+    </div>
+  );
 };
 
 export default Subjects;

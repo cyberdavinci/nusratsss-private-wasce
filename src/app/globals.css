@@ -25,6 +25,7 @@ body {
 a {
   text-decoration: none;
   color: inherit;
+  transition: all ease 0.2s;
   /* cursor: pointer; */
 }
 .container {
@@ -38,4 +39,14 @@ a {
   transition: 1s all ease;
 
   /* background-color: palevioletred; */
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
