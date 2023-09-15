@@ -1,46 +1,49 @@
 .nav {
   position: absolute;
-  top: 100px;
-  right: 200px;
+  float: left;
   width: 80px;
-  height: 300px;
+  /* height: 100px; */
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: grab;
+  /* background-color: #fff; */
+  bottom: 0;
 }
 .nav .nav_content {
   display: flex;
   align-items: center;
-  justify-content: center;
-  transform: rotate(-45deg);
+  justify-content: space-around;
+  transform: rotate(140deg);
 }
 .nav .toggle_btn,
 .nav_content span a {
-  height: 60px;
-  width: 60px;
-  background: #fff;
+  height: 70px;
+  width: 70px;
+  /* background: #fff; */
+
+  color: #bbb;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
+
 .nav .toggle_btn {
-  font-size: 70px;
-  color: #0e2431;
+  font-size: 30px;
+  /* color: #0e2431; */
   z-index: 100;
   cursor: pointer;
-  transform: rotate(-225deg);
+
   transition: all 0.6s ease;
 }
-.nav.open .toggle_btn {
-  transform: rotate(0deg);
-}
+
 .nav_content span {
   position: absolute;
   transition: all 0.6s ease;
   opacity: 0;
+  padding-right: 20px;
 }
 .nav.open .nav_content span {
   transform: rotate(calc(var(--i) * (360deg / 8))) translateY(120px);
@@ -48,11 +51,13 @@
 }
 .nav_content span a {
   text-decoration: none;
-  transform: rotate(45deg);
+  transform: rotate(220deg);
+  display: flex;
+  flex-direction: column;
 }
 .nav_content span a i {
   font-size: 24px;
-  color: #0e2431;
+  /* color: #0e2431; */
   transform: rotate(calc(var(--i) * (360deg / -8)));
   opacity: 0.8;
   transition: 0.2s;
