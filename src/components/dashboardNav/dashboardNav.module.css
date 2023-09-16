@@ -8,7 +8,7 @@
   justify-content: center;
   cursor: grab;
   /* background-color: #fff; */
-  bottom: 0;
+  bottom: 30%;
 }
 .nav .nav_content {
   display: flex;
@@ -22,14 +22,20 @@
   width: 70px;
   /* background: #fff; */
 
-  color: #bbb;
+  /* color: #bbb; */
+  color: #16a34a;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
+  font-weight: bolder;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
-
+.nav .toggle_btn:hover,
+.nav_content span a:hover {
+  background-color: #0ec959af;
+  color: #bbb;
+}
 .nav .toggle_btn {
   font-size: 30px;
   /* color: #0e2431; */
