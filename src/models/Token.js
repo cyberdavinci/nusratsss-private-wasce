@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const tokenSchema = mongoose.Schema({
   token: {
     type: Number,
-    require: true,
+    required: true,
     unique: true,
   },
   isUsed: {

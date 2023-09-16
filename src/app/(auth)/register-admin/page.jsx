@@ -1,8 +1,13 @@
 "use client";
 import React from "react";
+import { useRouter } from "next/navigation";
 
-const VerifyToken = () => {
-  const handleSubmit = () => {};
+const RegistrationToken = () => {
+  const router = useRouter();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const token = e.taret[0].value;
+  };
   return (
     <div className="flex flex-col items-center">
       <h1 className=" text-3xl font-extrabold p-3">Registration Token</h1>
@@ -21,4 +26,4 @@ const VerifyToken = () => {
   );
 };
 
-export default VerifyToken;
+export default RegistrationToken;

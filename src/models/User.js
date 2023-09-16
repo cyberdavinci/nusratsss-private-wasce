@@ -17,11 +17,19 @@ const userSchema = mongoose.Schema(
     },
     role: {
       type: String,
-      default: "student",
+      enum: ["admin", "student"],
+      // default: "student",
+    },
+    route: {
+      type: String,
     },
     token: {
       type: Number,
-      default: 0,
+      default: null,
+      unique: true,
+      required: function () {
+        return this.router === "register";
+      },
     },
     subjects: [
       {

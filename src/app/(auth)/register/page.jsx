@@ -14,6 +14,7 @@ const Register = () => {
     const name = e.target[0].value;
     const email = e.target[1].value;
     const password = e.target[2].value;
+    const token = e.target[3].value;
 
     try {
       const res = await fetch("/api/auth/register", {
@@ -23,6 +24,8 @@ const Register = () => {
           name,
           email,
           password,
+          role: "student",
+          token,
         }),
       });
       //clear form inputs
@@ -62,6 +65,12 @@ const Register = () => {
           type="password"
           className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none"
           placeholder="password"
+          required
+        />
+        <input
+          type="number"
+          className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none"
+          placeholder="registration token"
           required
         />
 

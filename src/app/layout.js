@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import Navbar from "@/components/navBar/navBar";
 import Footer from "@/components/footer/footer";
 import AuthProvider from "@/authProvider/AuthProvider";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/dist/server/api-utils";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -11,6 +13,11 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const session = getServerSession();
+  // if (!session) {
+  //   redirect("/login?callback=/");
+  // }
+
   return (
     <html lang="en">
       <body className={inter.className}>

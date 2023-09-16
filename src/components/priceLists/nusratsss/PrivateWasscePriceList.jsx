@@ -48,7 +48,7 @@ const PrivateWasscePriceList = () => {
             })}
           </ul>
         </div>
-        <div>
+        {/* <div>
           <h2 className="mb-2 font-semibold text-xl">Two year Program</h2>
           <ul className="flex  flex-wrap gap-5">
             {twoYear.map((price, index) => {
@@ -66,7 +66,7 @@ const PrivateWasscePriceList = () => {
               );
             })}
           </ul>
-        </div>
+        </div> */}
       </div>
     </div>
   );

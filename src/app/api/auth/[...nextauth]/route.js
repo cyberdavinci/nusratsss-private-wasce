@@ -4,7 +4,7 @@ import User from "@/models/User";
 import connect from "@/utils/db";
 import bcrypt from "bcryptjs";
 
-const handler = NextAuth({
+export const authOptions = {
   providers: [
     CredentialsProvider({
       id: "credentials",
@@ -56,6 +56,6 @@ const handler = NextAuth({
   pages: {
     signOut: "/",
   },
-});
-
+};
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
