@@ -34,7 +34,10 @@ const PrivateWasscePriceList = () => {
           <ul className="flex flex-wrap gap-5">
             {oneYear.map((price, index) => {
               return (
-                <li className="bg-[#1a1a24] w-[200px] h-[150px] items-center justify-center flex flex-col rounded-lg gap-3">
+                <li
+                  className="bg-[#1a1a24] w-[200px] h-[150px] items-center justify-center flex flex-col rounded-lg gap-3"
+                  key={index}
+                >
                   <span className=" text-xl font-extrabold">
                     D{price.value}
                   </span>

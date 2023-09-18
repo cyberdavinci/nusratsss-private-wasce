@@ -44,12 +44,9 @@ export const authOptions = {
       return token;
     },
     session({ session, token }) {
-      const role = token.role;
       session.user.role = token.role;
       session.user.token = token.token;
-      if (role !== "admin") {
-        session.user.subjects = token.subjects;
-      }
+      session.user.subjects = token.subjects;
       return session;
     },
   },

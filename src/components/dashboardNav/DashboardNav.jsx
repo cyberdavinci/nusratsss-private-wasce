@@ -1,24 +1,23 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./dashboardNav.module.css";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { RiMenuUnfoldLine } from "react-icons/ri";
-import { FiSettings } from "react-icons/fi";
-import { PiStudentDuotone } from "react-icons/pi";
-import { MdOutlineGeneratingTokens } from "react-icons/md";
-import { GiBookshelf } from "react-icons/gi";
-import { BiHomeAlt } from "react-icons/bi";
+// import { RiMenuUnfoldLine } from "react-icons/ri";
+// import { FiSettings } from "react-icons/fi";
+// import { PiStudentDuotone } from "react-icons/pi";
+// import { MdOutlineGeneratingTokens } from "react-icons/md";
+// import { GiBookshelf } from "react-icons/gi";
+// import { BiHomeAlt } from "react-icons/bi";
 const DashboardNav = () => {
-  const [open, setOpen] = useState("open");
-  //   useEffect(() => {}, [open]);
+  const [open, setOpen] = useState("");
   const links = [
     {
       customS: {
         "--i": 1,
       },
       name: "Dashboard",
-      icon: <BiHomeAlt />,
+      // icon: <BiHomeAlt />,
       page: "/dashboard",
     },
     {
@@ -26,7 +25,7 @@ const DashboardNav = () => {
         "--i": 2,
       },
       name: "Settings",
-      icon: <FiSettings />,
+      // icon: <FiSettings />,
       page: "/dashboard/settings",
     },
     {
@@ -34,7 +33,7 @@ const DashboardNav = () => {
         "--i": 3,
       },
       name: "Students",
-      icon: <PiStudentDuotone />,
+      // icon: <PiStudentDuotone />,
       page: "/dashboard/students",
     },
     {
@@ -42,7 +41,7 @@ const DashboardNav = () => {
         "--i": 4,
       },
       name: "Tokens",
-      icon: <MdOutlineGeneratingTokens />,
+      // icon: <MdOutlineGeneratingTokens />,
       page: "/dashboard/tokens",
     },
     {
@@ -50,7 +49,7 @@ const DashboardNav = () => {
         "--i": 5,
       },
       name: "Subjects",
-      icon: <GiBookshelf />,
+      // icon: <GiBookshelf />,
       page: "/dashboard/subjects",
     },
   ];
@@ -71,7 +70,8 @@ const DashboardNav = () => {
     >
       <nav className={`${styles.nav} ${open === "open" ? styles.open : null}`}>
         <div className={styles.toggle_btn} onClick={() => toggleMenu()}>
-          <RiMenuUnfoldLine />
+          {/* <RiMenuUnfoldLine /> */}
+          Menu
         </div>
         {links.map((link, index) => {
           return (
@@ -79,8 +79,8 @@ const DashboardNav = () => {
               <span style={link.customS}>
                 <Link href={link.page}>
                   <i>
-                    {link.icon}
-                    {/* {link.name} */}
+                    {/* {link.icon} */}
+                    {link.name}
                   </i>
                   {/* <p> {link.name} </p> */}
                 </Link>

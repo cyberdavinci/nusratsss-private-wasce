@@ -1,13 +1,16 @@
 // import Image from "next/image";
+"use client";
 import Hero from "public/studies.svg";
 import Image from "next/image";
 import styles from "./page.module.css";
 import Link from "next/link";
-import { authOptions } from "./api/auth/[...nextauth]/route";
-import { getServerSession } from "next-auth";
+// import { authOptions } from "./api/auth/[...nextauth]/route";
+// import { getServerSession } from "next-auth";
 // import Register from "@/components/Register/Register";
-export default async function Home() {
-  const session = await getServerSession(authOptions);
+import { useSession } from "next-auth/react";
+export default function Home() {
+  // const session = await getServerSession(authOptions);
+  const session = useSession();
   return (
     <div className="flex items-center">
       <div className="flex flex-col gap-8 flex-1">

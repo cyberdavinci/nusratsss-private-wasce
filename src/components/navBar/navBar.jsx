@@ -27,15 +27,15 @@ const Navbar = () => {
         >
           Profile
         </Link>
-        {session.status === "authenticated" &&
-        session.data?.user.role === "admin" ? (
-          <Link
-            href={"/dashboard"}
-            className=" font-semibold hover:border-t-2 hover:pt-[-1px] hover:text-emerald-600 "
-          >
-            Dashboard
-          </Link>
-        ) : null}
+        {/* {session.status === "authenticated" &&
+        session.data?.user.role === "admin" ? ( */}
+        <Link
+          href={"/dashboard"}
+          className=" font-semibold hover:border-t-2 hover:pt-[-1px] hover:text-emerald-600 "
+        >
+          Dashboard
+        </Link>
+        {/* // ) : null} */}
         {session.status === "authenticated" ? (
           <button
             onClick={signOut}

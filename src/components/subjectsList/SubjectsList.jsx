@@ -41,9 +41,12 @@ const SubjectsList = () => {
       <h1 className=" text-3xl font-bold mb-5">Subjects List</h1>
       <p className=" p-4 font-semibold text-lg">Please select your subjects</p>
       <div className="flex gap-4 flex-wrap">
-        {subjects.map((subject) => {
+        {subjects.map((subject, index) => {
           return (
-            <div className=" w-[200px] h-[150px] rounded-md bg-[#1a1a24] py-4 px-6  flex flex-col items-center cursor-pointer justify-center">
+            <div
+              className=" w-[200px] h-[150px] rounded-md bg-[#1a1a24] py-4 px-6  flex flex-col items-center cursor-pointer justify-center"
+              key={index}
+            >
               <Image src={subject.icon} width={50} height={45} />
               <h3 className="text-lg font-extrabold pt-1 px-2">
                 {subject.name}
