@@ -6,8 +6,8 @@ import { signIn, useSession } from "next-auth/react";
 const Register = () => {
   const [err, setErr] = useState(false);
   const [errMsg, setErroMsg] = useState("");
-  // const session = useSession();
-  // const router = useRouter();
+  const session = useSession();
+  const router = useRouter();
   // console.log(session);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,13 +36,16 @@ const Register = () => {
           email,
           password,
           redirect: true,
-          callbackUrl: "/profile",
+          callbackUrl: "/complete-registration",
         }));
     } catch (err) {
       setErr(true);
       console.log(err);
     }
   };
+  if (session.status === "authenticated")
+    return router.replace("/complete-registration");
+  if (session.status === "loading") return <h1>Loading please wait...</h1>;
   return (
     <div className="flex flex-col items-center">
       <h1 className=" text-4xl font-extrabold p-3">Register</h1>

@@ -43,12 +43,14 @@ const Navbar = () => {
           >
             Logout
           </button>
-        ) : (
+        ) : session.status === "unauthenticated" ? (
           <Link href={"/login"}>
             <button className="bg-[#7CC190] w-fit px-4 py-1 rounded text-gray-800  font-semibold">
               Login
             </button>
           </Link>
+        ) : (
+          <h1>Loading....</h1>
         )}
       </div>
     </div>

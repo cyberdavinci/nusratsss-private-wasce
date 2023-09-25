@@ -37,6 +37,7 @@ export const authOptions = {
   callbacks: {
     jwt({ token, user }) {
       if (user) {
+        token._id = user._id;
         token.role = user.role;
         token.token = user.token;
         token.subjects = user.subjects;
@@ -44,6 +45,7 @@ export const authOptions = {
       return token;
     },
     session({ session, token }) {
+      session.user._id = token._id;
       session.user.role = token.role;
       session.user.token = token.token;
       session.user.subjects = token.subjects;
@@ -55,4 +57,4 @@ export const authOptions = {
   },
 };
 const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST };
+export { handler as GET, handler as POST, handler as PATCH };

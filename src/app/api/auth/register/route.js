@@ -26,7 +26,13 @@ export const POST = async (request) => {
     isUsed: true,
   });
   try {
+    // await Token.findOne({ $and: [{ token: token }, { isUsed: false }] }).then(
+    //   async (token) => {
+    //     if (token) await newToken.save();
+    //   }
+    // );
     await newToken.save();
+
     // return new NextResponse("token created", { status: 201 });
   } catch (err) {
     console.log("Invalid Token");
