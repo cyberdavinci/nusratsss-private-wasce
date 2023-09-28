@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useSession } from "next-auth/react";
-const Preview = ({ info }) => {
+const Preview = ({ info, currentForm, finishRegistration, handlePrevious }) => {
   const session = useSession();
   if (session.status === "loading") {
     return <h1>Loading please wait...</h1>;
@@ -48,6 +48,24 @@ const Preview = ({ info }) => {
             <p>Nationality of Parent: {info.nationality_of_parent}</p>
           </div>
         </div>
+      </div>
+
+      <div className="flex w-full py-10 gap-4 justify-evenly">
+        <button
+          className={`  ${"bg-teal-700"} rounded-md py-3 md:w-[200px] w-full`}
+          onClick={() => handlePrevious()}
+        >
+          Previous
+        </button>
+        <button
+          className={` bg-teal-700 rounded-md py-3 md:w-[200px] w-full`}
+          // disabled={currentForm === 5}
+          onClick={async () => {
+            await finishRegistration();
+          }}
+        >
+          Finish
+        </button>
       </div>
     </div>
   );

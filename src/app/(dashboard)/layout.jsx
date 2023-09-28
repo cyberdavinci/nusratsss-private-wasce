@@ -1,19 +1,21 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import styles from "./page.module.css";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 
 import Link from "next/link";
-import DashNav from "@/components/dashboardNav/DashNav";
+// import DashNav from "@/components/dashboardNav/DashNav";
 const Layout = ({ children }) => {
-  // const router = useRouter();
+  const router = useRouter();
   // console.log(router);
   const currentRoute = usePathname();
   const session = useSession();
-
+  useEffect(() => {
+    if (session.status === "unauthenticated") router.replace("/login");
+  }, [router, session.state]);
   return (
     <motion.div className="relative  h-screen">
       {session.status === "loading" ? (

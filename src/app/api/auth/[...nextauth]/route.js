@@ -41,6 +41,7 @@ export const authOptions = {
         token.role = user.role;
         token.token = user.token;
         token.subjects = user.subjects;
+        token.registrationStatus = user.registrationStatus;
       }
       return token;
     },
@@ -49,6 +50,7 @@ export const authOptions = {
       session.user.role = token.role;
       session.user.token = token.token;
       session.user.subjects = token.subjects;
+      session.user.registrationStatus = token.registrationStatus;
       return session;
     },
   },

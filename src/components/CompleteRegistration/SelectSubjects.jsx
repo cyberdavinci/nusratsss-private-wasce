@@ -1,7 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-const SelectSubjects = ({ setInfo, info }) => {
+const SelectSubjects = ({
+  setInfo,
+  info,
+
+  handleNext,
+}) => {
   const [selectedSubjects, setSelectedSubjects] = useState([]);
   const subjects = [
     {
@@ -42,6 +47,10 @@ const SelectSubjects = ({ setInfo, info }) => {
       ? setInfo((prev) => ({ ...prev, subjects: [...prev.subjects, value] }))
       : null;
   };
+  const isSubjectSelected = () => {
+    return info.subjects?.length > 0;
+  };
+  // console.log(isSubjectSelected());
   return (
     <div className=" my-14 mx-auto w-full flex flex-col items-center">
       <h1 className=" text-3xl font-bold mb-5">Please select your subjects</h1>
@@ -71,6 +80,23 @@ const SelectSubjects = ({ setInfo, info }) => {
             </div>
           );
         })}
+      </div>
+      <div className="flex w-full py-10 gap-4 justify-evenly">
+        {/* {currentForm > 1 ? (
+          <button
+            className={`  ${"bg-teal-700"} rounded-md py-3 md:w-[200px] w-full`}
+            onClick={() => handlePrevious()}
+          >
+            Previous
+          </button>
+        ) : null} */}
+        <button
+          className={` bg-teal-700 rounded-md py-3 md:w-[200px] w-full`}
+          // disabled={currentForm === 5}
+          onClick={() => (isSubjectSelected() ? handleNext() : null)}
+        >
+          Next
+        </button>
       </div>
     </div>
   );

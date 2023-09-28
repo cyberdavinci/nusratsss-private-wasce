@@ -1,6 +1,28 @@
 import React from "react";
 
-const Education = ({ handleInputChange, info }) => {
+const Education = ({
+  handleInputChange,
+  info,
+  currentForm,
+  handlePrevious,
+
+  handleNext,
+  isFormValid,
+}) => {
+  const {
+    occupation,
+    highest_level_of_education,
+    year_of_completion,
+    duration_of_study,
+    marital_status,
+  } = info;
+  const isValidForm = isFormValid({
+    occupation,
+    highest_level_of_education,
+    year_of_completion,
+    duration_of_study,
+    marital_status,
+  });
   return (
     <div className="flex flex-col items-center flex-1">
       <h1 className=" text-4xl font-extrabold p-3">Education</h1>
@@ -15,7 +37,7 @@ const Education = ({ handleInputChange, info }) => {
             placeholder="occupation"
             required
             name="occupation"
-            value={info.occupation}
+            value={occupation}
             onChange={handleInputChange}
           />
         </div>
@@ -23,7 +45,7 @@ const Education = ({ handleInputChange, info }) => {
           <label htmlFor="">Highes Level of Education</label>
           <select
             name="highest_level_of_education"
-            value={info.highest_level_of_education}
+            value={highest_level_of_education}
             onChange={handleInputChange}
             id=""
             className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none  md:w-[250px] w-[300px]"
@@ -43,7 +65,7 @@ const Education = ({ handleInputChange, info }) => {
             placeholder="Place of birth"
             required
             name="year_of_completion"
-            value={info.year_of_completion}
+            value={year_of_completion}
             onChange={handleInputChange}
           />
         </div>
@@ -51,7 +73,7 @@ const Education = ({ handleInputChange, info }) => {
           <label htmlFor="">Duration of Study</label>
           <select
             name="duration_of_study"
-            value={info.duration_of_study}
+            value={duration_of_study}
             onChange={handleInputChange}
             id=""
             className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none  md:w-[250px] w-[300px]"
@@ -68,7 +90,7 @@ const Education = ({ handleInputChange, info }) => {
 
           <select
             name="marital_status"
-            value={info.marital_status}
+            value={marital_status}
             onChange={handleInputChange}
             id=""
             className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none  md:w-[250px] w-[300px]"
@@ -77,6 +99,22 @@ const Education = ({ handleInputChange, info }) => {
             <option value="Fula">Single</option>
             <option value="Mandinka">Married</option>
           </select>
+        </div>
+        <div className="flex w-full py-10 gap-4 justify-evenly">
+          <button
+            className={`  ${"bg-teal-700"} rounded-md py-3 md:w-[200px] w-full`}
+            disabled={currentForm === 1}
+            onClick={() => handlePrevious()}
+          >
+            Previous
+          </button>
+          <button
+            className={` bg-teal-700 rounded-md py-3 md:w-[200px] w-full`}
+            // disabled={currentForm === 5}
+            onClick={() => (isValidForm ? handleNext() : null)}
+          >
+            Next
+          </button>
         </div>
       </form>
     </div>

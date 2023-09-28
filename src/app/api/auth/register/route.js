@@ -23,7 +23,7 @@ export const POST = async (request) => {
   // console.log(newUser);
   const newToken = new Token({
     token,
-    isUsed: true,
+    isUsed: false,
   });
   try {
     // await Token.findOne({ $and: [{ token: token }, { isUsed: false }] }).then(
@@ -36,16 +36,19 @@ export const POST = async (request) => {
     // return new NextResponse("token created", { status: 201 });
   } catch (err) {
     console.log("Invalid Token");
-    return new NextResponse("Token is expired please purchase a new one", {
-      status: 500,
-    });
+    return new NextResponse(
+      `Token is expired please purchase a new one ${err}`,
+      {
+        status: 500,
+      }
+    );
   }
   try {
     await newUser.save();
     // console.log("user created");
     return new NextResponse("user created", { status: 201 });
   } catch (err) {
-    console.log("user not created");
+    console.log(err);
     return new NextResponse("server error, please try again", { status: 500 });
   }
 };

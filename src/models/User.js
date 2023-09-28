@@ -57,9 +57,10 @@ const userSchema = mongoose.Schema(
       enum: ["Pending", "Approved", "Deny"],
       default: "Pending",
     },
-    hasCompletedRegistration: {
-      type: Boolean,
-      default: false,
+    registrationStatus: {
+      type: String,
+      enum: ["complete", "incomplete"],
+      default: "incomplete",
     },
     nationality: {
       type: String,
@@ -122,11 +123,37 @@ const userSchema = mongoose.Schema(
       default: "",
     },
     registration_ID: {
-      type: Number,
-      default: 0,
+      type: String,
+      default: "A0",
     },
+    // isNew: {
+    //   type: Boolean,
+    //   default: true,
+    // },
   },
 
   { timestamps: true }
 );
+userSchema.pre("save", async function (next) {
+  // console.log(this.isNew);
+  if (this?.$isNew) {
+    try {
+      const lastUser = await this.constructor.findOne(
+        {},
+        { registration_ID: 1 },
+        { sort: { _id: -1 } }
+      );
+      const lastId = lastUser
+        ? parseInt(lastUser.registration_ID.substring(1), 10)
+        : 0;
+      this.registration_ID = `A${lastId + 1}`;
+      // this.isNew = false;
+    } catch (error) {
+      console.error("Error in pre-save hook:", error);
+      return next(error);
+    }
+  }
+  next();
+});
+
 module.exports = mongoose.models.User || mongoose.model("User", userSchema);

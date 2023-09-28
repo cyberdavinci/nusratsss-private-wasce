@@ -5,28 +5,28 @@ import makeAnimated from "react-select/animated";
 import { useSession } from "next-auth/react";
 // const session = useSession();
 
-const PersonalInfo = ({ handleInputChange, info, setInfo }) => {
-  const { address } = info;
-  const genderOptions = [
-    { value: "male", label: "Male" },
-    { value: "female", label: "Female" },
-  ];
-  const subjectOptions = [
-    { value: "math", label: "Math" },
-    { value: "english", label: "English" },
-    { value: "chemistry", label: "Chemistry" },
-    { value: "physics", label: "Physics" },
-    { value: "biology", label: "Biology" },
-    { value: "agricultural science", label: "Agricultural Science" },
-    { value: "geography", label: "Geography" },
-    { value: "core science", label: "Core Science" },
-    { value: "health science", label: "Health Science" },
-  ];
+const PersonalInfo = ({
+  handleInputChange,
+  info,
+
+  handleNext,
+  currentForm,
+
+  handlePrevious,
+  isFormValid,
+}) => {
+  const { address, date_of_birth, nationality, gender, mobile, ethnicity } =
+    info;
+
+  const isValidForm = isFormValid({
+    address,
+    date_of_birth,
+    nationality,
+    gender,
+    mobile,
+    ethnicity,
+  });
   const animatedComponents = makeAnimated();
-  // const handleInputChange = (event) => {
-  //   setInfo((prev) => ({ ...prev, [event.target.name]: event.target.value }));
-  // };
-  // console.log(info);
 
   return (
     <div className="flex flex-col items-center w-full">
@@ -42,7 +42,7 @@ const PersonalInfo = ({ handleInputChange, info, setInfo }) => {
               placeholder="Date of birth"
               required
               name="date_of_birth"
-              value={info.date_of_birth}
+              value={date_of_birth}
               onChange={handleInputChange}
             />
           </div>
@@ -50,7 +50,7 @@ const PersonalInfo = ({ handleInputChange, info, setInfo }) => {
             <label htmlFor="">Nationality</label>
             <select
               name="nationality"
-              value={info.nationality}
+              value={nationality}
               id=""
               className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none md:w-[200px] w-full"
               onChange={handleInputChange}
@@ -65,7 +65,7 @@ const PersonalInfo = ({ handleInputChange, info, setInfo }) => {
             <label htmlFor="">Gender</label>
             <select
               name="gender"
-              value={info.gender}
+              value={gender}
               id=""
               className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none md:w-[200px] w-full"
               onChange={handleInputChange}
@@ -100,7 +100,7 @@ const PersonalInfo = ({ handleInputChange, info, setInfo }) => {
               placeholder="Mobile"
               required
               name="mobile"
-              value={info.mobile}
+              value={mobile}
               onChange={handleInputChange}
             />
           </div>
@@ -109,7 +109,7 @@ const PersonalInfo = ({ handleInputChange, info, setInfo }) => {
 
             <select
               name="ethnicity"
-              value={info.ethnicity}
+              value={ethnicity}
               id=""
               className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none md:w-[200px] w-full"
               onChange={handleInputChange}
@@ -119,6 +119,24 @@ const PersonalInfo = ({ handleInputChange, info, setInfo }) => {
               <option value="Mandinka">Mandinka</option>
             </select>
           </div>
+        </div>
+        <div className="flex w-full py-10 gap-4 justify-evenly">
+          <button
+            className={`  ${
+              currentForm === 1 ? " bg-slate-400" : "bg-teal-700"
+            } rounded-md py-3 md:w-[200px] w-full`}
+            disabled={currentForm === 1}
+            onClick={() => handlePrevious()}
+          >
+            Previous
+          </button>
+          <button
+            className={` bg-teal-700 rounded-md py-3 md:w-[200px] w-full`}
+            // disabled={currentForm === 5}
+            onClick={() => (isValidForm ? handleNext() : null)}
+          >
+            Next
+          </button>
         </div>
       </form>
     </div>

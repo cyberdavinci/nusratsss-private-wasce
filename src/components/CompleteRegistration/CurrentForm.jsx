@@ -10,11 +10,22 @@ const CurrentForm = ({
   setInfo,
   info,
   handleInputChange,
+  handleNext,
+  handlePrevious,
+  finishRegistration,
+  isFormValid,
 }) => {
   switch (currentForm) {
     case 1:
       return (
-        <SelectSubjects setInfo={setInfo} info={info} updateSubs={updateSubs} />
+        <SelectSubjects
+          setInfo={setInfo}
+          info={info}
+          updateSubs={updateSubs}
+          handleNext={handleNext}
+          currentForm={currentForm}
+          handlePrevious={handlePrevious}
+        />
       );
     case 2:
       return (
@@ -22,6 +33,10 @@ const CurrentForm = ({
           setInfo={setInfo}
           info={info}
           handleInputChange={handleInputChange}
+          handleNext={handleNext}
+          currentForm={currentForm}
+          handlePrevious={handlePrevious}
+          isFormValid={isFormValid}
         />
       );
     case 3:
@@ -30,6 +45,11 @@ const CurrentForm = ({
           setInfo={setInfo}
           info={info}
           handleInputChange={handleInputChange}
+          handleNext={handleNext}
+          currentForm={currentForm}
+          handlePrevious={handlePrevious}
+          isFormValid={isFormValid}
+          // handleNext={handleNext}
         />
       );
     case 4:
@@ -38,6 +58,10 @@ const CurrentForm = ({
           setInfo={setInfo}
           info={info}
           handleInputChange={handleInputChange}
+          handleNext={handleNext}
+          currentForm={currentForm}
+          handlePrevious={handlePrevious}
+          isFormValid={isFormValid}
         />
       );
     case 5:
@@ -46,6 +70,11 @@ const CurrentForm = ({
           setInfo={setInfo}
           info={info}
           handleInputChange={handleInputChange}
+          handleNext={handleNext}
+          currentForm={currentForm}
+          finishRegistration={finishRegistration}
+          handlePrevious={handlePrevious}
+          isFormValid={isFormValid}
         />
       );
     default:

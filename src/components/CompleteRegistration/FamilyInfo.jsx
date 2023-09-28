@@ -1,6 +1,25 @@
 import React from "react";
 
-const FamilyInfo = ({ handleInputChange, info }) => {
+const FamilyInfo = ({
+  handleInputChange,
+  info,
+  handleNext,
+  currentForm,
+  handlePrevious,
+  isFormValid,
+}) => {
+  const {
+    parent_guardian_name,
+    relationship_to_applicant,
+    contact_of_parent,
+    nationality_of_parent,
+  } = info;
+  const isValidForm = isFormValid({
+    parent_guardian_name,
+    relationship_to_applicant,
+    contact_of_parent,
+    nationality_of_parent,
+  });
   return (
     <div className="flex flex-col items-center flex-1">
       <h1 className=" text-4xl font-extrabold p-3">Parent/Guardian Info</h1>
@@ -129,6 +148,22 @@ const FamilyInfo = ({ handleInputChange, info }) => {
               <option value="Non-Gambian">Non-Gambian</option>
             </select>
           </div>
+        </div>
+        <div className="flex w-full py-10 gap-4 justify-evenly">
+          <button
+            className={`  ${"bg-teal-700"} rounded-md py-3 md:w-[200px] w-full`}
+            disabled={currentForm === 1}
+            onClick={() => handlePrevious()}
+          >
+            Previous
+          </button>
+          <button
+            className={` bg-teal-700 rounded-md py-3 md:w-[200px] w-full`}
+            // disabled={currentForm === 5}
+            onClick={() => (isValidForm ? handleNext() : null)}
+          >
+            Next
+          </button>
         </div>
       </form>
     </div>

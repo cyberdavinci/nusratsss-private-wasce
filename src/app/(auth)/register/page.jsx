@@ -1,14 +1,20 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
+import MyLoader from "@/components/Loader/MyLoader";
 const Register = () => {
   const [err, setErr] = useState(false);
   const [errMsg, setErroMsg] = useState("");
   const session = useSession();
   const router = useRouter();
   // console.log(session);
+  useEffect(() => {
+    if (session.status === "authenticated")
+      router.push("/complete-registration");
+  }, [session.status, router]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const name = e.target[0].value;
@@ -30,7 +36,6 @@ const Register = () => {
       });
       //clear form inputs
       e.target.reset();
-      res.status === 500 && setErroMsg("Error connecting to server!");
       res.status === 201 &&
         (await signIn("credentials", {
           email,
@@ -40,12 +45,12 @@ const Register = () => {
         }));
     } catch (err) {
       setErr(true);
+      setErroMsg("Error connecting to server!");
       console.log(err);
     }
   };
-  if (session.status === "authenticated")
-    return router.replace("/complete-registration");
-  if (session.status === "loading") return <h1>Loading please wait...</h1>;
+
+  if (session.status === "loading") return <MyLoader />;
   return (
     <div className="flex flex-col items-center">
       <h1 className=" text-4xl font-extrabold p-3">Register</h1>

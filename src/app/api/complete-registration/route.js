@@ -3,22 +3,53 @@ import User from "@/models/User";
 import { NextResponse } from "next/server";
 
 export const PATCH = async (request) => {
-  const { _id, address, occupation, phone, gender, subjects } =
-    await request.json();
+  const {
+    _id,
+    address,
+    nationality,
+    subjects,
+    date_of_birth,
+    gender,
+    ethnicity,
+    mobile,
+    highest_level_of_education,
+    year_of_completion,
+    duration_of_study,
+    occupation,
+    marital_status,
+    parent_guardian_name,
+    relationship_to_applicant,
+    contact_of_parent,
+    nationality_of_parent,
+    registrationStatus,
+  } = await request.json();
 
   await connect();
   try {
-    // const updatedUser = await User.findByIdAndUpdate(
-    //   _id,
-    //   {
-    //     address,
-    //     occupation,
-    //     phone,
-    //     gender,
-    //   },
-    //   { new: true }
-    // );
-    console.log(_id);
+    const updatedUser = await User.findByIdAndUpdate(
+      _id,
+      {
+        address,
+        nationality,
+        subjects,
+        date_of_birth,
+        gender,
+        ethnicity,
+        mobile,
+        highest_level_of_education,
+        year_of_completion,
+        duration_of_study,
+        occupation,
+        marital_status,
+        parent_guardian_name,
+        relationship_to_applicant,
+        contact_of_parent,
+        nationality_of_parent,
+        registrationStatus,
+      },
+      { new: true }
+    );
+    // console.log(updatedUser);
     return new NextResponse("user updated", { status: 200 });
   } catch (err) {
     return new NextResponse(err, { status: 500, data: err });
