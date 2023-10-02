@@ -35,21 +35,25 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token._id = user._id;
         token.role = user.role;
         token.token = user.token;
-        token.subjects = user.subjects;
-        token.registrationStatus = user.registrationStatus;
+        // token.subjects = user.subjects;
+        token.registrationStatus =
+          trigger === "update"
+            ? session.user.registrationStatus
+            : user.registrationStatus;
+        // console.log(token);
       }
       return token;
     },
-    session({ session, token }) {
+    async session({ session, token }) {
       session.user._id = token._id;
       session.user.role = token.role;
       session.user.token = token.token;
-      session.user.subjects = token.subjects;
+      // session.user.subjects = token.subjects;
       session.user.registrationStatus = token.registrationStatus;
       return session;
     },

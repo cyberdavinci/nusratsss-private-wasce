@@ -36,11 +36,11 @@ const FinishRegistration = () => {
   });
   // const { data } = session;
   useEffect(() => {
-    session.data?.user.registrationStatus === "complete"
-      ? router.push("/profile")
+    session.data?.user?.registrationStatus === "complete"
+      ? router.replace(`/print-application?email=${session.data?.user?.email}`)
       : null;
     session.status === "unauthenticated" ? router.replace("/register") : null;
-  }, [session.status, router]);
+  }, [session.status, session.data?.user?.registrationStatus, router]);
   //
   const handleNext = () => {
     currentForm > 0 ? setCurrentForm((prev) => prev + 1) : null;
@@ -61,6 +61,18 @@ const FinishRegistration = () => {
     const isValid = Object.values(obj).every((item) => item.trim() !== "");
     return isValid;
   };
+  const updateSession = async () => {
+    // Never update session like this again 😂
+    // if(session) session.data?.user?.registrationStatus = "complete"
+
+    await session.update({
+      ...session.data,
+      user: {
+        ...session.data.user,
+        registrationStatus: "complete",
+      },
+    });
+  };
   const finishRegistration = async () => {
     try {
       const res = await fetch("/api/complete-registration", {
@@ -69,12 +81,15 @@ const FinishRegistration = () => {
         body: JSON.stringify({
           ...info,
           _id: session.data?.user?._id,
-          registrationStatus: "complete",
+          // registrationStatus: "complete",
         }),
       });
-      console.log(res);
+
       res.status == 200
-        ? alert("Successful submission")
+        ? (await updateSession(),
+          router.replace(
+            `/print-application?email=${session.data?.user?.email}`
+          ))
         : alert("Failed to Submit");
     } catch (err) {
       console.log(err);
@@ -96,11 +111,9 @@ const FinishRegistration = () => {
         finishRegistration={finishRegistration}
         isFormValid={isFormValid}
       />
-      {/* <PersonalInfo
-        setInfo={setInfo}
-        info={info}
-        // handleInputChange={handleInputChange}
-      /> */}
+      <button onClick={async () => await updateSession()}>
+        Update session
+      </button>
     </div>
   );
 };

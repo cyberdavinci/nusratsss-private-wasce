@@ -19,7 +19,8 @@
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  background-color: #111;
+  /* background-color: #111; */
+  background-color: #000;
   color: #bbb;
 }
 a {
@@ -45,7 +46,20 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
+input {
+  border: none;
+  outline: none;
+}
+input:focus {
+  outline: none;
+  outline-width: 0;
+  outline-color: transparent;
+  box-shadow: none !important;
+}
+select {
+  border: transparent;
+  outline: none;
+}
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;

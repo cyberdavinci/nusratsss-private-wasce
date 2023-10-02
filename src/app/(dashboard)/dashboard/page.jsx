@@ -1,31 +1,39 @@
 // "use client";
 import Image from "next/image";
 import React from "react";
-import { useSession } from "next-auth/react";
-const Dashboard = () => {
-  // const session = useSession();
-  return (
-    <div className="">
-      {/* banner */}
+import MyCard from "@/components/dashboard/home/Card";
+import { PiStudentDuotone } from "react-icons/pi";
+import { FaMale, FaFemale } from "react-icons/fa";
+import { MdGeneratingTokens } from "react-icons/md";
 
-      {/* banner end */}
-      <div className="flex gap-5 mt-5 text-slate-900 text-2xl font-bold font-mono">
-        <div className=" w-[250px] h-[150px] bg-[#E7E6FB] shadow-[ 0 0 20px rgba(0, 0, 0, 0.2)] flex flex-col items-center justify-center rounded-lg">
-          <h2>230</h2>
-          <p>students</p>
-        </div>
-        <div className=" w-[250px] h-[150px] bg-[#F9E5EA] shadow-[ 0 0 20px rgba(0, 0, 0, 0.2)]  flex flex-col items-center justify-center rounded-lg">
-          <h2>150</h2>
-          <p>tokens</p>
-        </div>
-        <div className=" w-[250px] h-[150px] bg-[#DFEDF7] shadow-[ 0 0 20px rgba(0, 0, 0, 0.2)] flex flex-col items-center justify-center rounded-lg">
-          <h2>100 male</h2>
-          <p>students</p>
-        </div>
-        <div className=" w-[250px] h-[150px] bg-[#FBEDD9] shadow-[ 0 0 20px rgba(0, 0, 0, 0.2)] flex flex-col items-center justify-center rounded-lg">
-          <h2>130 female</h2>
-          <p>students</p>
-        </div>
+const Dashboard = () => {
+  return (
+    <div className="w-full">
+      <div className="flex w-full justify-center gap-4 flex-wrap">
+        <MyCard
+          icon={<MdGeneratingTokens size={30} />}
+          text={"Tokens"}
+          text2={"3000"}
+          bg={"bg-green-600"}
+        />
+        <MyCard
+          icon={<PiStudentDuotone size={30} />}
+          text={"Students"}
+          text2={"765"}
+          bg={"bg-[#16181A]"}
+        />
+        <MyCard
+          icon={<FaMale size={30} />}
+          text={"Male"}
+          text2={"342"}
+          bg={"bg-[#0072F5]"}
+        />
+        <MyCard
+          icon={<FaFemale size={30} />}
+          text={"Female"}
+          text2={"368"}
+          bg={"bg-[#17C964]"}
+        />
       </div>
     </div>
   );

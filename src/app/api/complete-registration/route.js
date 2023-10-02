@@ -21,7 +21,7 @@ export const PATCH = async (request) => {
     relationship_to_applicant,
     contact_of_parent,
     nationality_of_parent,
-    registrationStatus,
+    // registrationStatus,
   } = await request.json();
 
   await connect();
@@ -45,12 +45,12 @@ export const PATCH = async (request) => {
         relationship_to_applicant,
         contact_of_parent,
         nationality_of_parent,
-        registrationStatus,
+        registrationStatus: "complete",
       },
       { new: true }
     );
     // console.log(updatedUser);
-    return new NextResponse("user updated", { status: 200 });
+    return new NextResponse("regisitration complete", { status: 200 });
   } catch (err) {
     return new NextResponse(err, { status: 500, data: err });
   }
