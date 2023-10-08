@@ -4,11 +4,18 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
 import MyLoader from "@/components/Loader/MyLoader";
+import { Input, Button } from "@nextui-org/react";
+import { EyeSlashFilledIcon } from "../login/EyeSlashFilledIcon";
+import { EyeFilledIcon } from "../login/EyeFilledIcon";
 const Register = () => {
   const [err, setErr] = useState(false);
   const [errMsg, setErroMsg] = useState("");
   const session = useSession();
   const router = useRouter();
+  const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const toggleVisibility = () => setIsVisible(!isVisible);
   // console.log(session);
   useEffect(() => {
     if (session.status === "authenticated")
@@ -23,6 +30,7 @@ const Register = () => {
     const token = e.target[3].value;
 
     try {
+      setIsLoading(() => true);
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -37,7 +45,8 @@ const Register = () => {
       //clear form inputs
       e.target.reset();
       res.status === 201 &&
-        (await signIn("credentials", {
+        (setIsLoading(() => false),
+        await signIn("credentials", {
           email,
           password,
           redirect: true,
@@ -45,6 +54,7 @@ const Register = () => {
         }));
     } catch (err) {
       setErr(true);
+      setIsLoading(() => false);
       setErroMsg("Error connecting to server!");
       console.log(err);
     }
@@ -52,37 +62,59 @@ const Register = () => {
 
   if (session.status === "loading") return <MyLoader />;
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center h-full justify-center">
       <h1 className=" text-4xl font-extrabold p-3">Register</h1>
 
       <span className="text-[#ff261b] pb-2 font-semibold">{errMsg}</span>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-        <input
+        <Input
           type="text"
-          className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none"
-          placeholder="full name"
+          placeholder="Enter your full name"
+          className="max-w-xs"
+          variant="bordered"
+          label="Full Name"
           required
         />
-        <input
+        <Input
           type="email"
-          className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none"
-          placeholder="email"
+          placeholder="Enter your email"
+          className="max-w-xs"
+          variant="bordered"
+          label="Email"
           required
         />
-        <input
-          type="password"
-          className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none"
-          placeholder="password"
-          required
+        <Input
+          label="Password"
+          variant="bordered"
+          placeholder="Enter your password"
+          endContent={
+            <button
+              className="focus:outline-none"
+              type="button"
+              onClick={toggleVisibility}
+            >
+              {isVisible ? (
+                <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+              ) : (
+                <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+              )}
+            </button>
+          }
+          type={isVisible ? "text" : "password"}
+          className="max-w-xs"
         />
-        <input
-          type="number"
-          className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none"
-          placeholder="registration token"
+        <Input
+          type="text"
+          placeholder="Enter your token"
+          className="max-w-xs"
+          variant="bordered"
+          label="Token"
           required
         />
 
-        <button className=" bg-teal-700 rounded-md py-3">Register</button>
+        <Button color="success" variant="flat">
+          Register
+        </Button>
       </form>
 
       <Link href={"/login"} className=" mt-4 text-blue-500">

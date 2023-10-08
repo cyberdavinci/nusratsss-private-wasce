@@ -48,7 +48,7 @@ input::-webkit-inner-spin-button {
 }
 input {
   border: none;
-  outline: none;
+  /* outline: none; */
 }
 input:focus {
   outline: none;
@@ -56,11 +56,16 @@ input:focus {
   outline-color: transparent;
   box-shadow: none !important;
 }
-select {
+/* select {
   border: transparent;
   outline: none;
-}
+} */
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+}
+.preview span {
+  font-size: 20px;
+  font-weight: bolder;
+  text-transform: capitalize;
 }

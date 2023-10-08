@@ -14,6 +14,8 @@ const CurrentForm = ({
   handlePrevious,
   finishRegistration,
   isFormValid,
+  selectedSubjects,
+  setSelectedSubjects,
 }) => {
   switch (currentForm) {
     case 1:
@@ -25,6 +27,8 @@ const CurrentForm = ({
           handleNext={handleNext}
           currentForm={currentForm}
           handlePrevious={handlePrevious}
+          selectedSubjects={selectedSubjects}
+          setSelectedSubjects={setSelectedSubjects}
         />
       );
     case 2:

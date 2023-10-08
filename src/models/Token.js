@@ -2,13 +2,14 @@ import mongoose from "mongoose";
 
 const tokenSchema = mongoose.Schema({
   token: {
-    type: Number,
+    type: String,
     required: true,
     unique: true,
   },
-  isUsed: {
-    type: Boolean,
-    default: false,
+  status: {
+    type: String,
+    enum: ["used", "unused"],
+    default: "unused",
   },
 });
 

@@ -1,62 +1,70 @@
 "use client";
-import Image from "next/image";
-import React from "react";
+
 const subjects = [
   {
-    name: "English",
-    icon: "/icons/eng.svg",
+    amount: 4500,
+    id: 1,
   },
   {
-    name: "Math",
-    icon: "/icons/math.svg",
+    amount: 5000,
+    id: 2,
   },
   {
-    name: "Physics",
-    icon: "/icons/physics.svg",
+    amount: 6500,
+    id: 3,
   },
   {
-    name: "Chemistry",
-    icon: "/icons/chem.svg",
+    amount: 7000,
+    id: 4,
   },
   {
-    name: "Biology",
-    icon: "/icons/bio.svg",
+    amount: 7500,
+    id: 5,
   },
   {
-    name: "History",
-    icon: "/icons/hist.svg",
+    amount: 8000,
+    id: 6,
   },
   {
-    name: "Geography",
-    icon: "/icons/geo.svg",
+    amount: 8500,
+    id: 7,
   },
   {
-    name: "Government",
-    icon: "/icons/agric.svg",
+    amount: 9000,
+    id: 8,
   },
 ];
-const SubjectsList = () => {
+import React from "react";
+import {
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
+} from "@nextui-org/react";
+
+export default function SubjectList() {
   return (
-    <div className=" my-14">
-      <h1 className=" text-3xl font-bold mb-5">Subjects List</h1>
-      <p className=" p-4 font-semibold text-lg">Please select your subjects</p>
-      <div className="flex gap-4 flex-wrap">
-        {subjects.map((subject, index) => {
+    <Table
+      isStriped
+      aria-label="Example static collection table"
+      className=" font-semibold text-xl"
+    >
+      <TableHeader>
+        <TableColumn>Number of Sujects</TableColumn>
+        <TableColumn>Amount</TableColumn>
+      </TableHeader>
+      <TableBody>
+        {subjects.map((subject) => {
           return (
-            <div
-              className=" w-[200px] h-[150px] rounded-md bg-[#1a1a24] py-4 px-6  flex flex-col items-center cursor-pointer justify-center"
-              key={index}
-            >
-              <Image src={subject.icon} width={50} height={45} />
-              <h3 className="text-lg font-extrabold pt-1 px-2">
-                {subject.name}
-              </h3>
-            </div>
+            <TableRow key={`${subject.id}`}>
+              <TableCell>{subject.id}</TableCell>
+              <TableCell>{subject.amount}</TableCell>
+            </TableRow>
           );
         })}
-      </div>
-    </div>
+      </TableBody>
+    </Table>
   );
-};
-
-export default SubjectsList;
+}

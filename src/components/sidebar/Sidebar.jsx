@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState } from "react";
 import Image from "next/image";
 import { FiMoreVertical } from "react-icons/fi";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 const SideBarContext = createContext();
 import { RiMenuFoldLine, RiMenuUnfoldLine } from "react-icons/ri";
@@ -17,7 +18,7 @@ const Sidebar = ({ children }) => {
         expand ? "w-[220px]" : " w-fit"
       } z-50`}
     >
-      <nav className="h-full flex flex-col bg-black border-r shadow-sm w-full">
+      <nav className="h-full flex flex-col bg-black border-r border-slate-800 shadow-sm w-full">
         <div className="p-4 pb-2 flex justify-between items-center">
           {/* <Image
             src={"https://img.logoipsum.com/243.svg"}
@@ -42,7 +43,7 @@ const Sidebar = ({ children }) => {
         <SideBarContext.Provider value={{ expand, pathName }}>
           <ul className="flex-1 px-3">{children}</ul>
         </SideBarContext.Provider>
-        <div className="border-t flex p-3 justify-between">
+        <div className="border-t border-slate-800 flex p-3 justify-between">
           <Image
             src={
               "https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
@@ -69,9 +70,11 @@ const Sidebar = ({ children }) => {
   );
 };
 export function SideBarItem({ icon, text, active, alert, link }) {
+  // const session = useSession();
   const { expand, pathName } = useContext(SideBarContext);
   // console.log(pathName);
   return (
+    // {routeType ===  ? :}
     <Link href={link}>
       <li
         className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors ${

@@ -10,7 +10,8 @@ const FinishRegistration = () => {
 
   // console.log(session?.data);
   const [currentForm, setCurrentForm] = useState(1);
-  const [isSubjectSelected, setIsSubjectSelected] = useState(true);
+  // const [isSubjectSelected, setIsSubjectSelected] = useState(true);
+  const [selectedSubjects, setSelectedSubjects] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
   const [info, setInfo] = useState({
     address: "",
@@ -36,15 +37,17 @@ const FinishRegistration = () => {
   });
   // const { data } = session;
   useEffect(() => {
-    session.data?.user?.registrationStatus === "complete"
-      ? router.replace(`/print-application?email=${session.data?.user?.email}`)
-      : null;
-    session.status === "unauthenticated" ? router.replace("/register") : null;
+    // session.data?.user?.registrationStatus === "complete"
+    //   ? router.replace(`/print-application?email=${session.data?.user?.email}`)
+    //   : null;
+    // session.status === "unauthenticated" ? router.replace("/register") : null;
   }, [session.status, session.data?.user?.registrationStatus, router]);
   //
   const handleNext = () => {
     currentForm > 0 ? setCurrentForm((prev) => prev + 1) : null;
+    setInfo((prev) => ({ ...prev, subjects: [...selectedSubjects] }));
   };
+  // console.log(info?.subjects);
 
   const handlePrevious = () => {
     currentForm !== 0 ? setCurrentForm((prev) => prev - 1) : null;
@@ -59,8 +62,10 @@ const FinishRegistration = () => {
 
   const isFormValid = (obj) => {
     const isValid = Object.values(obj).every((item) => item.trim() !== "");
+    // console.log(isValid);
     return isValid;
   };
+  // console.log(info);
   const updateSession = async () => {
     // Never update session like this again 😂
     // if(session) session.data?.user?.registrationStatus = "complete"
@@ -95,9 +100,13 @@ const FinishRegistration = () => {
       console.log(err);
     }
   };
-  console.log(session);
-  if (session.status === "loading" || session.data === null)
-    return <MyLoader />;
+
+  // if (session.status === "loading" || session.data === null)
+  //   return (
+  //     <div className="w-full h-full flex items-center justify-center">
+  //       <MyLoader />
+  //     </div>
+  //   );
   return (
     <div className="flex flex-col items-center">
       <CurrentForm
@@ -110,10 +119,9 @@ const FinishRegistration = () => {
         handlePrevious={handlePrevious}
         finishRegistration={finishRegistration}
         isFormValid={isFormValid}
+        selectedSubjects={selectedSubjects}
+        setSelectedSubjects={setSelectedSubjects}
       />
-      <button onClick={async () => await updateSession()}>
-        Update session
-      </button>
     </div>
   );
 };
