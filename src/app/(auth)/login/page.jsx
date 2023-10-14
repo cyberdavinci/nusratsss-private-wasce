@@ -19,9 +19,9 @@ const Login = () => {
     e.preventDefault();
     const email = e.target[0].value;
     const password = e.target[1].value;
-    // console.log(email, password);
+    console.log(email, password);
     try {
-      await signIn("credentials", { email, password, redirect: false });
+      await signIn("credentials", { email, password, redirect: true });
     } catch (err) {
       console.log(err);
     }
@@ -33,11 +33,11 @@ const Login = () => {
   if (session.status === "loading") {
     return (
       <div className="w-full h-full flex items-center justify-center text-xl font-extrabold">
-        {" "}
         <h1>loading...</h1>
       </div>
     );
   }
+  // console.log(session.data);
   return (
     <div className="flex flex-col items-center justify-center h-full">
       <h1 className=" text-4xl font-extrabold p-3">Login</h1>
@@ -48,12 +48,13 @@ const Login = () => {
           className="max-w-xs"
           variant="bordered"
           label="Email"
-          required
+          isRequired
         />
         <Input
           label="Password"
           variant="bordered"
           placeholder="Enter your password"
+          isRequired
           endContent={
             <button
               className="focus:outline-none"
@@ -71,6 +72,7 @@ const Login = () => {
           className="max-w-xs"
         />
         <Button
+          type="submit"
           color="success"
           variant="flat"
           isLoading={session.status === "loading"}
@@ -80,7 +82,7 @@ const Login = () => {
       </form>
       {/* {err && <h1 className={styles.errorText}>Something went wrong!</h1>} */}
       <Link href={"/register"} className=" mt-4 text-blue-500">
-        Don't have an account?
+        {"Don't have an account?"}
       </Link>
     </div>
   );

@@ -1,19 +1,18 @@
 "use client";
 import React from "react";
 
-import { Tabs, Tab, Card, CardBody, Input } from "@nextui-org/react";
+import { Tabs, Tab, Card, CardBody, Input, Button } from "@nextui-org/react";
 // import { GalleryIcon } from "./GalleryIcon";
 // import { MusicIcon } from "./MusicIcon";
 // import { VideoIcon } from "./VideoIcon";
 import Image from "next/image";
-import { Button } from "flowbite-react";
 import Link from "next/link";
 // import { Input } from "postcss";
 
 export default function AccountTab() {
   const [selected, setSelected] = React.useState("account");
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex w-full flex-col max-w-[1000px]">
       <Tabs
         aria-label="Options"
         color="secondary"
@@ -24,19 +23,46 @@ export default function AccountTab() {
         <Tab
           key="account"
           title={
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1">
               {/* <GalleryIcon/> */}
               <Image
-                width={30}
-                height={30}
-                src={"/icons/account/accsettings.svg"}
+                width={25}
+                height={25}
+                src={"/icons/account/account.svg"}
               />
               <span>Account</span>
             </div>
           }
         >
-          <div>
-            <form className="flex flex-col gap-4">
+          <p className=" float-right uppercase font-extrabold md:text-3xl text-xl">
+            Registration Id: #<span>A0</span>
+          </p>
+          <div className="flex w-full mt-8 gap-5 text-xl flex-wrap">
+            <div>
+              <div className="flex gap-3 items-center">
+                <p className=" font-semibold md:text-2xl">Name:</p>{" "}
+                <span>Ebrima Touray</span>
+              </div>
+              <div className="flex gap-3 items-center">
+                <p className=" font-semibold md:text-2xl">Email:</p>{" "}
+                <span>ebrimaa2ray@gmail.com</span>
+              </div>
+            </div>
+            <div>
+              <div className="flex gap-3 items-center">
+                <p className=" font-semibold md:text-2xl">Location:</p>
+                <span>Manjai</span>
+              </div>
+              <div className="flex gap-3 items-center">
+                <p className=" font-semibold md:text-2xl">
+                  Application Status:
+                </p>{" "}
+                <span className=" bg-yellow-400 rounded px-2 text-yellow-600">
+                  Pending
+                </span>
+              </div>
+            </div>
+            {/* <form className="flex flex-col gap-4">
               <Input
                 isRequired
                 label="Email"
@@ -49,18 +75,7 @@ export default function AccountTab() {
                 placeholder="Location"
                 type="text"
               />
-              {/* <Input
-                isRequired
-                label="Location"
-                placeholder="Enter your password"
-                type="text"
-              />
-              <Input
-                isRequired
-                label="Location"
-                placeholder="Enter your password"
-                type="text"
-              /> */}
+           
 
               <div className="flex gap-2 justify-end">
                 <Button fullWidth color="primary">
@@ -70,17 +85,17 @@ export default function AccountTab() {
                   Reset
                 </Button>
               </div>
-            </form>
+            </form> */}
           </div>
         </Tab>
 
         <Tab
           key="security"
           title={
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1">
               <Image
-                width={30}
-                height={30}
+                width={25}
+                height={25}
                 src={"/icons/account/security.svg"}
               />
               {/* <MusicIcon/> */}
@@ -90,30 +105,13 @@ export default function AccountTab() {
         >
           <div>
             <form className="flex flex-col gap-4">
-              <Input
-                isRequired
-                label="Current password"
-                placeholder="Current password"
-                type="password"
-              />
-              <Input
-                isRequired
-                label="New password"
-                placeholder="New password"
-                type="password"
-              />
-              <Input
-                isRequired
-                label="Password"
-                placeholder="Confirm password"
-                type="password"
-              />
+              <Input isRequired label="Current password" type="password" />
+              <Input isRequired label="New password" type="password" />
+              <Input isRequired label="Confirm password" type="password" />
 
-              <div className="flex gap-2 justify-end">
-                <Button fullWidth color="primary">
-                  Save Changes
-                </Button>
-                <Button fullWidth color="primary">
+              <div className="flex gap-3 justify-end">
+                <Button color="success">Save Changes</Button>
+                <Button color="danger" variant="flat">
                   Reset
                 </Button>
               </div>
@@ -124,9 +122,9 @@ export default function AccountTab() {
         <Tab
           key="info"
           title={
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1">
               {/* <VideoIcon/> */}
-              <Image width={30} height={30} src={"/icons/account/info.svg"} />
+              <Image width={25} height={25} src={"/icons/account/info.svg"} />
               <span>Info</span>
             </div>
           }

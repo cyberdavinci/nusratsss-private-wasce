@@ -8,11 +8,9 @@ const FinishRegistration = () => {
   const session = useSession();
   const router = useRouter();
 
-  // console.log(session?.data);
   const [currentForm, setCurrentForm] = useState(1);
-  // const [isSubjectSelected, setIsSubjectSelected] = useState(true);
   const [selectedSubjects, setSelectedSubjects] = useState([]);
-  const [errorMsg, setErrorMsg] = useState("");
+
   const [info, setInfo] = useState({
     address: "",
     nationality: "",
@@ -37,21 +35,19 @@ const FinishRegistration = () => {
   });
   // const { data } = session;
   useEffect(() => {
-    // session.data?.user?.registrationStatus === "complete"
-    //   ? router.replace(`/print-application?email=${session.data?.user?.email}`)
-    //   : null;
-    // session.status === "unauthenticated" ? router.replace("/register") : null;
+    session.data?.user?.registrationStatus === "complete"
+      ? router.replace(`/dashboard/account`)
+      : null;
+    session.status === "unauthenticated" ? router.replace("/register") : null;
   }, [session.status, session.data?.user?.registrationStatus, router]);
   //
   const handleNext = () => {
     currentForm > 0 ? setCurrentForm((prev) => prev + 1) : null;
     setInfo((prev) => ({ ...prev, subjects: [...selectedSubjects] }));
   };
-  // console.log(info?.subjects);
 
   const handlePrevious = () => {
     currentForm !== 0 ? setCurrentForm((prev) => prev - 1) : null;
-    // console.log(currentForm);
   };
   const updateSubs = (arr) => {
     setInfo((prev) => ({ ...prev, subjects: [...arr] }));
@@ -86,27 +82,22 @@ const FinishRegistration = () => {
         body: JSON.stringify({
           ...info,
           _id: session.data?.user?._id,
-          // registrationStatus: "complete",
+          registrationStatus: "complete",
         }),
       });
 
-      res.status == 200
-        ? (await updateSession(),
-          router.replace(
-            `/print-application?email=${session.data?.user?.email}`
-          ))
-        : alert("Failed to Submit");
+      res.status == 200 ? await updateSession() : alert("Failed to Submit");
     } catch (err) {
       console.log(err);
     }
   };
 
-  // if (session.status === "loading" || session.data === null)
-  //   return (
-  //     <div className="w-full h-full flex items-center justify-center">
-  //       <MyLoader />
-  //     </div>
-  //   );
+  if (session.status === "loading")
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <MyLoader />
+      </div>
+    );
   return (
     <div className="flex flex-col items-center">
       <CurrentForm

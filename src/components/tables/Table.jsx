@@ -59,6 +59,7 @@ const MyTable = () => {
 
   const { data, isLoading, error, mutate } = useSWR(
     `/api/students?page=${page}&search=${filterValue}&limit=${rowsPerPage}`,
+
     fetcher,
     {
       keepPreviousData: true,

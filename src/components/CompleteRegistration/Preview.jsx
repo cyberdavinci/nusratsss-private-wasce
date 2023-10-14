@@ -9,81 +9,160 @@ const Preview = ({ info, currentForm, finishRegistration, handlePrevious }) => {
   }
   return (
     <div
-      className={`preview flex flex-wrap flex-col items-center justify-center h-screen`}
+      className={`preview flex  flex-col items-center justify-center h-full`}
     >
       <div>
         <h1 className=" text-center font-bold text-2xl ">
           Confirm your details before clicking on finish please.
         </h1>
       </div>
-      <div className="flex mt-6 flex-wrap font-bold gap-6">
+      <div className="preview-inner flex mt-6 flex-wrap font-bold gap-6">
         {/* Personal */}
-        <div className=" shadow-lg p-3 rounded-md bg-[#1a1a24] w-[300px]">
-          <h1 className=" text-xl font-extrabold uppercase">Personal Info</h1>
-          <div className="flex flex-col gap-5">
-            <p>
-              Name: <span> {session.data?.user?.name}</span>{" "}
-            </p>
-            <p>
-              Address: <span> {info.address}</span>
-            </p>
-            <p>
-              Gender: <span> {info.gender}</span>
-            </p>
-            <p>
-              Date of Birth: <span> {info.date_of_birth}</span>
-            </p>
-            <p>
-              Nationality: <span> {info.nationality} </span>
-            </p>
-            <p>
-              Ethnicity: <span> {info.ethnicity} </span>
-            </p>
-            <p>
-              Mobile: <span> {info.mobile}</span>
-            </p>
-            <p>
-              Marital Status: <span> {info.marital_status}</span>
-            </p>
+        <div className="card-outer shadow-lg p-3">
+          <div className="card-header flex gap-2 items-center ">
+            <span className="w-[50px] h-[50px] rounded-full bg-gray-900 flex items-center justify-center">
+              1
+            </span>
+            <h1 className=" text-xl font-extrabold  text-green-600">
+              Personal Info
+            </h1>
+          </div>
+          <div className="card flex flex-col gap-5">
+            <div>
+              <p> Name:</p> <span> {session.data?.user?.name}</span>
+            </div>
+            <div>
+              <p>Address:</p> <span> {info.address}</span>
+            </div>
+            <div>
+              <p>Gender:</p> <span> {info.gender}</span>
+            </div>
+            <div>
+              <p>Date of Birth:</p> <span> {info.date_of_birth}</span>
+            </div>
+            <div>
+              <p>Nationality:</p> <span> {info.nationality} </span>
+            </div>
+            <div>
+              <p>Ethnicity:</p> <span> {info.ethnicity} </span>
+            </div>
+            <div>
+              <p>Mobile:</p> <span> {info.mobile}</span>
+            </div>
+            <div>
+              <p>Marital Status:</p> <span> {info.marital_status}</span>
+            </div>
           </div>
         </div>
         {/* Education */}
-        <div className=" shadow-lg p-3 rounded-md bg-[#1a1a36]">
-          <h1 className=" text-xl font-extrabold uppercase">Education</h1>
-          <div className="flex flex-col gap-5">
-            <p>
-              Highest Level of Education:{" "}
+        <div className="card-outer shadow-lg p-3 ">
+          <div className="card-header flex gap-2 items-center">
+            <span className="w-[50px] h-[50px] rounded-full bg-gray-900 flex items-center justify-center">
+              2
+            </span>
+            <h1 className=" text-xl font-extrabold uppercase text-green-600">
+              Education
+            </h1>
+          </div>
+          <div className="card flex flex-col gap-5">
+            <div>
+              <p>Highest Level of Education:</p>
               <span> {info.highest_level_of_education}</span>
-            </p>
-            <p>
-              Year of Completion: <span> {info.year_of_completion}</span>
-            </p>
-            <p>
-              Duration of Study: <span>{info.duration_of_study}</span>
-            </p>
-            <p>
-              Occupation: <span>{info.occupation}</span>
-            </p>
+            </div>
+            <div>
+              <p> Year of Completion:</p>{" "}
+              <span> {info.year_of_completion}</span>
+            </div>
+            <div>
+              <p> Duration of Study:</p> <span>{info.duration_of_study}</span>
+            </div>
+            <div>
+              <p>Occupation:</p> <span>{info.occupation}</span>
+            </div>
           </div>
         </div>
         {/* Family Info */}
-        <div className=" shadow-lg p-3 rounded-md bg-[#1a1a24]">
-          <h1 className=" text-xl font-extrabold uppercase">Family Info</h1>
-          <div className="flex flex-col gap-5">
-            <p>
-              Parent or Guardian Name: <span>{info.parent_guardian_name}</span>
-            </p>
-            <p>
-              Relationship to Applicant:{" "}
-              <span>{info.relationship_to_applicant}</span>
-            </p>
-            <p>
-              Contact of Parent: <span>{info.contact_of_parent}</span>
-            </p>
-            <p>
-              Nationality of Parent: <span>{info.nationality_of_parent}</span>
-            </p>
+        <div className="card-outer p-3">
+          <div className="card-header flex gap-2 items-center">
+            <span className="w-[50px] h-[50px] rounded-full bg-gray-900 flex items-center justify-center">
+              3
+            </span>
+            <h1 className=" text-xl font-extrabold uppercase text-green-600">
+              Family Info
+            </h1>
           </div>
+          <div className="card flex flex-col gap-5">
+            <div>
+              <p>Parent or Guardian Name:</p>{" "}
+              <span>{info.parent_guardian_name}</span>
+            </div>
+            <div>
+              <p>Relationship to Applicant:</p>
+              <span>{info.relationship_to_applicant}</span>
+            </div>
+            <div>
+              <p>Contact of Parent:</p> <span>{info.contact_of_parent}</span>
+            </div>
+            <div>
+              <p>Nationality of Parent:</p>{" "}
+              <span>{info.nationality_of_parent}</span>
+            </div>
+            <div>
+              <p>Parent or Guardian Name:</p>{" "}
+              <span>{info.parent_guardian_name_2}</span>
+            </div>
+            <div>
+              <p>Relationship to Applicant:</p>
+              <span>{info.relationship_to_applicant_2}</span>
+            </div>
+            <div>
+              <p>Contact of Parent:</p> <span>{info.contact_of_parent_2}</span>
+            </div>
+            <div>
+              <p>Nationality of Parent:</p>{" "}
+              <span>{info.nationality_of_parent_2}</span>
+            </div>
+          </div>
+        </div>
+        {/*  Family Info 2*/}
+        <div className="card-outer shadow-lg p-3 ">
+          <div className="card-header flex gap-2 items-center">
+            <span className="w-[50px] h-[50px] rounded-full bg-gray-900 flex items-center justify-center">
+              4
+            </span>
+            <h1 className=" text-xl font-extrabold uppercase text-green-600">
+              Family Info 2
+            </h1>
+          </div>
+          <div className="card flex flex-col gap-5">
+            <div>
+              <p>Parent or Guardian Name:</p>{" "}
+              <span>{info.parent_guardian_name_2}</span>
+            </div>
+            <div>
+              <p>Relationship to Applicant:</p>
+              <span>{info.relationship_to_applicant_2}</span>
+            </div>
+            <div>
+              <p>Contact of Parent:</p> <span>{info.contact_of_parent_2}</span>
+            </div>
+            <div>
+              <p>Nationality of Parent:</p>{" "}
+              <span>{info.nationality_of_parent_2}</span>
+            </div>
+          </div>
+        </div>
+        {/* Subjects selected */}
+        <div className="card-outer shadow-lg p-3 ">
+          <div className="card-header flex gap-2 items-center">
+            <span className="w-[50px] h-[50px] rounded-full bg-gray-900 flex items-center justify-center">
+              5
+            </span>
+            <h1 className=" text-xl font-extrabold uppercase text-green-600">
+              Subjects Selected
+            </h1>
+          </div>
+          <div className="card flex flex-col gap-5"></div>
         </div>
       </div>
 

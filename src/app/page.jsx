@@ -20,10 +20,10 @@ export default async function Home() {
           Welcome to TOKENZ
         </h1>
         <p className=" font-semibold text-xl leading-8">
-          "Empowering Tomorrow's Leaders: Your Comprehensive Study Center for
+          Empowering Tomorrow's Leaders: Your Comprehensive Study Center for
           WASSCE Success - Where We Provide the Tools, Guidance, and Support to
           Help You Excel in the WASSCE , So You Can Achieve Your Academic Dreams
-          and Unlock a World of Opportunities."
+          and Unlock a World of Opportunities.
         </p>
         {!session ? <HomeButtons /> : null}
       </div>

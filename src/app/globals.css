@@ -64,8 +64,36 @@ input:focus {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+.preview .preview-inner .card div {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
 .preview span {
-  font-size: 20px;
-  font-weight: bolder;
+  font-weight: 800;
+  font-size: 18px;
+  font-style: italic;
+  color: #15ba5c;
   text-transform: capitalize;
+}
+.preview p {
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.preview h1 {
+  font-size: 22px;
+  text-transform: uppercase;
+  padding-bottom: 10px;
+  /* text-decoration: underline; */
+}
+.card-header {
+  box-shadow: rgba(31, 33, 33, 0.196) 0px 50px 100px -20px,
+    rgba(89, 105, 93, 0.211) 0px 30px 60px -30px;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  margin-bottom: 10px;
+  background: #fff;
+  padding: 10px;
 }

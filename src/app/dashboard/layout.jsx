@@ -18,7 +18,7 @@ const Layout = ({ children }) => {
     if (session.status === "unauthenticated") router.replace("/login");
     if (session.data?.user?.role === "student")
       router.replace("/dashboard/account");
-  }, [router, session.status]);
+  }, [router, session.status, session.data?.user?.role]);
   if (session.status === "loading")
     return (
       <div className="w-full h-full flex items-center justify-center font-extrabold text-xl">

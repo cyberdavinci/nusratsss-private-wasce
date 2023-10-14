@@ -7,8 +7,15 @@ import Image from "next/image";
 import TokensTable from "./TokensTable";
 // import { Input } from "postcss";
 
-export default function TokensTab() {
-  const [selectedTab, setSelectedTab] = React.useState("all");
+export default function TokensTab({
+  tokens,
+  isLoading,
+  isError,
+  isGeneratingTokens,
+  selectedTab,
+  setSelectedTab,
+}) {
+  // const [selectedTab, setSelectedTab] = React.useState("all");
   // console.log(selectedTab);
   return (
     <div className="flex w-full flex-col">
@@ -34,7 +41,13 @@ export default function TokensTab() {
           }
         >
           <div>
-            <TokensTable selectedTab={selectedTab} />
+            <TokensTable
+              selectedTab={selectedTab}
+              tokens={tokens}
+              isLoading={isLoading}
+              isError={isError}
+              isGeneratingTokens={isGeneratingTokens}
+            />
           </div>
         </Tab>
 
@@ -53,7 +66,13 @@ export default function TokensTab() {
           }
         >
           <div>
-            <TokensTable selectedTab={selectedTab} />
+            <TokensTable
+              selectedTab={selectedTab}
+              tokens={tokens}
+              isLoading={isLoading}
+              isError={isError}
+              isGeneratingTokens={isGeneratingTokens}
+            />
           </div>
         </Tab>
         <Tab
@@ -73,6 +92,10 @@ export default function TokensTab() {
           <div>
             <TokensTable
               selectedTab={selectedTab}
+              tokens={tokens}
+              isLoading={isLoading}
+              isError={isError}
+              isGeneratingTokens={isGeneratingTokens}
               // setSelectedTab={setSelectedTab}
             />
           </div>

@@ -73,7 +73,7 @@ const Register = () => {
           className="max-w-xs"
           variant="bordered"
           label="Full Name"
-          required
+          isRequired
         />
         <Input
           type="email"
@@ -81,7 +81,7 @@ const Register = () => {
           className="max-w-xs"
           variant="bordered"
           label="Email"
-          required
+          isRequired
         />
         <Input
           label="Password"
@@ -102,6 +102,7 @@ const Register = () => {
           }
           type={isVisible ? "text" : "password"}
           className="max-w-xs"
+          isRequired
         />
         <Input
           type="text"
@@ -109,7 +110,7 @@ const Register = () => {
           className="max-w-xs"
           variant="bordered"
           label="Token"
-          required
+          isRequired
         />
 
         <Button color="success" variant="flat">

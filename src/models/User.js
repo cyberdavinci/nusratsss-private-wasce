@@ -18,7 +18,7 @@ const userSchema = mongoose.Schema(
     role: {
       type: String,
       enum: ["admin", "subscriber", "student"],
-      // default: "student",
+      default: "student",
     },
     route: {
       type: String,
@@ -27,9 +27,9 @@ const userSchema = mongoose.Schema(
       type: Number,
       default: null,
       unique: true,
-      required: function () {
-        return this.router === "register";
-      },
+      // required: function () {
+      //   return this.router === "register";
+      // },
     },
     subjects: [
       {

@@ -60,6 +60,7 @@ export const authOptions = {
   },
   pages: {
     signOut: "/",
+    signIn: "/dashboard/account",
   },
 };
 const handler = NextAuth(authOptions);
