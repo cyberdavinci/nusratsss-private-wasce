@@ -43,8 +43,8 @@ const Sidebar = ({ children }) => {
         <SideBarContext.Provider value={{ expand, pathName }}>
           <ul className="flex-1 px-3">{children}</ul>
         </SideBarContext.Provider>
-        <div className="border-t border-slate-800 flex p-3 justify-between">
-          <Image
+        <div className="border-t border-slate-800 flex p-3 justify-between ">
+          {/* <Image
             src={
               "https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
             }
@@ -52,7 +52,10 @@ const Sidebar = ({ children }) => {
             width={50}
             height={50}
             className=" w-10 h-10 rounded-md"
-          />
+          /> */}
+          <p className=" text-center w-12 h-10 rounded-md bg-green-500 font-extrabold text-2xl flex items-center justify-center text-white">
+            ET
+          </p>
           <div
             className={` flex justify-between items-center  overflow-hidden transition-all ${
               expand ? "w-52 ml-2" : "w-0"

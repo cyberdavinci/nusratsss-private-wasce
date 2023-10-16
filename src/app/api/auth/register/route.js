@@ -20,31 +20,21 @@ export const POST = async (request) => {
     token,
     role,
   });
-  // console.log(newUser);
-  const newToken = new Token({
-    token,
-    isUsed: false,
-  });
-  try {
-    // await Token.findOne({ $and: [{ token: token }, { isUsed: false }] }).then(
-    //   async (token) => {
-    //     if (token) await newToken.save();
-    //   }
-    // );
-    await newToken.save();
 
-    // return new NextResponse("token created", { status: 201 });
-  } catch (err) {
-    console.log("Invalid Token");
-    return new NextResponse(
-      `Token is expired please purchase a new one ${err}`,
-      {
-        status: 500,
-      }
-    );
-  }
   try {
+    const isTokenValid = await Token.findOne({
+      token,
+      status: "unused",
+    });
+    if (!isTokenValid) {
+      return new NextResponse("Invalid token", { status: 400 });
+    }
+
     await newUser.save();
+
+    isTokenValid.status = "used";
+    await isTokenValid.save();
+
     // console.log("user created");
     return new NextResponse("user created", { status: 201 });
   } catch (err) {

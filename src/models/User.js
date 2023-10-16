@@ -24,9 +24,9 @@ const userSchema = mongoose.Schema(
       type: String,
     },
     token: {
-      type: Number,
+      type: String,
       default: null,
-      unique: true,
+      unique: false,
       // required: function () {
       //   return this.router === "register";
       // },

@@ -51,7 +51,7 @@ export const POST = async (request) => {
     const filteredTokens = resolvedTokens.filter(
       (token) => token !== null && token !== ""
     );
-    console.log(filteredTokens);
+    // console.log(filteredTokens);
     const savedTokens = await Token.create(filteredTokens);
     return new NextResponse(JSON.stringify(savedTokens), { status: 201 });
   } catch (err) {

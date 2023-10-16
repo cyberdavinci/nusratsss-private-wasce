@@ -19,7 +19,7 @@ const Tokens = () => {
     }
   );
   mutate(selectedTab);
-  console.log(isLoading ? "Loading" : data);
+  // console.log(isLoading ? "Loading" : data);
 
   const generateToken = async (event) => {
     event.preventDefault();
@@ -61,7 +61,7 @@ const Tokens = () => {
           variant="bordered"
         />
         <Button
-          color="primary"
+          color="success"
           variant="ghost"
           className="px-4 w-[200px]"
           type="submit"
