@@ -5,21 +5,24 @@ import { FiMoreVertical } from "react-icons/fi";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
+import { MainContextProvider } from "@/context/ContextProvider";
 const SideBarContext = createContext();
-import { RiMenuFoldLine, RiMenuUnfoldLine } from "react-icons/ri";
+import { RiMenuFoldLine, RiMenuUnfoldLine, RiCloseFill } from "react-icons/ri";
 const Sidebar = ({ children }) => {
   const pathName = usePathname();
+  const { toggleNav, expand } = useContext(MainContextProvider);
   // const actualPath = pathName?.replace("/", "");
   // console.log(actualPath);
-  const [expand, setExpand] = useState(false);
+  // const [expand, setExpand] = useState(false);
+
   return (
     <aside
-      className={` transition-all h-screen fixed overflow-hidden float-left ${
-        expand ? "w-[220px]" : " w-fit"
-      } z-50`}
+      className={` md:translate-x-0 translate-x-[-200px] w-0 md:w-fit transition-all h-screen fixed overflow-hidden float-left ${
+        expand ? "w-[180px] translate-x-0" : "w-0 translate-x-[-200px]"
+      } z-40`}
     >
-      <nav className="h-full flex flex-col bg-black border-r border-slate-800 shadow-sm w-full">
-        <div className="p-4 pb-2 flex justify-between items-center">
+      <nav className="h-full flex flex-col bg-black border-r border-slate-800 shadow-sm w-full relative">
+        <div className=" pb-2 mb-6 w-full float-right  justify-end text-end">
           {/* <Image
             src={"https://img.logoipsum.com/243.svg"}
             width={300}
@@ -30,13 +33,13 @@ const Sidebar = ({ children }) => {
             alt="somesss"
           /> */}
           <button
-            className="p-1.5 rounded-lg text-indigo-400 hover:text-indigo-600 ml-3"
-            onClick={() => setExpand((prev) => !prev)}
+            className="p-1.5 rounded-lg text-indigo-400 hover:text-indigo-600 ml-3 animate-pulse"
+            onClick={() => toggleNav()}
           >
             {expand ? (
-              <RiMenuFoldLine size={25} />
+              <RiCloseFill size={25} className="text-red-600 font-extrabold" />
             ) : (
-              <RiMenuUnfoldLine size={25} />
+              <RiMenuUnfoldLine size={25} className=" hidden md:block" />
             )}
           </button>
         </div>
@@ -82,11 +85,11 @@ export function SideBarItem({ icon, text, active, alert, link }) {
       <li
         className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors ${
           pathName === link
-            ? " bg-gradient-to-tr from-indigo-300 to-indigo-200 text-indigo-800"
-            : " hover:bg-indigo-200 text-gray-600"
+            ? " bg-green-950 text-green-400"
+            : " hover:bg-green text-gray-400"
         }`}
       >
-        <Image src={icon} width={30} height={30} />
+        <Image src={icon} width={25} height={25} alt="some icon" />
         {/* {icon} */}
         <span
           className={`overflow-hidden transition-all ${
