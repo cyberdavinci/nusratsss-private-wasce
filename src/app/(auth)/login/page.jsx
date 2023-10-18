@@ -12,24 +12,33 @@ const Login = () => {
   const session = useSession();
   const router = useRouter();
   const [isVisible, setIsVisible] = React.useState(false);
-
+  const [loading, setLoading] = React.useState(false);
+  React.useEffect(() => {
+    if (session.status === "authenticated") {
+      router.push("/dashboard/account");
+    }
+  }, [session.status, router]);
   const toggleVisibility = () => setIsVisible(!isVisible);
   // console.log(session);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target[0].value;
     const password = e.target[1].value;
-    console.log(email, password);
+    // console.log(email, password);
+    setLoading((prev) => true);
     try {
-      await signIn("credentials", { email, password, redirect: true });
+      await signIn("credentials", { email, password, redirect: false });
+      setLoading((prev) => false);
     } catch (err) {
+      setLoading((prev) => false);
+
       console.log(err);
     }
     e.target.reset();
   };
-  if (session.status === "authenticated") {
-    router.push("/dashboard/account");
-  }
+  // if (session.status === "authenticated") {
+  //   router.push("/dashboard/account");
+  // }
   if (session.status === "loading") {
     return (
       <div className="w-full h-full flex items-center justify-center text-xl font-extrabold">
@@ -41,6 +50,7 @@ const Login = () => {
   return (
     <div className="flex flex-col items-center justify-center h-full">
       <h1 className=" text-4xl font-extrabold p-3">Login</h1>
+      {/* <span>{erroMsg}</span> */}
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <Input
           type="email"
@@ -75,7 +85,7 @@ const Login = () => {
           type="submit"
           color="success"
           variant="flat"
-          isLoading={session.status === "loading"}
+          isLoading={loading}
         >
           Login
         </Button>

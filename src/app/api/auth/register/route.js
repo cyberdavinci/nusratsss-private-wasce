@@ -20,20 +20,29 @@ export const POST = async (request) => {
     token,
     role,
   });
-
+  console.log(token);
   try {
     const isTokenValid = await Token.findOne({
       token,
       status: "unused",
     });
+    console.log(isTokenValid);
+
     if (!isTokenValid) {
-      return new NextResponse("Invalid token", { status: 400 });
+      return new NextResponse("Invalid token", {
+        status: 400,
+        message: "Invalid token",
+      });
     }
 
     await newUser.save();
-
-    isTokenValid.status = "used";
-    await isTokenValid.save();
+    await Token.findByIdAndUpdate(
+      isTokenValid._id,
+      { status: "used" },
+      { new: true }
+    );
+    // isTokenValid.status = "used";
+    // await isTokenValid.save();
 
     // console.log("user created");
     return new NextResponse("user created", { status: 201 });

@@ -27,8 +27,8 @@ const Register = () => {
     const name = e.target[0].value;
     const email = e.target[1].value;
     const password = e.target[2].value;
-    const token = e.target[3].value;
-
+    const token = e.target[4].value;
+    // console.log(name, email, password, token);
     try {
       setIsLoading(() => true);
       const res = await fetch("/api/auth/register", {
@@ -44,21 +44,26 @@ const Register = () => {
       });
       //clear form inputs
       e.target.reset();
+      // console.log(res);
       res.status === 201 &&
-        (setIsLoading(() => false),
+        (e.target.reset(),
+        setIsLoading(() => false),
         await signIn("credentials", {
           email,
           password,
           redirect: true,
           callbackUrl: "/complete-registration",
         }));
+      setIsLoading(() => false);
+      res.status === 400 ? setErroMsg(() => "Invalid token!!!") : null;
+      res.status === 500 ? setErroMsg(() => "Internal server error!") : null;
     } catch (err) {
       setErr(true);
       setIsLoading(() => false);
-      setErroMsg("Error connecting to server!");
-      console.log(err);
+      setErroMsg(err);
     }
   };
+  // console.log(errMsg);
 
   if (session.status === "loading") return <MyLoader />;
   return (
@@ -66,6 +71,7 @@ const Register = () => {
       <h1 className=" text-4xl font-extrabold p-3">Register</h1>
 
       <span className="text-[#ff261b] pb-2 font-semibold">{errMsg}</span>
+
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <Input
           type="text"
@@ -113,7 +119,12 @@ const Register = () => {
           isRequired
         />
 
-        <Button color="success" variant="flat">
+        <Button
+          color="success"
+          variant="flat"
+          type="submit"
+          isLoading={isLoading}
+        >
           Register
         </Button>
       </form>

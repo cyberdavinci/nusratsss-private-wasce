@@ -227,7 +227,7 @@ const MyTable = () => {
   const topContent = React.useMemo(() => {
     return (
       <div className="flex flex-col gap-4">
-        <div className="flex justify-between gap-3 items-end">
+        <div className="flex justify-between flex-wrap gap-3 items-end">
           <Input
             isClearable
             className="w-full sm:max-w-[44%] border-none outline-none"
@@ -237,7 +237,7 @@ const MyTable = () => {
             onClear={() => onClear()}
             onValueChange={onSearchChange}
           />
-          <div className="flex gap-3">
+          <div className="flex gap-3 flex-wrap">
             {/*  */}
 
             {/*  */}
@@ -385,7 +385,7 @@ const MyTable = () => {
           total={pages}
           onChange={(page) => setPage(page)}
         /> */}
-        <div className="hidden sm:flex w-[30%] justify-end gap-2">
+        <div className="flex flex-wrap justify-end gap-2">
           <Button
             isDisabled={pages === 1}
             size="sm"

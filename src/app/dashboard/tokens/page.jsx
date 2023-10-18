@@ -42,9 +42,9 @@ const Tokens = () => {
     // console.log(`${numberOfTokens} token will be generated!`);
   };
   return (
-    <div className="flex justify-between flex-wrap gap-3 flex-col">
+    <div className="flex justify-between flex-wrap gap-3 flex-col overflow-hidden">
       <form
-        className="flex gap-2 "
+        className="flex gap-2 flex-wrap w-full"
         onSubmit={async (event) => {
           await generateToken(event);
           await mutate(
@@ -63,7 +63,7 @@ const Tokens = () => {
         <Button
           color="success"
           variant="ghost"
-          className="px-4 w-[200px]"
+          className="px-4 md:w-[200px] w-full"
           type="submit"
           // onClick={async (event) => {
           //   await generateToken(event);

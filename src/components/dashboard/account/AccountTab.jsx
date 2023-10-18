@@ -15,7 +15,7 @@ export default function AccountTab() {
     <div className="flex w-full flex-col max-w-[1000px]">
       <Tabs
         aria-label="Options"
-        color="secondary"
+        color="success"
         variant="bordered"
         selectedKey={selected}
         onSelectionChange={setSelected}
@@ -23,24 +23,24 @@ export default function AccountTab() {
         <Tab
           key="account"
           title={
-            <div className="flex items-center space-x-1">
+            <div className="flex md:items-center items-start md:space-x-1">
               {/* <GalleryIcon/> */}
               <Image
-                width={25}
-                height={25}
+                width={20}
+                height={20}
                 src={"/icons/account/account.svg"}
               />
               <span>Account</span>
             </div>
           }
         >
-          <p className=" float-right uppercase font-extrabold md:text-3xl text-xl">
+          <p className=" uppercase font-extrabold md:text-2xl text-xl">
             Registration Id: #<span>A0</span>
           </p>
-          <div className="flex w-full mt-8 gap-5 text-xl flex-wrap">
+          <div className="flex w-full mt-8 gap-5  flex-wrap">
             <div>
               <div className="flex gap-3 items-center">
-                <p className=" font-semibold md:text-2xl">Name:</p>{" "}
+                <p className=" font-semibold md:text-2xl ">Name:</p>{" "}
                 <span>Ebrima Touray</span>
               </div>
               <div className="flex gap-3 items-center">
@@ -94,8 +94,8 @@ export default function AccountTab() {
           title={
             <div className="flex items-center space-x-1">
               <Image
-                width={25}
-                height={25}
+                width={20}
+                height={20}
                 src={"/icons/account/security.svg"}
               />
               {/* <MusicIcon/> */}
@@ -124,7 +124,7 @@ export default function AccountTab() {
           title={
             <div className="flex items-center space-x-1">
               {/* <VideoIcon/> */}
-              <Image width={25} height={25} src={"/icons/account/info.svg"} />
+              <Image width={20} height={20} src={"/icons/account/info.svg"} />
               <span>Info</span>
             </div>
           }

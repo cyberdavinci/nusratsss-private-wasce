@@ -52,7 +52,7 @@ const SettingsModal = () => {
   //   console.log(err);
   return (
     <div>
-      <div className="flex justify-between gap-10 font-bold">
+      <div className="flex justify-between md:gap-10 gap-5 font-bold flex-wrap w-full">
         <Input
           type="text"
           placeholder="search user"
@@ -62,7 +62,7 @@ const SettingsModal = () => {
           onPress={onOpen}
           variant="flat"
           color="success"
-          className="font-bold"
+          className="font- w-full"
         >
           Add User
         </Button>

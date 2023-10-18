@@ -37,10 +37,10 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider>
-          <ReduxProvider>
-            <UIProvider>
-              <ContextProvider>
+        <ContextProvider>
+          <AuthProvider>
+            <ReduxProvider>
+              <UIProvider>
                 <div className=" relative w-full min-h-screen dark flex gap-8 justify-between ">
                   {session ? (
                     <Sidebar>
@@ -93,10 +93,10 @@ export default async function RootLayout({ children }) {
                     {children}
                   </div>
                 </div>
-              </ContextProvider>
-            </UIProvider>
-          </ReduxProvider>
-        </AuthProvider>
+              </UIProvider>
+            </ReduxProvider>
+          </AuthProvider>
+        </ContextProvider>
       </body>
     </html>
   );

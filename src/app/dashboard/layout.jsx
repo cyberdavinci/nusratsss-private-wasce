@@ -1,28 +1,33 @@
 "use client";
 import React, { useContext, useEffect } from "react";
-// import styles from "./page.module.css";
-// import { motion } from "framer-motion";
+
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-// import { usePathname } from "next/navigation";
-// import { Avatar } from "@nextui-org/react";
+
 import UserAvatar from "@/components/dashboard/UserAvatar";
 import { MainContextProvider } from "@/context/ContextProvider";
-import { RiCloseFill, RiMenuUnfoldLine } from "react-icons/ri";
-// import Link from "next/link";
-// import DashNav from "@/components/dashboardNav/DashNav";
+import { RiMenuUnfoldLine } from "react-icons/ri";
+
 const Layout = ({ children }) => {
   const router = useRouter();
   const { toggleNav, expand } = useContext(MainContextProvider);
 
-  // console.log(router);
-  // const currentRoute = usePathname();
   const session = useSession();
   useEffect(() => {
     if (session.status === "unauthenticated") router.replace("/login");
     if (session.data?.user?.role === "student")
       router.replace("/dashboard/account");
-  }, [router, session.status, session.data?.user?.role]);
+
+    session.data?.user?.registrationStatus === "incomplete"
+      ? router.replace(`/complete-registration`)
+      : null;
+  }, [
+    router,
+    session.status,
+    session.data?.user?.role,
+    expand,
+    session.data?.user?.registrationStatus,
+  ]);
   if (session.status === "loading")
     return (
       <div className="w-full h-full flex items-center justify-center font-extrabold text-xl">
@@ -32,9 +37,9 @@ const Layout = ({ children }) => {
   return (
     <div className=" p-4 ">
       <div className=" w-full h-10 ">
-        <div className="flex justify-between md:float-right">
+        <div className="flex md:w-full justify-between md:float-right">
           <button
-            className="p-1.5 rounded-lg text-indigo-400 hover:text-indigo-600 ml-3 animate-pulse md:hidden block"
+            className="p-1.5 rounded-lg text-white font-extrabold hover:text-green-800 ml-3 animate-pulse"
             onClick={() => toggleNav()}
           >
             {!expand ? <RiMenuUnfoldLine size={25} className="" /> : null}

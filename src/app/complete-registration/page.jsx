@@ -33,12 +33,12 @@ const FinishRegistration = () => {
     contact_of_parent_2: "",
     nationality_of_parent_2: "",
   });
-  // const { data } = session;
+
   useEffect(() => {
     session.data?.user?.registrationStatus === "complete"
       ? router.replace(`/dashboard/account`)
       : null;
-    session.status === "unauthenticated" ? router.replace("/register") : null;
+    session.status === "unauthenticated" ? router.replace("/login") : null;
   }, [session.status, session.data?.user?.registrationStatus, router]);
   //
   const handleNext = () => {
