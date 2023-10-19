@@ -18,15 +18,15 @@ const Layout = ({ children }) => {
     if (session.data?.user?.role === "student")
       router.replace("/dashboard/account");
 
-    session.data?.user?.registrationStatus === "incomplete"
-      ? router.replace(`/complete-registration`)
-      : null;
+    // session.data?.user?.registrationStatus === "incomplete"
+    //   ? router.replace(`/complete-registration`)
+    //   : null;
   }, [
     router,
     session.status,
     session.data?.user?.role,
     expand,
-    session.data?.user?.registrationStatus,
+    // session.data?.user?.registrationStatus,
   ]);
   if (session.status === "loading")
     return (

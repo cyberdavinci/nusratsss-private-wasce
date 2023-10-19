@@ -14,7 +14,7 @@ export default async function Home() {
   const session = await getServerSession(authOptions);
   // const session = useSession();
   return (
-    <div className="flex items-center justify-between h-full">
+    <div className="flex items-center justify-between flex-wrap-reverse h-full">
       <div className="flex flex-col gap-8 flex-1">
         <h1 className={`${styles.title} font-bold text-7xl leading-12`}>
           Welcome to TOKENZ
@@ -28,7 +28,7 @@ export default async function Home() {
         {!session ? <HomeButtons /> : null}
       </div>
       {/* <Register /> */}
-      <div className="flex-1">
+      <div className="flex-1 hidden md:block">
         <Image
           src={Hero}
           className={styles.costum_animation}

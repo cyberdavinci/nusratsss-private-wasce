@@ -2,24 +2,30 @@
 import React from "react";
 import { useSession } from "next-auth/react";
 import { Button } from "@nextui-org/react";
-const Preview = ({ info, currentForm, finishRegistration, handlePrevious }) => {
+const Preview = ({
+  info,
+  currentForm,
+  finishRegistration,
+  handlePrevious,
+  isLoading,
+}) => {
   const session = useSession();
   if (session.status === "loading") {
     return <h1>Loading please wait...</h1>;
   }
   return (
     <div
-      className={`preview flex  flex-col items-center justify-center h-full`}
+      className={`preview flex  flex-col items-center justify-center h-full w-full `}
     >
       <div>
-        <h1 className=" text-center font-bold text-2xl ">
+        <h1 className=" text-center font-bold md:text-2xl text-xl ">
           Confirm your details before clicking on finish please.
         </h1>
       </div>
-      <div className="preview-inner flex mt-6 flex-wrap font-bold gap-6">
+      <div className="preview-inner flex mt-6 flex-wrap  font-bold gap-6 w-full items-center m-[0 auto]">
         {/* Personal */}
         <div className="card-outer shadow-lg p-3">
-          <div className="card-header flex gap-2 items-center ">
+          <div className="card-header flex gap-2 items-center  w-[300px]">
             <span className="w-[50px] h-[50px] rounded-full bg-gray-900 flex items-center justify-center">
               1
             </span>
@@ -56,7 +62,7 @@ const Preview = ({ info, currentForm, finishRegistration, handlePrevious }) => {
         </div>
         {/* Education */}
         <div className="card-outer shadow-lg p-3 ">
-          <div className="card-header flex gap-2 items-center">
+          <div className="card-header flex gap-2 items-center  w-[300px]">
             <span className="w-[50px] h-[50px] rounded-full bg-gray-900 flex items-center justify-center">
               2
             </span>
@@ -83,7 +89,7 @@ const Preview = ({ info, currentForm, finishRegistration, handlePrevious }) => {
         </div>
         {/* Family Info */}
         <div className="card-outer p-3">
-          <div className="card-header flex gap-2 items-center">
+          <div className="card-header flex gap-2 items-center  w-[300px]">
             <span className="w-[50px] h-[50px] rounded-full bg-gray-900 flex items-center justify-center">
               3
             </span>
@@ -126,7 +132,7 @@ const Preview = ({ info, currentForm, finishRegistration, handlePrevious }) => {
         </div>
         {/*  Family Info 2*/}
         <div className="card-outer shadow-lg p-3 ">
-          <div className="card-header flex gap-2 items-center">
+          <div className="card-header flex gap-2 items-center  w-[300px]">
             <span className="w-[50px] h-[50px] rounded-full bg-gray-900 flex items-center justify-center">
               4
             </span>
@@ -154,7 +160,7 @@ const Preview = ({ info, currentForm, finishRegistration, handlePrevious }) => {
         </div>
         {/* Subjects selected */}
         <div className="card-outer shadow-lg p-3 ">
-          <div className="card-header flex gap-2 items-center">
+          <div className="card-header flex gap-2 items-center  w-[300px]">
             <span className="w-[50px] h-[50px] rounded-full bg-gray-900 flex items-center justify-center">
               5
             </span>
@@ -162,7 +168,15 @@ const Preview = ({ info, currentForm, finishRegistration, handlePrevious }) => {
               Subjects Selected
             </h1>
           </div>
-          <div className="card flex flex-col gap-5"></div>
+          <div className="card flex flex-col gap-5">
+            <ul>
+              {info?.subjects?.map((subject, index) => (
+                <li className="text-lg  text-[#bbb]" key={index}>
+                  {subject}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -173,6 +187,7 @@ const Preview = ({ info, currentForm, finishRegistration, handlePrevious }) => {
           variant="flat"
           color="success"
           size="lg"
+          disabled={isLoading}
         >
           Previous
         </Button>
@@ -185,8 +200,9 @@ const Preview = ({ info, currentForm, finishRegistration, handlePrevious }) => {
           size="lg"
           variant="flat"
           color="success"
+          isLoading={isLoading}
         >
-          Finish
+          {isLoading ? "uploading data..." : "  Finish"}
         </Button>
       </div>
     </div>

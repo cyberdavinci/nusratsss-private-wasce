@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@nextui-org/react";
-import SubjectList from "../subjectsList/SubjectsList";
+// import SubjectList from "../subjectsList/SubjectsList";
 const SelectSubjects = ({
   setInfo,
   info,
@@ -123,6 +123,7 @@ const SelectSubjects = ({
   }, [isError]);
   useEffect(() => {
     updateSubjectPrice();
+    // console.log(selectedSubjects);
   }, [selectedSubjects]);
 
   const updateSubjectPrice = () => {
@@ -133,31 +134,30 @@ const SelectSubjects = ({
   };
   const updateSubjects = (value) => {
     if (!selectedSubjects.includes(value)) {
-      setSelectedSubjects((prev) => [...prev, value]);
+      if (selectedSubjects?.length < 8) {
+        setSelectedSubjects((prev) => [...prev, value]);
+      }
     } else {
       const newSubjects = selectedSubjects.filter(
         (subject) => subject !== value
       );
       setSelectedSubjects((prev) => [...newSubjects]);
-      // setInfo((prev) => ({ ...prev, subjects: [...newSubjects] }));
     }
   };
-  // console.log(info?.subjects);
+
   const isSubjectSelected = () => {
     return selectedSubjects.length > 0;
   };
-  // console.log(isSubjectSelected());
   return (
     <div className=" my-14 mx-auto w-full flex flex-col items-center transition-all">
-      <div className="flex justify-around flex-wrap items-center mb-5 md:text-3xl font-bold w-full">
+      <div className="flex justify-around flex-wrap items-center mb-5 md:text-3xl text-xl font-bold w-full">
         <h1 className="capitalize">Please select your subjects</h1>
         <span>Total Cost: GMD {totalPrice}</span>
       </div>
-      {isError ? (
-        <span className=" text-red-700 capitalize p-5 transition-all">
-          Please select one or more subjects
-        </span>
-      ) : null}
+
+      <span className=" text-red-700 capitalize font-extrabold transition-all">
+        {isError && "Please select one or more subjects"}
+      </span>
 
       <div className="flex gap-3 flex-wrap">
         <div className="flex gap-5 justify-around flex-col flex-1">

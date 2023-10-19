@@ -1,5 +1,5 @@
 import { Input, SelectItem, Select, Button } from "@nextui-org/react";
-import React from "react";
+import React, { useState } from "react";
 
 const Education = ({
   handleInputChange,
@@ -10,6 +10,7 @@ const Education = ({
   handleNext,
   isFormValid,
 }) => {
+  const [err, setError] = useState("");
   const {
     occupation,
     highest_level_of_education,
@@ -26,23 +27,15 @@ const Education = ({
   });
 
   return (
-    <div className="flex flex-col items-center  h-screen justify-center ">
+    <div className="flex flex-col items-center  h-screen justify-center w-full ">
       <h1 className=" text-4xl font-extrabold p-3">Education</h1>
 
-      {/* <span className="text-[#ff261b] pb-2 font-semibold">
-        {isValidForm ? "Valid" : "Not Valid"}
+      <span className="text-[#ff261b] pb-2 font-semibold">
+        {/* {!isValidForm && "Please fill all the inputs!"} */}
       </span>
-      <ul>
-        <li>
-          {occupation}
-          {highest_level_of_education}
-          {year_of_completion}
-          {duration_of_study}
-          {marital_status}
-        </li>
-      </ul> */}
-      <form className="flex  gap-6 justify-center  flex-wrap w-full">
-        <div className="flex flex-col ">
+
+      <form className="flex gap-3 flex-col md:flex-row w-full justify-center dark">
+        <div className="flex flex-col w-full">
           <Input
             type="text"
             variant="bordered"
@@ -55,7 +48,7 @@ const Education = ({
             color={occupation ? "success" : null}
           />
         </div>
-        <div className="flex flex-col   ">
+        <div className="">
           <Select
             name="highest_level_of_education"
             value={highest_level_of_education}
@@ -92,7 +85,7 @@ const Education = ({
           />
         </div>
 
-        <div className="flex flex-col  ">
+        <div className="w-full">
           <Select
             name="marital_status"
             value={marital_status}
@@ -127,7 +120,11 @@ const Education = ({
             size="lg"
             // className={` bg-teal-700 rounded-md py-3 md:w-[200px] w-full`}
             // disabled={currentForm === 5}
-            onClick={() => (isValidForm ? handleNext() : null)}
+            onClick={() =>
+              isValidForm
+                ? handleNext()
+                : setError(() => "Please fill in all inputs!")
+            }
           >
             Next
           </Button>

@@ -21,6 +21,10 @@ export const PATCH = async (request) => {
     relationship_to_applicant,
     contact_of_parent,
     nationality_of_parent,
+    parent_guardian_name_2,
+    relationship_to_applicant_2,
+    contact_of_parent_2,
+    nationality_of_parent_2,
     // registrationStatus,
   } = await request.json();
 
@@ -35,7 +39,7 @@ export const PATCH = async (request) => {
         date_of_birth,
         gender,
         ethnicity,
-        mobile,
+        phone: mobile,
         highest_level_of_education,
         year_of_completion,
         duration_of_study,
@@ -46,6 +50,10 @@ export const PATCH = async (request) => {
         contact_of_parent,
         nationality_of_parent,
         registrationStatus: "complete",
+        parent_guardian_name_2,
+        relationship_to_applicant_2,
+        contact_of_parent_2,
+        nationality_of_parent_2,
       },
       { new: true }
     );

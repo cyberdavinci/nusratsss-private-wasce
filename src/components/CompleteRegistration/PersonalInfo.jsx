@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 // import Select from "react-select";
 import makeAnimated from "react-select/animated";
 // import { useSession } from "next-auth/react";
@@ -15,6 +15,7 @@ const PersonalInfo = ({
   handlePrevious,
   isFormValid,
 }) => {
+  const [err, setError] = useState("");
   const { address, date_of_birth, nationality, gender, mobile, ethnicity } =
     info;
 
@@ -31,7 +32,7 @@ const PersonalInfo = ({
   return (
     <div className="flex flex-col items-center w-full justify-center h-screen">
       <h1 className=" text-4xl font-extrabold p-3">Personal Info</h1>
-
+      <span className="text-[#ff261b] pb-2 font-semibold">{err}</span>
       <form className="flex flex-col  gap-4 w-full  ">
         <div className="flex gap-3 flex-col md:flex-row w-full justify-center dark">
           <div className="flex flex-col">
@@ -170,7 +171,11 @@ const PersonalInfo = ({
             size="lg"
             // className={` bg-teal-700 rounded-md py-3 md:w-[200px] w-full`}
             // disabled={currentForm === 5}
-            onClick={() => (isValidForm ? handleNext() : null)}
+            onClick={() =>
+              isValidForm
+                ? handleNext()
+                : setError(() => "Please fill in all inputs!")
+            }
           >
             Next
           </Button>

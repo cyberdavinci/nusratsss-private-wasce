@@ -54,9 +54,9 @@ const Register = () => {
           redirect: true,
           callbackUrl: "/complete-registration",
         }));
-      setIsLoading(() => false);
       res.status === 400 ? setErroMsg(() => "Invalid token!!!") : null;
       res.status === 500 ? setErroMsg(() => "Internal server error!") : null;
+      setIsLoading(() => false);
     } catch (err) {
       setErr(true);
       setIsLoading(() => false);
@@ -125,7 +125,7 @@ const Register = () => {
           type="submit"
           isLoading={isLoading}
         >
-          Register
+          {isLoading ? "Registering..." : "Register"}
         </Button>
       </form>
 

@@ -1,6 +1,7 @@
 "use client";
 import React, { createContext, useContext, useEffect } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { FiMoreVertical } from "react-icons/fi";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
@@ -9,7 +10,19 @@ import { MainContextProvider } from "@/context/ContextProvider";
 // const SideBarContext = createContext();
 import { RiMenuFoldLine, RiMenuUnfoldLine, RiCloseFill } from "react-icons/ri";
 const Sidebar = ({ children }) => {
-  // const pathName = usePathname();
+  const router = useRouter();
+  const pathName = usePathname();
+  const session = useSession();
+  React.useEffect(() => {}, [router, session.status]);
+
+  const shortNameArray = session?.data
+    ? session.data?.user?.name?.split(" ")
+    : [];
+  const shortName =
+    session.status === "authenticated"
+      ? `${shortNameArray[0][0]}${shortNameArray[1][1]}`
+      : "";
+  // console.log(shortName[0][0], shortName[1][1]);
   const { toggleNav, expand, setExpand } = useContext(MainContextProvider);
   useEffect(() => {
     // setPathName(() => pathName);
@@ -19,7 +32,9 @@ const Sidebar = ({ children }) => {
   return (
     <>
       <aside
-        className={`md:translate-x-0 translate-x-[-200px] w-0 md:w-fit transition-all h-screen fixed  float-left ${
+        className={`${
+          pathName?.includes("dashboard") ? "block" : "hidden"
+        } md:translate-x-0 translate-x-[-200px] w-0 md:w-fit transition-all h-screen fixed  float-left ${
           expand ? "w-[220px] translate-x-[5px]" : "w-0 translate-x-[-200px]"
         } z-40`}
       >
@@ -60,7 +75,7 @@ const Sidebar = ({ children }) => {
             className=" w-10 h-10 rounded-md"
           /> */}
             <p className=" text-center w-12 h-10 rounded-md bg-green-500 font-extrabold text-2xl flex items-center justify-center text-white">
-              ET
+              {shortName}
             </p>
             <div
               className={` flex justify-between items-center  overflow-hidden transition-all ${
@@ -68,9 +83,9 @@ const Sidebar = ({ children }) => {
               }`}
             >
               <div className="leading-4">
-                <h4 className=" font-semibold">John Doe</h4>
+                <h4 className=" font-semibold">{session.data?.user?.name}</h4>
                 <span className=" text-xs text-gray-600">
-                  johndoe@gmail.com
+                  {session.data?.user?.email}
                 </span>
               </div>
               <FiMoreVertical size={25} color="#000" />

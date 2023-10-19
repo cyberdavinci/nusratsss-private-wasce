@@ -13,6 +13,7 @@ const Login = () => {
   const router = useRouter();
   const [isVisible, setIsVisible] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const [errorMsg, setErrorMsg] = React.useState("");
   React.useEffect(() => {
     if (session.status === "authenticated") {
       router.push("/dashboard/account");
@@ -27,12 +28,17 @@ const Login = () => {
     // console.log(email, password);
     setLoading((prev) => true);
     try {
-      await signIn("credentials", { email, password, redirect: false });
+      const st = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
       setLoading((prev) => false);
+      setErrorMsg(() => st.error);
     } catch (err) {
       setLoading((prev) => false);
 
-      console.log(err);
+      console.log("Error invalid credentials");
     }
     e.target.reset();
   };
@@ -50,7 +56,7 @@ const Login = () => {
   return (
     <div className="flex flex-col items-center justify-center h-full">
       <h1 className=" text-4xl font-extrabold p-3">Login</h1>
-      {/* <span>{erroMsg}</span> */}
+      <span>{errorMsg}</span>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <Input
           type="email"
@@ -87,7 +93,7 @@ const Login = () => {
           variant="flat"
           isLoading={loading}
         >
-          Login
+          {loading ? "Authenticating..." : "Login"}
         </Button>
       </form>
       {/* {err && <h1 className={styles.errorText}>Something went wrong!</h1>} */}

@@ -4,12 +4,14 @@ import CurrentForm from "@/components/CompleteRegistration/CurrentForm";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import MyLoader from "@/components/Loader/MyLoader";
+// import useSWR from "swr";
 const FinishRegistration = () => {
   const session = useSession();
   const router = useRouter();
 
   const [currentForm, setCurrentForm] = useState(1);
   const [selectedSubjects, setSelectedSubjects] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [info, setInfo] = useState({
     address: "",
@@ -41,21 +43,24 @@ const FinishRegistration = () => {
     session.status === "unauthenticated" ? router.replace("/login") : null;
   }, [session.status, session.data?.user?.registrationStatus, router]);
   //
+  console.log(session.data);
   const handleNext = () => {
     currentForm > 0 ? setCurrentForm((prev) => prev + 1) : null;
     setInfo((prev) => ({ ...prev, subjects: [...selectedSubjects] }));
   };
-
+  //
   const handlePrevious = () => {
     currentForm !== 0 ? setCurrentForm((prev) => prev - 1) : null;
   };
+  //
   const updateSubs = (arr) => {
     setInfo((prev) => ({ ...prev, subjects: [...arr] }));
   };
+  //
   const handleInputChange = (event) => {
     setInfo((prev) => ({ ...prev, [event.target.name]: event.target.value }));
   };
-
+  //
   const isFormValid = (obj) => {
     const isValid = Object.values(obj).every((item) => item.trim() !== "");
     // console.log(isValid);
@@ -65,16 +70,26 @@ const FinishRegistration = () => {
   const updateSession = async () => {
     // Never update session like this again 😂
     // if(session) session.data?.user?.registrationStatus = "complete"
+    try {
+      // Assuming that session.update returns a promise
+      await session.update({
+        ...session.data,
+        user: {
+          ...session.data.user,
+          registrationStatus: "complete",
+        },
+      });
 
-    await session.update({
-      ...session.data,
-      user: {
-        ...session.data.user,
-        registrationStatus: "complete",
-      },
-    });
+      // Assuming that router.replace returns a promise as well
+      await router.replace("/dashboard/account");
+    } catch (error) {
+      console.error("Error updating session:", error);
+      // Handle the error as needed
+    }
   };
+  //
   const finishRegistration = async () => {
+    setIsLoading((prev) => !prev);
     try {
       const res = await fetch("/api/complete-registration", {
         method: "PATCH",
@@ -85,9 +100,13 @@ const FinishRegistration = () => {
           registrationStatus: "complete",
         }),
       });
+      console.log(res);
 
-      res.status == 200 ? await updateSession() : alert("Failed to Submit");
+      res.ok
+        ? (await updateSession(), setIsLoading((prev) => !prev))
+        : (alert("Failed to Submit"), setIsLoading((prev) => !prev));
     } catch (err) {
+      setIsLoading((prev) => false);
       console.log(err);
     }
   };
@@ -112,6 +131,7 @@ const FinishRegistration = () => {
         isFormValid={isFormValid}
         selectedSubjects={selectedSubjects}
         setSelectedSubjects={setSelectedSubjects}
+        isLoading={isLoading}
       />
     </div>
   );

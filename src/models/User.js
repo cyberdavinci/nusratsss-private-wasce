@@ -66,7 +66,7 @@ const userSchema = mongoose.Schema(
       type: String,
       default: "",
     },
-    place_of_birth: {
+    date_of_birth: {
       type: String,
       default: "",
     },

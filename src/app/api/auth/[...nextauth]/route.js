@@ -41,10 +41,10 @@ export const authOptions = {
         token.role = user.role;
         token.token = user.token;
         // token.subjects = user.subjects;
-        token.registrationStatus =
-          trigger === "update"
-            ? session.user.registrationStatus
-            : user.registrationStatus;
+        // token.registrationStatus =
+        //   trigger === "update"
+        //     ? session.user.registrationStatus
+        //     : user.registrationStatus;
         // console.log(token);
       }
       return token;
@@ -54,7 +54,7 @@ export const authOptions = {
       session.user.role = token.role;
       session.user.token = token.token;
       // session.user.subjects = token.subjects;
-      session.user.registrationStatus = token.registrationStatus;
+      // session.user.registrationStatus = token.registrationStatus;
       return session;
     },
   },

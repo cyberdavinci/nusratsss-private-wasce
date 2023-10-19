@@ -25,14 +25,14 @@ const FamilyInfo = ({
     nationality_of_parent,
   });
   return (
-    <div className="flex flex-col items-center  h-screen justify-center">
+    <div className="flex flex-col items-center  h-screen justify-center w-full">
       <h1 className=" text-4xl font-extrabold p-3">Parent or Guardian Info</h1>
 
       <form className="flex  gap-6 items-center flex-col w-full">
         <span className="text-[#bbb]  font-semibold uppercase italic">
           parent or guardian 1
         </span>
-        <div className="flex flex-wrap w-full gap-3 justify-center">
+        <div className="flex gap-3 flex-col md:flex-row w-full justify-center dark">
           <div className="flex flex-col">
             <Input
               type="text"
@@ -105,7 +105,7 @@ const FamilyInfo = ({
         <span className="text-[#bbb]  font-semibold uppercase italic">
           parent or guardian 2
         </span>
-        <div className="flex flex-wrap w-full gap-3 justify-center">
+        <div className="flex gap-3 flex-col md:flex-row w-full justify-center dark">
           <div className="flex flex-col  ">
             <Input
               type="text"

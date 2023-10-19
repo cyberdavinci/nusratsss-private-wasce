@@ -16,6 +16,8 @@ const CurrentForm = ({
   isFormValid,
   selectedSubjects,
   setSelectedSubjects,
+
+  isLoading,
 }) => {
   switch (currentForm) {
     case 1:
@@ -79,6 +81,7 @@ const CurrentForm = ({
           finishRegistration={finishRegistration}
           handlePrevious={handlePrevious}
           isFormValid={isFormValid}
+          isLoading={isLoading}
         />
       );
     default:
