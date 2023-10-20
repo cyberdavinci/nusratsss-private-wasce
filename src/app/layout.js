@@ -42,52 +42,50 @@ export default async function RootLayout({ children }) {
             <ReduxProvider>
               <UIProvider>
                 <div className=" relative w-full min-h-screen dark flex gap-8 justify-between ">
-                  {session ? (
-                    <Sidebar>
-                      {session.user.role === "admin" ? (
-                        <>
-                          <SideBarItem
-                            text={"Dashboard"}
-                            // icon={<RxDashboard size={25} />}
-                            icon={"/icons/sidebar/dashboard.svg"}
-                            active={true}
-                            link={"/dashboard"}
-                            routeType={"admin"}
-                          />
-                          <SideBarItem
-                            text={"Tokens"}
-                            // icon={<AiOutlineKey size={25} />}
-                            icon={"/icons/sidebar/token.svg"}
-                            link={"/dashboard/tokens"}
-                            routeType={"admin"}
-                          />
-                          <SideBarItem
-                            text={"Students"}
-                            // icon={<PiStudentDuotone size={25} />}
-                            icon={"/icons/sidebar/students.svg"}
-                            link={"/dashboard/students"}
-                            routeType={"admin"}
-                          />
+                  <Sidebar>
+                    {session?.user?.role === "admin" ? (
+                      <>
+                        <SideBarItem
+                          text={"Dashboard"}
+                          // icon={<RxDashboard size={25} />}
+                          icon={"/icons/sidebar/dashboard.svg"}
+                          active={true}
+                          link={"/dashboard"}
+                          routeType={"admin"}
+                        />
+                        <SideBarItem
+                          text={"Tokens"}
+                          // icon={<AiOutlineKey size={25} />}
+                          icon={"/icons/sidebar/token.svg"}
+                          link={"/dashboard/tokens"}
+                          routeType={"admin"}
+                        />
+                        <SideBarItem
+                          text={"Students"}
+                          // icon={<PiStudentDuotone size={25} />}
+                          icon={"/icons/sidebar/students.svg"}
+                          link={"/dashboard/students"}
+                          routeType={"admin"}
+                        />
 
-                          <SideBarItem
-                            text={"Settings"}
-                            // icon={<AiOutlineSetting size={25} />}
-                            icon={"/icons/sidebar/settings.svg"}
-                            link={"/dashboard/settings"}
-                            routeType={"admin"}
-                          />
-                        </>
-                      ) : null}
+                        <SideBarItem
+                          text={"Settings"}
+                          // icon={<AiOutlineSetting size={25} />}
+                          icon={"/icons/sidebar/settings.svg"}
+                          link={"/dashboard/settings"}
+                          routeType={"admin"}
+                        />
+                      </>
+                    ) : null}
 
-                      <SideBarItem
-                        text={"Account"}
-                        // icon={<BiUserCircle size={25} />}
-                        icon={"/icons/sidebar/user.svg"}
-                        link={"/dashboard/account"}
-                        routeType={"student"}
-                      />
-                    </Sidebar>
-                  ) : null}
+                    <SideBarItem
+                      text={"Account"}
+                      // icon={<BiUserCircle size={25} />}
+                      icon={"/icons/sidebar/user.svg"}
+                      link={"/dashboard/account"}
+                      routeType={"student"}
+                    />
+                  </Sidebar>
 
                   <div className="flex-1   w-full md:ml-[85px] p-4">
                     {children}

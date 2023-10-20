@@ -13,11 +13,8 @@ export default function AccountTab() {
   const id = session.data?.user?._id;
   const [selected, setSelected] = React.useState("account");
   // console.log(userId);
-  const { data, isLoading, isError } = useSWR(
-    `http://localhost:3001/api/students/${id}`,
-    fetcher
-  );
-  console.log(data);
+  const { data, isLoading, isError } = useSWR(`/api/students/${id}`, fetcher);
+  // console.log(data);
   return (
     <div className="flex w-full flex-col max-w-[1000px]">
       <Tabs

@@ -12,7 +12,7 @@ const Tokens = () => {
   const { mutate, cache } = useSWRConfig();
 
   const { data, isLoading, isError } = useSWR(
-    `http://localhost:3000/api/tokens?filter=${selectedTab}`,
+    `/api/tokens?filter=${selectedTab}`,
     fetcher,
     {
       keepPreviousData: true,
@@ -26,7 +26,7 @@ const Tokens = () => {
     const numberOfTokens = event.target[0].value;
     try {
       setIsGeneratingTokens((prev) => !prev);
-      const res = await fetch(`http://localhost:3000/api/tokens`, {
+      const res = await fetch(`/api/tokens`, {
         method: "POST",
         body: JSON.stringify({ numberOfTokens }),
         headers: { "Content-Type": "application/json" },
@@ -47,9 +47,7 @@ const Tokens = () => {
         className="flex gap-2 flex-wrap w-full"
         onSubmit={async (event) => {
           await generateToken(event);
-          await mutate(
-            `http://localhost:3000/api/tokens?filter=${selectedTab}`
-          );
+          await mutate(`/api/tokens?filter=${selectedTab}`);
         }}
       >
         <Input

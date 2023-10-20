@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -10,8 +10,8 @@ import { RiMenuUnfoldLine } from "react-icons/ri";
 
 const Layout = ({ children }) => {
   const router = useRouter();
-  const { toggleNav, expand } = useContext(MainContextProvider);
-
+  const { toggleNav, expand, setExpand } = useContext(MainContextProvider);
+  const [isOpen, setIsOpen] = useState(false);
   const session = useSession();
   useEffect(() => {
     if (session.status === "unauthenticated") router.replace("/login");
@@ -28,6 +28,9 @@ const Layout = ({ children }) => {
     expand,
     // session.data?.user?.registrationStatus,
   ]);
+  useEffect(() => {
+    // setExpand(false);
+  }, [expand]);
   if (session.status === "loading")
     return (
       <div className="w-full h-full flex items-center justify-center font-extrabold text-xl">
@@ -40,7 +43,7 @@ const Layout = ({ children }) => {
         <div className="flex md:w-full justify-between md:float-right">
           <button
             className="p-1.5 rounded-lg text-white font-extrabold hover:text-green-800 ml-3 animate-pulse"
-            onClick={() => toggleNav()}
+            onClick={() => setExpand(() => true)}
           >
             {!expand ? <RiMenuUnfoldLine size={25} className="" /> : null}
           </button>

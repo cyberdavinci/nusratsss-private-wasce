@@ -43,7 +43,7 @@ const FinishRegistration = () => {
     session.status === "unauthenticated" ? router.replace("/login") : null;
   }, [session.status, session.data?.user?.registrationStatus, router]);
   //
-  console.log(session.data);
+  // console.log(session.data);
   const handleNext = () => {
     currentForm > 0 ? setCurrentForm((prev) => prev + 1) : null;
     setInfo((prev) => ({ ...prev, subjects: [...selectedSubjects] }));
@@ -100,7 +100,7 @@ const FinishRegistration = () => {
           registrationStatus: "complete",
         }),
       });
-      console.log(res);
+      // console.log(res);
 
       res.ok
         ? (await updateSession(), setIsLoading((prev) => !prev))
