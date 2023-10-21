@@ -7,8 +7,8 @@ export const GET = async (request, { params }) => {
     request.nextUrl.searchParams.get("page") < 1
       ? 1
       : request.nextUrl.searchParams.get("page");
-  const search = request.nextUrl.searchParams.get("search");
-  const limit = request.nextUrl.searchParams.get("limit");
+  const search = request.nextUrl.searchParams.get("search") || "";
+  const limit = request.nextUrl.searchParams.get("limit") || "";
   // console.log(page, limit, search);
   const query = { role: "student" };
   if (search) {
