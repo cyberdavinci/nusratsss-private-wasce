@@ -21,7 +21,11 @@ export default function AccountTab() {
   const { data, isLoading, isError } = useSWR(`/api/students/${id}`, fetcher);
   //
   useEffect(() => {
-    if (data !== undefined && data.registrationStatus === "incomplete")
+    if (
+      data !== undefined &&
+      data.registrationStatus === "incomplete" &&
+      data?.role === "student"
+    )
       router.replace("/complete-registration");
   }, [session.status, router, data]);
 

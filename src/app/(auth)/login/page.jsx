@@ -16,7 +16,9 @@ const Login = () => {
   const [errorMsg, setErrorMsg] = React.useState("");
   React.useEffect(() => {
     if (session.status === "authenticated") {
-      router.push("/dashboard/account");
+      session?.data?.user?.role === "student"
+        ? router.push("/dashboard/account")
+        : router.push("/dashboard/");
     }
   }, [session.status, router]);
   const toggleVisibility = () => setIsVisible(!isVisible);
