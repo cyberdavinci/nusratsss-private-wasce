@@ -117,7 +117,7 @@ const Register = () => {
         />
         <Input
           type="text"
-          placeholder="Enter your token"
+          placeholder="Enter registration token"
           className="max-w-xs"
           variant="bordered"
           label="Token"
