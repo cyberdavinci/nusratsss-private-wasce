@@ -25,7 +25,7 @@ export const PATCH = async (request) => {
     relationship_to_applicant_2,
     contact_of_parent_2,
     nationality_of_parent_2,
-    // registrationStatus,
+    registrationStatus,
   } = await request.json();
 
   await connect();
@@ -49,7 +49,7 @@ export const PATCH = async (request) => {
         relationship_to_applicant,
         contact_of_parent,
         nationality_of_parent,
-        registrationStatus: "complete",
+        registrationStatus,
         parent_guardian_name_2,
         relationship_to_applicant_2,
         contact_of_parent_2,

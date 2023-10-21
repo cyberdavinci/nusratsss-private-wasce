@@ -32,7 +32,7 @@ const Tokens = () => {
         headers: { "Content-Type": "application/json" },
       });
 
-      console.log(res);
+      // console.log(res);
       setIsGeneratingTokens((prev) => !prev);
       // mutate(res.status);
     } catch (error) {

@@ -28,7 +28,7 @@ const Sidebar = ({ children }) => {
         : "";
 
     setShortName(() => shortName);
-  }, [router, session.status]);
+  }, [router, session.status, pathName]);
 
   // console.log(shortName[0][0], shortName[1][1]);
 
@@ -41,7 +41,9 @@ const Sidebar = ({ children }) => {
     <>
       {session.status === "authenticated" ? (
         <aside
-          className={`md:translate-x-0 translate-x-[-200px] w-0 md:w-fit transition-all h-screen fixed  float-left ${
+          className={`${
+            pathName?.includes("dashboard") ? "block" : "hidden w-0"
+          } md:translate-x-0 translate-x-[-200px] w-0 md:w-fit transition-all h-screen fixed  float-left ${
             expand ? "w-[220px] translate-x-[5px]" : "w-0 translate-x-[-200px]"
           } z-40`}
         >
@@ -69,7 +71,50 @@ const Sidebar = ({ children }) => {
               </button>
             </div>
             {/* <SideBarContext.Provider value={{ expand, currentName, toggleNav }}> */}
-            <ul className="flex-1 px-3">{children}</ul>
+            <ul className="flex-1 px-3">
+              {session?.data?.user?.role === "admin" ? (
+                <>
+                  <SideBarItem
+                    text={"Dashboard"}
+                    // icon={<RxDashboard size={25} />}
+                    icon={"/icons/sidebar/dashboard.svg"}
+                    active={true}
+                    link={"/dashboard"}
+                    routeType={"admin"}
+                  />
+                  <SideBarItem
+                    text={"Tokens"}
+                    // icon={<AiOutlineKey size={25} />}
+                    icon={"/icons/sidebar/token.svg"}
+                    link={"/dashboard/tokens"}
+                    routeType={"admin"}
+                  />
+                  <SideBarItem
+                    text={"Students"}
+                    // icon={<PiStudentDuotone size={25} />}
+                    icon={"/icons/sidebar/students.svg"}
+                    link={"/dashboard/students"}
+                    routeType={"admin"}
+                  />
+
+                  <SideBarItem
+                    text={"Settings"}
+                    // icon={<AiOutlineSetting size={25} />}
+                    icon={"/icons/sidebar/settings.svg"}
+                    link={"/dashboard/settings"}
+                    routeType={"admin"}
+                  />
+                </>
+              ) : null}
+
+              <SideBarItem
+                text={"Account"}
+                // icon={<BiUserCircle size={25} />}
+                icon={"/icons/sidebar/user.svg"}
+                link={"/dashboard/account"}
+                routeType={"student"}
+              />
+            </ul>
             {/* </SideBarContext.Provider> */}
             <div className="border-t border-slate-800 flex p-3 justify-between ">
               {/* <Image

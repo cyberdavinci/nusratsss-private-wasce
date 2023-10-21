@@ -34,72 +34,74 @@ const Education = ({
         {/* {!isValidForm && "Please fill all the inputs!"} */}
       </span>
 
-      <form className="flex gap-3 flex-col md:flex-row w-full justify-center dark">
-        <div className="flex flex-col w-full">
-          <Input
-            type="text"
-            variant="bordered"
-            label={"Occupation"}
-            className="md:w-[200px] w-full"
-            isRequired
-            name="occupation"
-            value={occupation}
-            onChange={handleInputChange}
-            color={occupation ? "success" : null}
-          />
-        </div>
-        <div className="">
-          <Select
-            name="highest_level_of_education"
-            value={highest_level_of_education}
-            label="Level of education"
-            className="md:w-[200px] w-full dark"
-            // id=""
-            // className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none md:w-[200px] w-full"
-            isRequired
-            onChange={handleInputChange}
-            color={highest_level_of_education ? "success" : null}
-          >
-            <SelectItem key={"wasce"}>Wasce</SelectItem>
-            <SelectItem key={"gabece"}>Gabece</SelectItem>
-            <SelectItem key={"college"}>College</SelectItem>
-            <SelectItem key={"university"}>University</SelectItem>
-            <SelectItem key={"tertiary"}>Tertiary</SelectItem>
-            <SelectItem key={"other"}>Other</SelectItem>
-          </Select>
-        </div>
+      <form className="flex gap-3 flex-col w-full justify-center items-center dark">
+        <div className="flex md:flex-row flex-col gap-3">
+          <div className="flex flex-col w-full">
+            <Input
+              type="text"
+              variant="bordered"
+              label={"Occupation"}
+              className="md:w-[200px] w-full"
+              isRequired
+              name="occupation"
+              value={occupation}
+              onChange={handleInputChange}
+              color={occupation ? "success" : null}
+            />
+          </div>
+          <div className="">
+            <Select
+              name="highest_level_of_education"
+              value={highest_level_of_education}
+              label="Level of education"
+              className="md:w-[200px] w-full dark"
+              // id=""
+              // className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none md:w-[200px] w-full"
+              isRequired
+              onChange={handleInputChange}
+              color={highest_level_of_education ? "success" : null}
+            >
+              <SelectItem key={"wasce"}>Wasce</SelectItem>
+              <SelectItem key={"gabece"}>Gabece</SelectItem>
+              <SelectItem key={"college"}>College</SelectItem>
+              <SelectItem key={"university"}>University</SelectItem>
+              <SelectItem key={"tertiary"}>Tertiary</SelectItem>
+              <SelectItem key={"other"}>Other</SelectItem>
+            </Select>
+          </div>
 
-        <div className="flex flex-col  ">
-          <Input
-            type="text"
-            variant="bordered"
-            // className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none md:w-[200px] w-full"
-            // placeholder="address"
-            label={"Year of completion"}
-            className="md:w-[200px] w-full"
-            isRequired
-            name="year_of_completion"
-            value={year_of_completion}
-            onChange={handleInputChange}
-            color={year_of_completion ? "success" : null}
-          />
-        </div>
+          <div className="flex flex-col  ">
+            <Input
+              type="text"
+              variant="bordered"
+              // className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none md:w-[200px] w-full"
+              // placeholder="address"
+              label={"Year of completion"}
+              className="md:w-[200px] w-full"
+              isRequired
+              name="year_of_completion"
+              value={year_of_completion}
+              onChange={handleInputChange}
+              color={year_of_completion ? "success" : null}
+            />
+          </div>
 
-        <div className="w-full">
-          <Select
-            name="marital_status"
-            value={marital_status}
-            label="Select Marital Status"
-            className="md:w-[200px] w-full dark"
-            // id=""
-            // className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none md:w-[200px] w-full"
-            isRequired
-            onChange={handleInputChange}
-            color={marital_status ? "success" : null}
-          >
-            <SelectItem key={"single"}>Single</SelectItem>
-            <SelectItem key={"married"}>Married</SelectItem>
-          </Select>
+          <div className="w-full">
+            <Select
+              name="marital_status"
+              value={marital_status}
+              label="Select Marital Status"
+              className="md:w-[200px] w-full dark"
+              // id=""
+              // className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none md:w-[200px] w-full"
+              isRequired
+              onChange={handleInputChange}
+              color={marital_status ? "success" : null}
+            >
+              <SelectItem key={"single"}>Single</SelectItem>
+              <SelectItem key={"married"}>Married</SelectItem>
+            </Select>
+          </div>
         </div>
         <div className="flex w-full py-10 gap-4 justify-evenly">
           <Button

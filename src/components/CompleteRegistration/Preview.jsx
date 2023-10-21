@@ -7,7 +7,7 @@ const Preview = ({
   currentForm,
   finishRegistration,
   handlePrevious,
-  isLoading,
+  loading,
 }) => {
   const session = useSession();
   if (session.status === "loading") {
@@ -18,20 +18,20 @@ const Preview = ({
       className={`preview flex  flex-col items-center justify-center h-full w-full `}
     >
       <div>
-        <h1 className=" text-center font-bold md:text-2xl text-xl ">
+        <h1 className=" text-center font-bold md:text-2xl  ">
           Confirm your details before clicking on finish please.
         </h1>
       </div>
-      <div className="preview-inner flex mt-6 flex-wrap  font-bold gap-6 w-full items-center m-[0 auto]">
+      <div className="preview-inner flex mt-6 flex-wrap  font-bold gap-6 w-full md:items-start items-center m-[0 auto]">
         {/* Personal */}
         <div className="card-outer shadow-lg p-3">
-          <div className="card-header flex gap-2 items-center  w-[300px]">
+          <div className="card-header flex gap-2 items-center   md:w-fit w-[300px]">
             <span className="w-[50px] h-[50px] rounded-full bg-gray-900 flex items-center justify-center">
               1
             </span>
-            <h1 className=" text-xl font-extrabold  text-green-600">
+            <h2 className=" text-lg uppercase font-extrabold  text-green-600">
               Personal Info
-            </h1>
+            </h2>
           </div>
           <div className="card flex flex-col gap-5">
             <div>
@@ -62,13 +62,13 @@ const Preview = ({
         </div>
         {/* Education */}
         <div className="card-outer shadow-lg p-3 ">
-          <div className="card-header flex gap-2 items-center  w-[300px]">
+          <div className="card-header flex gap-2 items-center   md:w-fit w-[300px]">
             <span className="w-[50px] h-[50px] rounded-full bg-gray-900 flex items-center justify-center">
               2
             </span>
-            <h1 className=" text-xl font-extrabold uppercase text-green-600">
+            <h2 className=" text-lg font-extrabold uppercase text-green-600">
               Education
-            </h1>
+            </h2>
           </div>
           <div className="card flex flex-col gap-5">
             <div>
@@ -89,13 +89,13 @@ const Preview = ({
         </div>
         {/* Family Info */}
         <div className="card-outer p-3">
-          <div className="card-header flex gap-2 items-center  w-[300px]">
+          <div className="card-header flex gap-2 items-center   md:w-fit w-[300px]">
             <span className="w-[50px] h-[50px] rounded-full bg-gray-900 flex items-center justify-center">
               3
             </span>
-            <h1 className=" text-xl font-extrabold uppercase text-green-600">
+            <h2 className=" text-lg font-extrabold uppercase text-green-600">
               Family Info
-            </h1>
+            </h2>
           </div>
           <div className="card flex flex-col gap-5">
             <div>
@@ -132,13 +132,13 @@ const Preview = ({
         </div>
         {/*  Family Info 2*/}
         <div className="card-outer shadow-lg p-3 ">
-          <div className="card-header flex gap-2 items-center  w-[300px]">
+          <div className="card-header flex gap-2 items-center   md:w-fit w-[300px]">
             <span className="w-[50px] h-[50px] rounded-full bg-gray-900 flex items-center justify-center">
               4
             </span>
-            <h1 className=" text-xl font-extrabold uppercase text-green-600">
+            <h2 className=" text-lg font-extrabold uppercase text-green-600">
               Family Info 2
-            </h1>
+            </h2>
           </div>
           <div className="card flex flex-col gap-5">
             <div>
@@ -160,13 +160,13 @@ const Preview = ({
         </div>
         {/* Subjects selected */}
         <div className="card-outer shadow-lg p-3 ">
-          <div className="card-header flex gap-2 items-center  w-[300px]">
+          <div className="card-header flex gap-2 items-center   md:w-fit w-[300px]">
             <span className="w-[50px] h-[50px] rounded-full bg-gray-900 flex items-center justify-center">
               5
             </span>
-            <h1 className=" text-xl font-extrabold uppercase text-green-600">
+            <h2 className=" text-lg font-extrabold uppercase text-green-600">
               Subjects Selected
-            </h1>
+            </h2>
           </div>
           <div className="card flex flex-col gap-5">
             <ul>
@@ -187,7 +187,7 @@ const Preview = ({
           variant="flat"
           color="success"
           size="lg"
-          disabled={isLoading}
+          disabled={loading}
         >
           Previous
         </Button>
@@ -200,9 +200,9 @@ const Preview = ({
           size="lg"
           variant="flat"
           color="success"
-          isLoading={isLoading}
+          isLoading={loading}
         >
-          {isLoading ? "uploading data..." : "  Finish"}
+          {loading ? "uploading data..." : "  Finish"}
         </Button>
       </div>
     </div>

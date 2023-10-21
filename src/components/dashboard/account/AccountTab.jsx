@@ -1,19 +1,31 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Tabs, Tab, Card, CardBody, Input, Button } from "@nextui-org/react";
 import { Spinner } from "@nextui-org/react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 const fetcher = (...args) =>
   fetch(...args).then(async (res) => await res.json());
 import useSWR from "swr";
+
+//
 export default function AccountTab() {
+  //
   const session = useSession();
+  const router = useRouter();
   const id = session.data?.user?._id;
   const [selected, setSelected] = React.useState("account");
   // console.log(userId);
   const { data, isLoading, isError } = useSWR(`/api/students/${id}`, fetcher);
+  //
+  useEffect(() => {
+    if (data !== undefined && data.registrationStatus === "incomplete")
+      router.replace("/complete-registration");
+  }, [session.status, router, data]);
+
+  //
   // console.log(data);
   return (
     <div className="flex w-full flex-col max-w-[1000px]">

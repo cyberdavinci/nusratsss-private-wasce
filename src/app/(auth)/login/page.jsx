@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Input, Button } from "@nextui-org/react";
+import { Input, Button, Spinner } from "@nextui-org/react";
 import { EyeFilledIcon } from "./EyeFilledIcon";
 import { EyeSlashFilledIcon } from "./EyeSlashFilledIcon";
 
@@ -47,8 +47,8 @@ const Login = () => {
   // }
   if (session.status === "loading") {
     return (
-      <div className="w-full h-full flex items-center justify-center text-xl font-extrabold">
-        <h1>loading...</h1>
+      <div className="w-full h-full flex items-center justify-center">
+        <Spinner size="lg" color="success" label="loading page..." />
       </div>
     );
   }
@@ -56,7 +56,7 @@ const Login = () => {
   return (
     <div className="flex flex-col items-center justify-center h-full">
       <h1 className=" text-4xl font-extrabold p-3">Login</h1>
-      <span>{errorMsg}</span>
+      <span className="text-[#ff261b] pb-2 font-semibold">{errorMsg}</span>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <Input
           type="email"

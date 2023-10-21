@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
 import MyLoader from "@/components/Loader/MyLoader";
-import { Input, Button } from "@nextui-org/react";
+import { Input, Button, Spinner } from "@nextui-org/react";
 import { EyeSlashFilledIcon } from "../login/EyeSlashFilledIcon";
 import { EyeFilledIcon } from "../login/EyeFilledIcon";
 const Register = () => {
@@ -43,20 +43,20 @@ const Register = () => {
         }),
       });
       //clear form inputs
-      e.target.reset();
+      // e.target.reset();
       // console.log(res);
       res.status === 201 &&
-        (e.target.reset(),
-        setIsLoading(() => false),
-        await signIn("credentials", {
+        // setIsLoading(() => false),
+        (await signIn("credentials", {
           email,
           password,
-          redirect: true,
-          callbackUrl: "/complete-registration",
+          redirect: false,
+          // callbackUrl: "/complete-registration",
         }));
       res.status === 400 ? setErroMsg(() => "Invalid token!!!") : null;
       res.status === 500 ? setErroMsg(() => "Internal server error!") : null;
       setIsLoading(() => false);
+      e.target.reset();
     } catch (err) {
       setErr(true);
       setIsLoading(() => false);
@@ -65,7 +65,12 @@ const Register = () => {
   };
   // console.log(errMsg);
 
-  if (session.status === "loading") return <MyLoader />;
+  if (session.status === "loading")
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <Spinner size="lg" color="success" label="loading page..." />
+      </div>
+    );
   return (
     <div className="flex flex-col items-center h-full justify-center">
       <h1 className=" text-4xl font-extrabold p-3">Register</h1>

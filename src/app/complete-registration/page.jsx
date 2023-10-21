@@ -4,14 +4,19 @@ import CurrentForm from "@/components/CompleteRegistration/CurrentForm";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import MyLoader from "@/components/Loader/MyLoader";
-// import useSWR from "swr";
+import useSWR from "swr";
+import { Spinner } from "@nextui-org/react";
+const fetcher = (...args) =>
+  fetch(...args).then(async (res) => await res.json());
 const FinishRegistration = () => {
   const session = useSession();
   const router = useRouter();
-
+  const id = session.data?.user?._id;
   const [currentForm, setCurrentForm] = useState(1);
   const [selectedSubjects, setSelectedSubjects] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [registrationStatus, setRegistrationStatus] = useState(null);
+  const [loading, setIsLoading] = useState(false);
+  const { data, isLoading, isError } = useSWR(`/api/students/${id}`, fetcher);
 
   const [info, setInfo] = useState({
     address: "",
@@ -37,11 +42,11 @@ const FinishRegistration = () => {
   });
 
   useEffect(() => {
-    session.data?.user?.registrationStatus === "complete"
+    data?.registrationStatus === "complete"
       ? router.replace(`/dashboard/account`)
       : null;
     session.status === "unauthenticated" ? router.replace("/login") : null;
-  }, [session.status, session.data?.user?.registrationStatus, router]);
+  }, [session.status, data, router]);
   //
   // console.log(session.data);
   const handleNext = () => {
@@ -102,19 +107,19 @@ const FinishRegistration = () => {
       });
       // console.log(res);
 
-      res.ok
-        ? (await updateSession(), setIsLoading((prev) => !prev))
-        : (alert("Failed to Submit"), setIsLoading((prev) => !prev));
+      !res.ok
+        ? (alert("Failed to Submit"), setIsLoading((prev) => !prev))
+        : router.replace("/dashboard/account");
     } catch (err) {
       setIsLoading((prev) => false);
       console.log(err);
     }
   };
 
-  if (session.status === "loading")
+  if (session.status === "loading" || isLoading)
     return (
       <div className="w-full h-full flex items-center justify-center">
-        <MyLoader />
+        <Spinner />
       </div>
     );
   return (
@@ -131,7 +136,7 @@ const FinishRegistration = () => {
         isFormValid={isFormValid}
         selectedSubjects={selectedSubjects}
         setSelectedSubjects={setSelectedSubjects}
-        isLoading={isLoading}
+        loading={loading}
       />
     </div>
   );
