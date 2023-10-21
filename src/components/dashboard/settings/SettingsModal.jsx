@@ -22,6 +22,7 @@ const SettingsModal = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [role, setRole] = React.useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [err, setIsErr] = React.useState("");
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -35,18 +36,21 @@ const SettingsModal = () => {
   const createUser = async (event) => {
     event.preventDefault();
     // console.log(name, email, password, role);
+    setIsLoading(() => true);
     try {
-      const res = await fetch(`http://localhost:3000/api/create-user`, {
+      const res = await fetch(`api/create-user`, {
         method: "POST",
         body: JSON.stringify({ name, email, password, role }),
         headers: { "Content-Type": "application/json" },
       });
 
       res.status === 201 ? clearInputs() : null;
+      setIsLoading(() => false);
       console.log(res);
     } catch (error) {
       setIsErr((prev) => error);
       console.log(error);
+      setIsLoading(() => false);
     }
   };
   //   console.log(err);
@@ -62,7 +66,7 @@ const SettingsModal = () => {
           onPress={onOpen}
           variant="flat"
           color="success"
-          className="font- w-full"
+          className="md:w-[300px] w-full"
         >
           Add User
         </Button>
@@ -170,9 +174,10 @@ const SettingsModal = () => {
                         type="submit"
                         variant="flat"
                         className="font-bold"
+                        isLoading={isLoading}
                         //   onClick={createUser}
                       >
-                        Submit
+                        {isLoading ? "Creating user" : "Submit"}
                       </Button>
                     </ModalFooter>
                   </form>
