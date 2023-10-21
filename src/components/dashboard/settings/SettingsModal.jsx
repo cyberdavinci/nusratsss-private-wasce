@@ -38,14 +38,16 @@ const SettingsModal = () => {
     // console.log(name, email, password, role);
     setIsLoading(() => true);
     try {
-      const res = await fetch(`api/create-user`, {
+      const res = await fetch(`/api/create-user`, {
         method: "POST",
         body: JSON.stringify({ name, email, password, role }),
         headers: { "Content-Type": "application/json" },
       });
 
-      res.status === 201 ? clearInputs() : null;
-      setIsLoading(() => false);
+      res.status === 201
+        ? (clearInputs(), setIsLoading(() => false))
+        : setIsLoading(() => false);
+      // setIsLoading(() => false);
       console.log(res);
     } catch (error) {
       setIsErr((prev) => error);
