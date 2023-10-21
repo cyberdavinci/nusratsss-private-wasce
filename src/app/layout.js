@@ -2,7 +2,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 
 import Sidebar from "@/components/sidebar/Sidebar";
-import { SideBarItem } from "@/components/sidebar/Sidebar";
+// import { SideBarItem } from "@/components/sidebar/Sidebar";
 import AuthProvider from "@/authProvider/AuthProvider";
 import { ReduxProvider } from "@/redux/features/provider";
 import UIProvider from "../components/NextUiProvider/UIProvider";
