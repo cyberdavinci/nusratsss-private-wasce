@@ -22,7 +22,7 @@ const SettingsModal = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [role, setRole] = React.useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
   const [err, setIsErr] = React.useState("");
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
