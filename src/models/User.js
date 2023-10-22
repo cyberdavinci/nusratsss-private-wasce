@@ -52,16 +52,19 @@ const userSchema = mongoose.Schema(
       type: Number,
       default: "",
     },
-    status: {
-      type: String,
-      enum: ["Pending", "Approved", "Deny"],
-      default: "Pending",
-    },
     registrationStatus: {
       type: String,
       enum: ["complete", "incomplete"],
       default: "incomplete",
     },
+    status: {
+      type: String,
+      default: function () {
+        return this.registrationStatus === "complete" ? "Approved" : "Pending";
+      },
+      // default: "Pending",
+    },
+
     nationality: {
       type: String,
       default: "",

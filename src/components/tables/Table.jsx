@@ -23,17 +23,18 @@ import { PlusIcon } from "./PlusIcon";
 import { VerticalDotsIcon } from "./VerticalDotsIcon";
 import { SearchIcon } from "./SearchIcon";
 import { ChevronDownIcon } from "./ChevronDownIcon";
-import { columns, users, statusOptions, subjectOptions } from "./data";
+import { columns, statusOptions, subjectOptions } from "./data";
 import { capitalize } from "./utils";
 import useSWR from "swr";
+import { ExportExcelButton } from "../excelsheet/Sheet";
 import { useAsyncList } from "@react-stately/data";
 const statusColorMap = {
-  approved: "success",
-  denied: "danger",
-  pending: "warning",
+  complete: "success",
+  incomplete: "warning",
+  // pending: "warning",
 };
 
-const INITIAL_VISIBLE_COLUMNS = ["name", "gender", "status", "actions"];
+const INITIAL_VISIBLE_COLUMNS = ["name", "gender", "registrationStatus"];
 // Fetcher function for swr
 //
 const MyTable = () => {
@@ -44,6 +45,7 @@ const MyTable = () => {
   const [visibleColumns, setVisibleColumns] = React.useState(
     new Set(INITIAL_VISIBLE_COLUMNS)
   );
+  // console.log(selectedKeys);
   // const [isLoading, setIsLoading] = React.useState(true);
   const [statusFilter, setStatusFilter] = React.useState("all");
   const [selectedSubs, setSelectedSub] = React.useState("all");
@@ -138,7 +140,7 @@ const MyTable = () => {
   const renderCell = React.useCallback((user, columnKey) => {
     const cellValue = user[columnKey];
     // console.log(cellValue);
-    // console.log(columnKey);
+    console.log(columnKey);
 
     switch (columnKey) {
       case "name":
@@ -160,34 +162,39 @@ const MyTable = () => {
             </p>
           </div>
         );
-      case "status":
+      case "registrationStatus":
         return (
           <Chip
             className="capitalize"
-            color={statusColorMap[user.status?.toLowerCase()]}
+            color={statusColorMap[user?.registrationStatus]}
             size="sm"
             variant="flat"
           >
             {cellValue}
           </Chip>
         );
-      case "actions":
-        return (
-          <div className="relative flex justify-end items-center gap-2">
-            <Dropdown>
-              <DropdownTrigger>
-                <Button isIconOnly size="sm" variant="dark">
-                  <VerticalDotsIcon className="text-default-300" />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu>
-                <DropdownItem>View</DropdownItem>
-                <DropdownItem>Approve</DropdownItem>
-                <DropdownItem>Deny</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          </div>
-        );
+      // case "actions":
+      //   return (
+      //     <div className="relative flex justify-end items-center gap-2 dark ">
+      //       <Dropdown className="dark text-slate-700">
+      //         <DropdownTrigger>
+      //           <Button isIconOnly size="sm" variant="dark">
+      //             <VerticalDotsIcon className="text-default-300" />
+      //           </Button>
+      //         </DropdownTrigger>
+      //         <DropdownMenu variant="dark">
+      //           <DropdownItem
+      //             className=" text-slate-600"
+      //             onClick={(e) => console.log(e.target)}
+      //           >
+      //             View
+      //           </DropdownItem>
+      //           <DropdownItem>Approve</DropdownItem>
+      //           <DropdownItem>Disapprove</DropdownItem>
+      //         </DropdownMenu>
+      //       </Dropdown>
+      //     </div>
+      //   );
       default:
         return cellValue;
     }
@@ -322,9 +329,10 @@ const MyTable = () => {
                 ))}
               </DropdownMenu>
             </Dropdown>
-            <Button color="primary" endContent={<PlusIcon />}>
+            {/* <Button color="primary" endContent={<PlusIcon />}>
               Export Excel
-            </Button>
+            </Button> */}
+            <ExportExcelButton data={filteredItems} />
           </div>
         </div>
         <div className="flex justify-between items-center">

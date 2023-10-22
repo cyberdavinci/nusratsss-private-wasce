@@ -42,7 +42,7 @@ const Layout = ({ children }) => {
       <div className=" w-full h-10 ">
         <div className="flex md:w-full justify-between md:float-right">
           <button
-            className="p-1.5 rounded-lg text-white font-extrabold hover:text-green-800 ml-3 animate-pulse"
+            className="p-1.5 rounded-lg text-white font-extrabold hover:text-green-800 ml-3"
             onClick={() => setExpand(() => true)}
           >
             {!expand ? <RiMenuUnfoldLine size={25} className="" /> : null}

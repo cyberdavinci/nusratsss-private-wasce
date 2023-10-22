@@ -59,13 +59,13 @@ const Sidebar = ({ children }) => {
             alt="somesss"
           /> */}
               <button
-                className={`p-1.5 rounded-lg text-indigo-400 hover:text-indigo-600 ml-3 animate-pulse md:absolute`}
+                className={`p-1.5 rounded-lg text-indigo-400 hover:text-indigo-600 ml-3  md:absolute`}
                 onClick={() => toggleNav()}
               >
                 {expand && (
                   <RiCloseFill
-                    size={25}
-                    className="text-red-600 font-extrabold"
+                    size={27}
+                    className="text-red-500 font-extrabold"
                   />
                 )}
               </button>
@@ -127,7 +127,7 @@ const Sidebar = ({ children }) => {
             className=" w-10 h-10 rounded-md"
           /> */}
               <p className=" text-center w-12 h-10 rounded-md bg-green-500 font-extrabold text-2xl flex items-center justify-center text-white">
-                {shortName}
+                {shortName?.toUpperCase()}
               </p>
               <div
                 className={` flex justify-between items-center  overflow-hidden transition-all ${

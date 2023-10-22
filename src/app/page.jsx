@@ -4,14 +4,14 @@ import Hero from "public/studies.svg";
 import Image from "next/image";
 import styles from "./page.module.css";
 // import Link from "next/link";
-import { authOptions } from "./api/auth/[...nextauth]/route";
-import { getServerSession } from "next-auth";
+// import { authOptions } from "./api/auth/[...nextauth]/route";
+// import { getServerSession } from "next-auth";
 // import Register from "@/components/Register/Register";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 import HomeButtons from "@/components/dashboard/home/HomeButtons";
 // import { Button } from "@nextui-org/react";
 export default async function Home() {
-  const session = await getServerSession(authOptions);
+  // const session = await getServerSession(authOptions);
   // const session = useSession();
   return (
     <div className="flex items-center justify-between flex-wrap-reverse h-full">
@@ -25,7 +25,7 @@ export default async function Home() {
           Help You Excel in the WASSCE , So You Can Achieve Your Academic Dreams
           and Unlock a World of Opportunities.
         </p>
-        {!session ? <HomeButtons /> : null}
+        <HomeButtons />
       </div>
       {/* <Register /> */}
       <div className="flex-1 hidden md:block">

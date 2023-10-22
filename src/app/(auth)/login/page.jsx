@@ -14,11 +14,14 @@ const Login = () => {
   const [isVisible, setIsVisible] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [errorMsg, setErrorMsg] = React.useState("");
+  const [event, setEvent] = React.useState(null);
   React.useEffect(() => {
     if (session.status === "authenticated") {
       session?.data?.user?.role === "student"
         ? router.push("/dashboard/account")
         : router.push("/dashboard/");
+      setLoading((prev) => false);
+      event?.target?.reset();
     }
   }, [session.status, router]);
   const toggleVisibility = () => setIsVisible(!isVisible);
@@ -35,14 +38,13 @@ const Login = () => {
         password,
         redirect: false,
       });
-      setLoading((prev) => false);
+      setEvent(() => e);
       setErrorMsg(() => st.error);
     } catch (err) {
       setLoading((prev) => false);
 
       console.log("Error invalid credentials");
     }
-    e.target.reset();
   };
   // if (session.status === "authenticated") {
   //   router.push("/dashboard/account");
