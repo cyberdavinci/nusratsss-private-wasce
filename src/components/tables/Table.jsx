@@ -140,7 +140,7 @@ const MyTable = () => {
   const renderCell = React.useCallback((user, columnKey) => {
     const cellValue = user[columnKey];
     // console.log(cellValue);
-    console.log(columnKey);
+    // console.log(columnKey);
 
     switch (columnKey) {
       case "name":
