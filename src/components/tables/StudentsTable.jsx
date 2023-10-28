@@ -19,15 +19,16 @@ import {
   Pagination,
   Spinner,
 } from "@nextui-org/react";
-import { PlusIcon } from "./PlusIcon";
-import { VerticalDotsIcon } from "./VerticalDotsIcon";
+// import { PlusIcon } from "./PlusIcon";
+// import { VerticalDotsIcon } from "./VerticalDotsIcon";
 import { SearchIcon } from "./SearchIcon";
 import { ChevronDownIcon } from "./ChevronDownIcon";
 import { columns, statusOptions, subjectOptions } from "./data";
 import { capitalize } from "./utils";
 import useSWR from "swr";
+import { useRouter } from "next/navigation";
 import { ExportExcelButton } from "../excelsheet/Sheet";
-import { useAsyncList } from "@react-stately/data";
+// import { useAsyncList } from "@react-stately/data";
 const statusColorMap = {
   complete: "success",
   incomplete: "warning",
@@ -37,7 +38,8 @@ const statusColorMap = {
 const INITIAL_VISIBLE_COLUMNS = ["name", "gender", "registrationStatus"];
 // Fetcher function for swr
 //
-const MyTable = () => {
+const StudentsTable = () => {
+  const router = useRouter();
   const fetcher = (...args) =>
     fetch(...args).then(async (res) => await res.json());
   const [filterValue, setFilterValue] = React.useState("");
@@ -172,6 +174,14 @@ const MyTable = () => {
           >
             {cellValue}
           </Chip>
+        );
+      case "subjects":
+        return (
+          <ul>
+            {user?.subjects?.map((subject, index) => (
+              <li key={index}>-{subject}</li>
+            ))}
+          </ul>
         );
       // case "actions":
       //   return (
@@ -434,6 +444,7 @@ const MyTable = () => {
       topContentPlacement="outside"
       onSelectionChange={setSelectedKeys}
       onSortChange={setSortDescriptor}
+      onRowAction={(key) => router.push(`students/${key}`)}
     >
       <TableHeader columns={headerColumns}>
         {(column) => (
@@ -463,4 +474,4 @@ const MyTable = () => {
     </Table>
   );
 };
-export default MyTable;
+export default StudentsTable;

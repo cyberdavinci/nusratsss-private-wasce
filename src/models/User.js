@@ -133,6 +133,14 @@ const userSchema = mongoose.Schema(
     //   type: Boolean,
     //   default: true,
     // },
+    assessments:{
+    type:Object,
+    default:{
+      test_1:{},
+      test_2:{},
+      mock:{}
+    }
+    }
   },
 
   { timestamps: true }

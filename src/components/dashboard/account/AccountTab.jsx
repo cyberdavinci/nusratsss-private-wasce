@@ -6,9 +6,9 @@ import { Spinner } from "@nextui-org/react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import useSWR from "swr";
 const fetcher = (...args) =>
   fetch(...args).then(async (res) => await res.json());
-import useSWR from "swr";
 
 //
 export default function AccountTab() {
