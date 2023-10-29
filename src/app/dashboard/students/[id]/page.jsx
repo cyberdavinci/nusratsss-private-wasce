@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Tabs, Tab } from "@nextui-org/react";
 import useSWR from "swr";
 import { useParams } from "next/navigation";
@@ -13,8 +13,32 @@ const Student = () => {
   const { id } = useParams();
 
   const [selected, setSelected] = React.useState("user");
-  const { data, isLoading, isError } = useSWR(`/api/students/${id}`, fetcher);
-  //   console.log(data);
+  const [updatingTable, setUpdatingTable] = React.useState(false);
+  const { data, isLoading, isError, mutate } = useSWR(
+    `/api/students/${id}`,
+    fetcher
+  );
+  // const [assessments, setAssessments] = useState([]);
+  const updateStudentData = async (newData) => {
+    setUpdatingTable((prev) => true);
+    try {
+      const res = await fetch("/api/complete-registration", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...data,
+          assessments: [...newData],
+        }),
+      });
+      setUpdatingTable((prev) => false);
+    } catch (err) {
+      setUpdatingTable((prev) => false);
+      console.log(err);
+    }
+  };
+
+  // console.log(data);
+
   return (
     <div>
       <Tabs
@@ -28,7 +52,13 @@ const Student = () => {
           <StudentInfoTab />
         </Tab>
         <Tab key={"transcript"} title={"Transcript"}>
-          <StudentTranscript />
+          <StudentTranscript
+            data={data}
+            isLoading={isLoading}
+            updateStudentData={updateStudentData}
+            updatingTable={updatingTable}
+            mutate={mutate}
+          />
         </Tab>
       </Tabs>
     </div>

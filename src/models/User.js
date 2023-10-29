@@ -133,14 +133,12 @@ const userSchema = mongoose.Schema(
     //   type: Boolean,
     //   default: true,
     // },
-    assessments:{
-    type:Object,
-    default:{
-      test_1:{},
-      test_2:{},
-      mock:{}
-    }
-    }
+    assessments: {
+      type: Array,
+      default: [
+        { subject: "", test_1_score: "", test_2_score: "", test_3_score: "" },
+      ],
+    },
   },
 
   { timestamps: true }

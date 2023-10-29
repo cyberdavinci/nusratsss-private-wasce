@@ -26,8 +26,14 @@ export const PATCH = async (request) => {
     contact_of_parent_2,
     nationality_of_parent_2,
     registrationStatus,
+    assessments,
   } = await request.json();
-
+  // const assessments = subjects?.map((subject) => ({
+  //   subject,
+  //   test_1_score: "",
+  //   test_2_score: "",
+  //   test_3_score: "",
+  // }));
   await connect();
   try {
     const updatedUser = await User.findByIdAndUpdate(
@@ -54,6 +60,7 @@ export const PATCH = async (request) => {
         relationship_to_applicant_2,
         contact_of_parent_2,
         nationality_of_parent_2,
+        assessments,
       },
       { new: true }
     );
