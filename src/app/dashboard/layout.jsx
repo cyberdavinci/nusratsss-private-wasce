@@ -38,9 +38,9 @@ const Layout = ({ children }) => {
       </div>
     );
   return (
-    <div className=" p-4 w-full md:ml-[85px]">
-      <div className=" w-full h-10 ">
-        <div className="flex md:w-full justify-between md:float-right">
+    <div className=" p-4 w-full ">
+      <div className=" w-[85%] h-10 md:ml-[85px]">
+        <div className="flex justify-between ">
           <button
             className="p-1.5 rounded-lg text-white font-extrabold hover:text-green-800 ml-3"
             onClick={() => setExpand(() => true)}
@@ -52,7 +52,7 @@ const Layout = ({ children }) => {
       </div>
       {/* <Divider className="my-4 text-[10px]" /> */}
       <hr className="my-4 h-[1px] bg-gray-800" />
-      <div>{children}</div>
+      <div className="md:ml-[85px]">{children}</div>
     </div>
   );
 };

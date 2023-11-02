@@ -84,8 +84,14 @@ export default function AccountTab() {
                     <p className=" font-semibold md:text-2xl">
                       Application Status:
                     </p>{" "}
-                    <span className=" bg-yellow-400 rounded px-2 text-yellow-600">
-                      {data?.status}
+                    <span
+                      className={`${
+                        data?.registrationStatus === "complete"
+                          ? " bg-green-700 text-green-300"
+                          : "bg-yellow-400 text-yellow-800"
+                      } rounded px-2 text-yellow-600`}
+                    >
+                      {data?.registrationStatus}d
                     </span>
                   </div>
                 </div>
