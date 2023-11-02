@@ -24,6 +24,7 @@ const CurrentFormTracker = ({ currentForm }) => {
             className={` text-lg  ${currentBg(
               current
             )}  w-[40px] h-[40px] rounded-full flex items-center justify-center p-2`}
+            key={current}
           >
             {current}
           </li>
