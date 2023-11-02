@@ -38,7 +38,7 @@ const Layout = ({ children }) => {
       </div>
     );
   return (
-    <div className=" p-4 ">
+    <div className=" p-4 w-full md:ml-[85px]">
       <div className=" w-full h-10 ">
         <div className="flex md:w-full justify-between md:float-right">
           <button

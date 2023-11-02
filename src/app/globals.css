@@ -65,7 +65,7 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-.preview .preview-inner .card div {
+/* .preview .preview-inner .card div {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -86,7 +86,6 @@ input[type="number"] {
   font-size: 22px;
   text-transform: uppercase;
   padding-bottom: 10px;
-  /* text-decoration: underline; */
 }
 .card-header {
   box-shadow: rgba(31, 33, 33, 0.196) 0px 50px 100px -20px,
@@ -96,5 +95,4 @@ input[type="number"] {
   margin-bottom: 10px;
   background: #fff;
   padding: 10px;
-  /* width: 250px; */
-}
+} */

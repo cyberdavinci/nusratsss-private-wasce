@@ -127,7 +127,7 @@ const userSchema = mongoose.Schema(
     },
     registration_ID: {
       type: String,
-      default: "A0",
+      default: "PW0",
     },
     // isNew: {
     //   type: Boolean,
@@ -147,16 +147,20 @@ userSchema.pre("save", async function (next) {
   // console.log(this.isNew);
   if (this?.$isNew) {
     try {
-      const lastUser = await this.constructor.findOne(
+      const lastUser = await this?.constructor.findOne(
         {},
         { registration_ID: 1 },
         { sort: { _id: -1 } }
       );
+      // console.log(lastUser);
       const lastId = lastUser
-        ? parseInt(lastUser.registration_ID.substring(1), 10)
+        ? parseInt(lastUser.registration_ID.substring(2), 10)
         : 0;
-      this.registration_ID = `A${lastId + 1}`;
-      // this.isNew = false;
+      // console.log(lastId);
+      const newId = (lastId + 1).toString().padStart(6, "0");
+      // console.log("New ID:" + newId);
+      this.registration_ID = `PW${newId}`;
+      this.isNew = true;
     } catch (error) {
       console.error("Error in pre-save hook:", error);
       return next(error);

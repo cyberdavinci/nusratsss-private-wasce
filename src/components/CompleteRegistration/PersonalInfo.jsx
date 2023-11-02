@@ -60,14 +60,19 @@ const PersonalInfo = ({
               color={nationality ? "success" : null}
               // placeholder="Select an animal"
               value={nationality}
+              //
               className="md:w-[200px] w-full"
               onChange={handleInputChange}
               isRequired
             >
               {/* <option value="">Nationality</option> */}
 
-              <SelectItem key={"Gambian"}>Gambian</SelectItem>
-              <SelectItem key={"Non-Gambian"}>Non-Gambian</SelectItem>
+              <SelectItem key={"Gambian"} textValue={"Gambian"}>
+                Gambian
+              </SelectItem>
+              <SelectItem key={"Non-Gambian"} textValue={"Non-Gambian"}>
+                Non-Gambian
+              </SelectItem>
             </Select>
           </div>
 
@@ -142,13 +147,14 @@ const PersonalInfo = ({
               isRequired
               onChange={handleInputChange}
             >
-              <SelectItem key={"gambian"}>Jola</SelectItem>
-              <SelectItem key={"fula"}>Fula</SelectItem>
-              <SelectItem key={"mandinka"}>Mandinka</SelectItem>
-              <SelectItem key={"wolof"}>Wolof</SelectItem>
-              <SelectItem key={"manjago"}>Manjago</SelectItem>
-              <SelectItem key={"balanta"}>Balanta</SelectItem>
-              <SelectItem key={"serer"}>Serer</SelectItem>
+              <SelectItem key={"Jola"}>Jola</SelectItem>
+              <SelectItem key={"Fula"}>Fula</SelectItem>
+              <SelectItem key={"Mandinka"}>Mandinka</SelectItem>
+              <SelectItem key={"Wolof"}>Wolof</SelectItem>
+              <SelectItem key={"Manjago"}>Manjago</SelectItem>
+              <SelectItem key={"Balanta"}>Balanta</SelectItem>
+              <SelectItem key={"Serer"}>Serer</SelectItem>
+              <SelectItem key={"Other"}>Other</SelectItem>
             </Select>
           </div>
         </div>

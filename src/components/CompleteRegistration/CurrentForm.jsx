@@ -3,7 +3,7 @@ import SelectSubjects from "@/components/CompleteRegistration/SelectSubjects";
 import Education from "@/components/CompleteRegistration/Education";
 import FamilyInfo from "@/components/CompleteRegistration/FamilyInfo";
 import Preview from "@/components/CompleteRegistration/Preview";
-
+// import PrintApplication from "../PrintPage/PrintApplication";
 const CurrentForm = ({
   currentForm,
   updateSubs,
@@ -16,7 +16,6 @@ const CurrentForm = ({
   isFormValid,
   selectedSubjects,
   setSelectedSubjects,
-
   loading,
 }) => {
   switch (currentForm) {
@@ -84,6 +83,7 @@ const CurrentForm = ({
           loading={loading}
         />
       );
+
     default:
       null;
   }

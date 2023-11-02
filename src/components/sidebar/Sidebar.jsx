@@ -45,7 +45,7 @@ const Sidebar = ({ children }) => {
             pathName?.includes("dashboard") ? "block" : "hidden w-0"
           } md:translate-x-0 translate-x-[-200px] w-0 md:w-fit transition-all h-screen fixed  float-left ${
             expand ? "w-[220px] translate-x-[5px]" : "w-0 translate-x-[-200px]"
-          } z-40`}
+          } z-40 ${pathName.includes("print-application") ? "hidden w-0" : ""}`}
         >
           <nav className="h-full flex flex-col bg-black border-r border-slate-800 shadow-sm w-full relative">
             <div className=" pb-2  w-full float-right  justify-end text-end">

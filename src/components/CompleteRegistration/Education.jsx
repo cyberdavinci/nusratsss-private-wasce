@@ -34,7 +34,7 @@ const Education = ({
         {/* {!isValidForm && "Please fill all the inputs!"} */}
       </span>
 
-      <form className="flex gap-3 flex-col w-full justify-center items-center dark">
+      <form className="flex gap-3 flex-col w-full justify-center  dark">
         <div className="flex md:flex-row flex-col gap-3">
           <div className="flex flex-col w-full">
             <Input

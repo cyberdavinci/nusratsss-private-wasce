@@ -1,11 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import CurrentForm from "@/components/CompleteRegistration/CurrentForm";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import MyLoader from "@/components/Loader/MyLoader";
+// import MyLoader from "@/components/Loader/MyLoader";
 import useSWR from "swr";
 import { Spinner } from "@nextui-org/react";
+import CurrentForm from "@/components/CompleteRegistration/CurrentForm";
+import CurrentFormTracker from "@/components/CompleteRegistration/CurrentFormTracker";
 const fetcher = (...args) =>
   fetch(...args).then(async (res) => await res.json());
 const FinishRegistration = () => {
@@ -43,7 +44,7 @@ const FinishRegistration = () => {
 
   useEffect(() => {
     data?.registrationStatus === "complete"
-      ? router.replace(`/dashboard/account`)
+      ? router.replace(`/print-application`)
       : null;
     session.status === "unauthenticated" ? router.replace("/login") : null;
   }, [session.status, data, router]);
@@ -51,13 +52,14 @@ const FinishRegistration = () => {
   // console.log(session.data);
   const handleNext = () => {
     currentForm > 0 ? setCurrentForm((prev) => prev + 1) : null;
+    // yes i know...
     setInfo((prev) => ({ ...prev, subjects: [...selectedSubjects] }));
   };
   //
   const handlePrevious = () => {
     currentForm !== 0 ? setCurrentForm((prev) => prev - 1) : null;
   };
-  //
+  // not sure if am using this
   const updateSubs = (arr) => {
     setInfo((prev) => ({ ...prev, subjects: [...arr] }));
   };
@@ -72,26 +74,7 @@ const FinishRegistration = () => {
     return isValid;
   };
   // console.log(info);
-  const updateSession = async () => {
-    // Never update session like this again 😂
-    // if(session) session.data?.user?.registrationStatus = "complete"
-    try {
-      // Assuming that session.update returns a promise
-      await session.update({
-        ...session.data,
-        user: {
-          ...session.data.user,
-          registrationStatus: "complete",
-        },
-      });
 
-      // Assuming that router.replace returns a promise as well
-      await router.replace("/dashboard/account");
-    } catch (error) {
-      console.error("Error updating session:", error);
-      // Handle the error as needed
-    }
-  };
   //
   const finishRegistration = async () => {
     setIsLoading((prev) => !prev);
@@ -109,7 +92,7 @@ const FinishRegistration = () => {
 
       !res.ok
         ? (alert("Failed to Submit"), setIsLoading((prev) => !prev))
-        : router.replace("/dashboard/account");
+        : router.replace(`/print-application`);
     } catch (err) {
       setIsLoading((prev) => false);
       console.log(err);
@@ -124,11 +107,12 @@ const FinishRegistration = () => {
     );
   return (
     <div className="flex flex-col items-center">
+      <CurrentFormTracker currentForm={currentForm} />
       <CurrentForm
         info={info}
         setInfo={setInfo}
         handleInputChange={handleInputChange}
-        updateSubs={updateSubs}
+        // updateSubs={updateSubs}
         currentForm={currentForm}
         handleNext={handleNext}
         handlePrevious={handlePrevious}

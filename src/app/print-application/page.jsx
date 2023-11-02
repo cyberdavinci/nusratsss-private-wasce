@@ -1,11 +1,8 @@
 import React from "react";
-import PrintPage from "@/components/PrintPage/PrintPage";
-import connect from "@/utils/db";
-import User from "@/models/User";
-
-const page = ({ student }) => {
+import PrintApplication from "../../components/PrintPage/PrintApplication";
+const page = () => {
   // console.log(student);
-  return <PrintPage />;
+  return <PrintApplication />;
 };
 
 export default page;

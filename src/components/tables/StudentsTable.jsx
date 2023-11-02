@@ -47,8 +47,7 @@ const StudentsTable = () => {
   const [visibleColumns, setVisibleColumns] = React.useState(
     new Set(INITIAL_VISIBLE_COLUMNS)
   );
-  // console.log(selectedKeys);
-  // const [isLoading, setIsLoading] = React.useState(true);
+
   const [statusFilter, setStatusFilter] = React.useState("all");
   const [selectedSubs, setSelectedSub] = React.useState("all");
   // const [selectedKeys, setSelectedKeys] = React.useState(new Set(["text"]));
@@ -70,8 +69,6 @@ const StudentsTable = () => {
     }
   );
 
-  // isLoading ? console.log("loading data...") : console.log(data);
-  // limiting header columns to the checked ones only/all
   const headerColumns = React.useMemo(() => {
     if (visibleColumns === "all") return columns;
 

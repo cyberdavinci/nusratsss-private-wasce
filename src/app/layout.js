@@ -13,42 +13,26 @@ import { getServerSession } from "next-auth";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Tokenz",
-  description: "Registration by token",
+  title: "Private Wassce Studies",
+  description: "Registration portal",
 };
 
 export default async function RootLayout({ children }) {
-  const session = await getServerSession(authOptions);
-  // console.log(session.user);
-  const adminRoutes = [
-    {
-      name: "",
-      icon: "",
-      link: "",
-    },
-  ];
-  const userRoutes = [
-    {
-      name: "",
-      icon: "",
-      link: "",
-    },
-  ];
+  // const session = await getServerSession(authOptions);
+
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body className={inter.className}>
         <ContextProvider>
           <AuthProvider>
             <ReduxProvider>
               <UIProvider>
-                <div className=" relative w-full min-h-screen dark flex gap-8 justify-between ">
+                <div className=" relative w-full min-h-screen  flex gap-8 justify-between ">
                   <Sidebar />
 
                   {/* </Sidebar> */}
 
-                  <div className="flex-1   w-full md:ml-[85px] p-4">
-                    {children}
-                  </div>
+                  <div className="flex-1">{children}</div>
                 </div>
               </UIProvider>
             </ReduxProvider>

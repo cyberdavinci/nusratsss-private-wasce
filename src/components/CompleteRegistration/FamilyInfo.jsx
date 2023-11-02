@@ -37,8 +37,6 @@ const FamilyInfo = ({
             <Input
               type="text"
               variant="bordered"
-              // className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none md:w-[200px] w-full"
-              // placeholder="address"
               label={"Parent or guardian name"}
               className="md:w-[200px] w-full"
               isRequired
@@ -54,8 +52,6 @@ const FamilyInfo = ({
               value={relationship_to_applicant}
               label="Select relationship"
               className="md:w-[200px] w-full dark"
-              // id=""
-              // className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none md:w-[200px] w-full"
               isRequired
               onChange={handleInputChange}
               color={relationship_to_applicant ? "success" : null}
