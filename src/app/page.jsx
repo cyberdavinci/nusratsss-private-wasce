@@ -7,13 +7,13 @@ import HomeButtons from "@/components/dashboard/home/HomeButtons";
 
 export default async function Home() {
   return (
-    <div className="flex items-center justify-between flex-wrap-reverse h-full">
-      <div className="flex flex-col gap-8 flex-1">
-        <h1 className={`${styles.title} font-bold text-7xl leading-12`}>
-          Welcome to Private Wascce Class Portal!
+    <div className="flex items-center justify-between flex-wrap-reverse h-full p-12">
+      <div className="flex flex-col gap-10 flex-1">
+        <h1 className={`${styles.title} font-bold text-6xl leading-14`}>
+          Welcome to Academia Registration Portal!
         </h1>
         <p className=" font-semibold text-xl leading-8">
-          Your Comprehensive online portal for Private WASSCE study centers.
+          Your easy to use online registration portal for study centers.
         </p>
         <HomeButtons />
       </div>

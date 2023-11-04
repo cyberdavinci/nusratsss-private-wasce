@@ -15,7 +15,8 @@ const FinishRegistration = () => {
   const id = session.data?.user?._id;
   const [currentForm, setCurrentForm] = useState(1);
   const [selectedSubjects, setSelectedSubjects] = useState([]);
-  const [registrationStatus, setRegistrationStatus] = useState(null);
+
+  const [totalPrice, setTotalPrice] = useState(0);
   const [loading, setIsLoading] = useState(false);
   const { data, isLoading, isError } = useSWR(`/api/students/${id}`, fetcher);
 
@@ -40,6 +41,7 @@ const FinishRegistration = () => {
     relationship_to_applicant_2: "",
     contact_of_parent_2: "",
     nationality_of_parent_2: "",
+    totalFee: null,
   });
 
   useEffect(() => {
@@ -48,12 +50,16 @@ const FinishRegistration = () => {
       : null;
     session.status === "unauthenticated" ? router.replace("/login") : null;
   }, [session.status, data, router]);
-  //
+
   // console.log(session.data);
   const handleNext = () => {
     currentForm > 0 ? setCurrentForm((prev) => prev + 1) : null;
     // yes i know...
-    setInfo((prev) => ({ ...prev, subjects: [...selectedSubjects] }));
+    setInfo((prev) => ({
+      ...prev,
+      subjects: [...selectedSubjects],
+      totalFee: totalPrice,
+    }));
   };
   //
   const handlePrevious = () => {
@@ -101,12 +107,12 @@ const FinishRegistration = () => {
 
   if (session.status === "loading" || isLoading)
     return (
-      <div className="w-full h-full flex items-center justify-center">
+      <div className="w-full h-full flex items-center justify-center p-8">
         <Spinner />
       </div>
     );
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center p-8">
       <CurrentFormTracker currentForm={currentForm} />
       <CurrentForm
         info={info}
@@ -121,6 +127,8 @@ const FinishRegistration = () => {
         selectedSubjects={selectedSubjects}
         setSelectedSubjects={setSelectedSubjects}
         loading={loading}
+        totalPrice={totalPrice}
+        setTotalPrice={setTotalPrice}
       />
     </div>
   );

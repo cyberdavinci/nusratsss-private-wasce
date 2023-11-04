@@ -139,6 +139,10 @@ const userSchema = mongoose.Schema(
         { subject: "", test_1_score: "", test_2_score: "", test_3_score: "" },
       ],
     },
+    totalFee: {
+      type: String,
+      default: "",
+    },
   },
 
   { timestamps: true }

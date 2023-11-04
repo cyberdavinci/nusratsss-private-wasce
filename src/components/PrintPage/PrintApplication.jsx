@@ -30,22 +30,36 @@ const PrintApplication = ({ currentForm }) => {
   return (
     <div
       ref={componentRef}
-      className={`h-[100vh] w-[100%] p-2 text-slate-900 bg-white`}
+      className={`h-[100vh] w-[100%] py-2 px-8 text-slate-900 bg-white`}
     >
       <div>
         <h3 className="w-full p-2 bg-green-500 text-white rounded-lg">
-          Congratulations! You have successfully submited your application.
+          Congratulations! You have successfully submitted your application.
         </h3>
+        <h1 className="p-4 text-3xl font-extrabold text-center">
+          Nusrat Private Wassce Studies
+        </h1>
         <h4 className="mt-1 font-extrabold">
-          Print this page and bring it along.
+          Print this form and bring it along when coming for payment.
         </h4>
       </div>
       {/*  */}
       <div>
         <div className=" w-full flex  justify-between mt-4">
-          <Button size="sm" variant="flat" onClick={handlePrint} className="">
-            Print Form
-          </Button>
+          <div className="flex gap-1">
+            <Button size="sm" variant="flat" onClick={handlePrint} className="">
+              Print Form
+            </Button>
+            <Button
+              size="sm"
+              variant="flat"
+              // color="primary"
+              onClick={handlePrint}
+              className=""
+            >
+              Download Form
+            </Button>
+          </div>
           <div>
             <p className="text-sm">APPLICATION NUMBER</p>
             <h1 className="text-2xl">#{data?.registration_ID}</h1>

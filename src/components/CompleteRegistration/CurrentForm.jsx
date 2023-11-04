@@ -17,6 +17,8 @@ const CurrentForm = ({
   selectedSubjects,
   setSelectedSubjects,
   loading,
+  totalPrice,
+  setTotalPrice,
 }) => {
   switch (currentForm) {
     case 1:
@@ -30,6 +32,8 @@ const CurrentForm = ({
           handlePrevious={handlePrevious}
           selectedSubjects={selectedSubjects}
           setSelectedSubjects={setSelectedSubjects}
+          totalPrice={totalPrice}
+          setTotalPrice={setTotalPrice}
         />
       );
     case 2:

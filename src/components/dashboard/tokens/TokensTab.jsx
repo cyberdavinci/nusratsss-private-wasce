@@ -1,9 +1,9 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 
 import { Tabs, Tab } from "@nextui-org/react";
 import Image from "next/image";
-
+import { useReactToPrint } from "react-to-print";
 import TokensTable from "./TokensTable";
 // import { Input } from "postcss";
 
@@ -14,6 +14,10 @@ export default function TokensTab({
   isGeneratingTokens,
   selectedTab,
   setSelectedTab,
+  // handleDownload,
+  componentRef,
+  beforePrintBgColor,
+  setBeforePrintBgColor,
 }) {
   // const [selectedTab, setSelectedTab] = React.useState("all");
   // console.log(selectedTab);
@@ -47,6 +51,8 @@ export default function TokensTab({
               isLoading={isLoading}
               isError={isError}
               isGeneratingTokens={isGeneratingTokens}
+
+              // handleDownload={handleDownload}
             />
           </div>
         </Tab>
@@ -72,6 +78,9 @@ export default function TokensTab({
               isLoading={isLoading}
               isError={isError}
               isGeneratingTokens={isGeneratingTokens}
+              beforePrintBgColor={beforePrintBgColor}
+              // setBeforePrintBgColor={setBeforePrintBgColor}
+              componentRef={componentRef}
             />
           </div>
         </Tab>
@@ -96,6 +105,7 @@ export default function TokensTab({
               isLoading={isLoading}
               isError={isError}
               isGeneratingTokens={isGeneratingTokens}
+
               // setSelectedTab={setSelectedTab}
             />
           </div>

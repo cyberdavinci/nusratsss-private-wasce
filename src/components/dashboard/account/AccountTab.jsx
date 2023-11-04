@@ -60,44 +60,55 @@ export default function AccountTab() {
             </div>
           ) : (
             <>
-              {" "}
-              <p className=" uppercase font-extrabold md:text-2xl text-xl">
-                Registration Id: #<span>{data?.registration_ID}</span>
-              </p>
-              <div className="flex w-full mt-8 gap-5  flex-wrap">
+              <div>
                 <div>
-                  <div className="flex gap-3 items-center">
-                    <p className=" font-semibold md:text-2xl ">Name:</p>{" "}
-                    <span>{session?.data?.user?.name}</span>
-                  </div>
-                  <div className="flex gap-3 items-center">
-                    <p className=" font-semibold md:text-2xl">Email:</p>{" "}
-                    <span>{session?.data?.user?.email}</span>
-                  </div>
+                  <Button
+                    onClick={() => router.push("/print-application")}
+                    className="mb-2"
+                    color="success"
+                    variant="flat"
+                  >
+                    View application
+                  </Button>
+                  <p className=" uppercase font-extrabold md:text-2xl text-xl">
+                    Registration Id: #<span>{data?.registration_ID}</span>
+                  </p>
                 </div>
-                <div>
-                  <div className="flex gap-3 items-center">
-                    <p className=" font-semibold md:text-2xl">Location:</p>
-                    <span>{data?.address}</span>
+                <div className="flex w-full mt-8 gap-5  flex-wrap">
+                  <div>
+                    <div className="flex gap-3 items-center">
+                      <p className=" font-semibold md:text-2xl ">Name:</p>{" "}
+                      <span>{session?.data?.user?.name}</span>
+                    </div>
+                    <div className="flex gap-3 items-center">
+                      <p className=" font-semibold md:text-2xl">Email:</p>{" "}
+                      <span>{session?.data?.user?.email}</span>
+                    </div>
                   </div>
-                  <div className="flex gap-3 items-center">
-                    <p className=" font-semibold md:text-2xl">
-                      Application Status:
-                    </p>{" "}
-                    <span
-                      className={`${
-                        data?.registrationStatus === "complete"
-                          ? " bg-green-700 text-green-300"
-                          : "bg-yellow-400 text-yellow-800"
-                      } rounded px-2 text-yellow-600`}
-                    >
-                      {data?.registrationStatus}d
-                    </span>
+                  <div>
+                    <div className="flex gap-3 items-center">
+                      <p className=" font-semibold md:text-2xl">Location:</p>
+                      <span>{data?.address}</span>
+                    </div>
+                    <div className="flex gap-3 items-center">
+                      <p className=" font-semibold md:text-2xl">
+                        Application Status:
+                      </p>{" "}
+                      <span
+                        className={`${
+                          data?.registrationStatus === "complete"
+                            ? " bg-green-700 text-green-300"
+                            : "bg-yellow-400 text-yellow-800"
+                        } rounded px-2 text-yellow-600`}
+                      >
+                        {data?.registrationStatus}d
+                      </span>
+                    </div>
                   </div>
                 </div>
                 {/* <form className="flex flex-col gap-4">
             <Input
-              isRequired
+            isRequired
               label="Email"
               placeholder="Enter your email"
               type="email"

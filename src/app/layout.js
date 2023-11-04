@@ -13,7 +13,7 @@ import { getServerSession } from "next-auth";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Private Wassce Studies",
+  title: "Academia Portal",
   description: "Registration portal",
 };
 

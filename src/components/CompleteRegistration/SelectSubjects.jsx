@@ -9,9 +9,11 @@ const SelectSubjects = ({
   selectedSubjects,
   setSelectedSubjects,
   handleNext,
+  totalPrice,
+  setTotalPrice,
 }) => {
   const [isError, setIsError] = useState(false);
-  const [totalPrice, setTotalPrice] = useState(0);
+  // const [totalPrice, setTotalPrice] = useState(0);
   const subjects = [
     {
       name: "English",
@@ -136,6 +138,7 @@ const SelectSubjects = ({
     if (!selectedSubjects.includes(value)) {
       if (selectedSubjects?.length < 8) {
         setSelectedSubjects((prev) => [...prev, value]);
+        // setInfo((prev) => ({ ...prev, totalFee: totalPrice }));
       }
     } else {
       const newSubjects = selectedSubjects.filter(
@@ -150,8 +153,8 @@ const SelectSubjects = ({
   };
   return (
     <div className=" my-14 mx-auto w-full flex flex-col items-center transition-all">
-      <div className="flex justify-around flex-wrap items-center mb-5 md:text-3xl text-xl font-bold w-full">
-        <h1 className="capitalize">Please select your subjects</h1>
+      <div className="flex justify-around flex-wrap items-center mb-5 md:text-2xl text-xl font-bold w-full">
+        <h1 className="capitalize text-center">Please select your subjects</h1>
         <span>Total Cost: GMD {totalPrice}</span>
       </div>
 

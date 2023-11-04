@@ -23,6 +23,9 @@ const TokensTable = ({
   isLoading,
   isError,
   isGeneratingTokens,
+  // handleDownload,
+  componentRef,
+  beforePrintBgColor,
 }) => {
   // console.log(tokens);
   // please do not ask why does case values
@@ -32,10 +35,11 @@ const TokensTable = ({
     const createdAt = new Date(token["createdAt"]);
     switch (columnKey) {
       case "$.0":
-        return <p>#{token["token"]}</p>;
+        return <p>{token["token"]}</p>;
       case "$.1":
         return (
           <Chip
+            radius="sm"
             className="capitalize"
             color={statusColorMap[selectedTab]}
             size="lg"
@@ -52,19 +56,23 @@ const TokensTable = ({
   }, []);
 
   return (
-    <div className=" overflow-x-auto">
+    <div className=" overflow-x-auto" ref={componentRef}>
       <Table
         isCompact
-        removeWrapper
+        // removeWrapper
         aria-label="Example table with custom cells, pagination and sorting"
         // align="right"
         classNames={{
           wrapper: "max-h-[382px] overflow-auto",
         }}
-        isHeaderSticky
+        // isHeaderSticky
         bottomContentPlacement="outside"
         topContentPlacement="outside"
         layout="auto"
+        isStriped
+        // isHeaderSticky
+
+        // ref={componentRef}
       >
         <TableHeader>
           <TableColumn>TOKEN</TableColumn>
@@ -75,7 +83,7 @@ const TokensTable = ({
         <TableBody
           items={tokens ? tokens : []}
           emptyContent={"No tokens found."}
-          isLoading={isLoading || isGeneratingTokens}
+          isLoading={isLoading}
           loadingContent={
             <Spinner
               size="lg"

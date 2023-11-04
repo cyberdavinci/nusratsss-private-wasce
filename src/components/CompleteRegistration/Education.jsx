@@ -61,7 +61,7 @@ const Education = ({
               onChange={handleInputChange}
               color={highest_level_of_education ? "success" : null}
             >
-              <SelectItem key={"wasce"}>Wasce</SelectItem>
+              <SelectItem key={"wassce"}>Wassce</SelectItem>
               <SelectItem key={"gabece"}>Gabece</SelectItem>
               <SelectItem key={"college"}>College</SelectItem>
               <SelectItem key={"university"}>University</SelectItem>

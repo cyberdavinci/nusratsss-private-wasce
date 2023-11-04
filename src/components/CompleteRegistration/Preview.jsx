@@ -21,7 +21,7 @@ const Preview = ({
         </h1>
       </div>
       {/* newer */}
-      <div className="flex flex-wrap justify-around w-full mt-10">
+      <div className="flex flex-wrap justify-start w-full mt-10 items-center">
         <ol className="relative border-l border-gray-200 dark:border-gray-700 h-full max-h-[600px] ">
           <li className="mb-10 ml-4">
             <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
@@ -118,12 +118,13 @@ const Preview = ({
             <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
 
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Your Subjects
+              Selected Subjects
             </h3>
 
             {info?.subjects?.map((subject, index) => (
               <p key={index}>{subject}</p>
             ))}
+            <p className="text-lg font-semibold">Total Fee: {info?.totalFee}</p>
           </li>
         </ol>
       </div>
@@ -147,7 +148,7 @@ const Preview = ({
           color="success"
           isLoading={loading}
         >
-          {loading ? "uploading data..." : "  Finish"}
+          {loading ? "uploading data..." : "  Submit"}
         </Button>
       </div>
     </div>

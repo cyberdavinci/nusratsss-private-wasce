@@ -1,14 +1,17 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import TokensTab from "@/components/dashboard/tokens/TokensTab";
 import { Input, Button } from "@nextui-org/react";
 import useSWR, { useSWRConfig } from "swr";
+import { useReactToPrint } from "react-to-print";
 
 const fetcher = (...args) =>
   fetch(...args).then(async (res) => await res.json());
+
 const Tokens = () => {
   const [isGeneratingTokens, setIsGeneratingTokens] = useState(false);
   const [selectedTab, setSelectedTab] = useState("all");
+  const [beforePrintBgColor, setBeforePrintBgColor] = useState("black");
   const { mutate, cache } = useSWRConfig();
 
   const { data, isLoading, isError } = useSWR(
@@ -24,8 +27,8 @@ const Tokens = () => {
   const generateToken = async (event) => {
     event.preventDefault();
     const numberOfTokens = event.target[0].value;
+    setIsGeneratingTokens((prev) => true);
     try {
-      setIsGeneratingTokens((prev) => !prev);
       const res = await fetch(`/api/tokens`, {
         method: "POST",
         body: JSON.stringify({ numberOfTokens }),
@@ -33,14 +36,21 @@ const Tokens = () => {
       });
 
       // console.log(res);
-      setIsGeneratingTokens((prev) => !prev);
+      setIsGeneratingTokens((prev) => false);
       // mutate(res.status);
     } catch (error) {
       setIsGeneratingTokens((prev) => false);
     }
-
     // console.log(`${numberOfTokens} token will be generated!`);
   };
+
+  const componentRef = useRef();
+  const handleDownload = useReactToPrint({
+    content: () => componentRef?.current,
+    documentTitle: "tokens",
+    onAfterPrint: () => setBeforePrintBgColor("black"),
+    onBeforePrint: () => setBeforePrintBgColor("white"),
+  });
   return (
     <div className="flex justify-between flex-wrap gap-3 flex-col overflow-hidden">
       <form
@@ -63,6 +73,8 @@ const Tokens = () => {
           variant="ghost"
           className="px-4 md:w-[200px] w-full"
           type="submit"
+          isLoading={isGeneratingTokens}
+
           // onClick={async (event) => {
           //   await generateToken(event);
           //   await mutate(
@@ -70,7 +82,15 @@ const Tokens = () => {
           //   );
           // }}
         >
-          Generate Tokens
+          {isGeneratingTokens ? "Generating tokens..." : " Generate Tokens"}
+        </Button>
+        <Button
+          color="success"
+          variant="flat"
+          className="px-4 md:w-[200px] w-full"
+          onClick={() => handleDownload()}
+        >
+          Export Tokens to PDF
         </Button>
       </form>
       <div className="">
@@ -81,6 +101,10 @@ const Tokens = () => {
           isGeneratingTokens={isGeneratingTokens}
           selectedTab={selectedTab}
           setSelectedTab={setSelectedTab}
+          componentRef={componentRef}
+          handleDownload={handleDownload}
+          beforePrintBgColor={beforePrintBgColor}
+          setBeforePrintBgColor={setBeforePrintBgColor}
         />
       </div>
     </div>
