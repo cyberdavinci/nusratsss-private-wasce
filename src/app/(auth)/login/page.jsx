@@ -40,7 +40,8 @@ const Login = () => {
       });
       setEvent(() => e);
       setErrorMsg(() => st.error);
-      setLoading((prev) => false);
+      st.error ? setLoading((prev) => false) : null;
+      // console.log(st);
     } catch (err) {
       setLoading((prev) => false);
 
