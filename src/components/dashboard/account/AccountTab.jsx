@@ -101,7 +101,7 @@ export default function AccountTab() {
                           data?.registrationStatus === "complete"
                             ? " bg-green-700 text-green-300"
                             : "bg-yellow-400 text-yellow-800"
-                        } rounded px-2 text-yellow-600`}
+                        } rounded px-2`}
                       >
                         {data?.registrationStatus}d
                       </span>
@@ -112,8 +112,6 @@ export default function AccountTab() {
             </>
           )}
         </Tab>
-
-        
 
         <Tab
           key="info"

@@ -17,11 +17,11 @@ const Preview = ({
     <div className={`preview flex  flex-col justify-between w-full `}>
       <div>
         <h1 className=" text-center font-bold md:text-2xl  ">
-          Confirm your details before clicking on finish please.
+          Confirm your details before submitting please.
         </h1>
       </div>
       {/* newer */}
-      <div className="flex flex-wrap justify-start md:justify-around w-full mt-10 md:items-center items-start gap-4">
+      <div className="flex flex-wrap justify-start md:justify-around w-full mt-10 md:items-center items-start gap-4 capitalize">
         <ol className="relative border-l border-gray-200 dark:border-gray-700 h-full max-h-[600px] ">
           <li className="mb-10 ml-4">
             <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
@@ -57,10 +57,10 @@ const Preview = ({
               <span>Occupation:</span> {info.occupation}
             </p>
             <p>
-              <span>Phone:</span> {info.marital_status}
+              <span>Marital Status:</span> {info.marital_status}
             </p>
             <p>
-              <span>Email:</span> {info.email}
+              <span>Email:</span> {session.data?.user?.email}
             </p>
           </li>
           <li className="mb-10 ml-4">
@@ -80,7 +80,7 @@ const Preview = ({
             </p>
 
             <p>
-              <span>Occupation: </span>
+              <span>Previous School: </span>
               {info.previousSchool}
             </p>
           </li>
@@ -107,7 +107,9 @@ const Preview = ({
               <span>Nationality: </span>
               {info.nationality_of_parent}
             </p>
-
+            <p>
+              <span>Parent name: </span> {info.parent_guardian_name_2}
+            </p>
             <p>
               <span>Relationship 2:</span>
               {info.relationship_to_applicant_2}
@@ -130,7 +132,9 @@ const Preview = ({
             {info?.subjects?.map((subject, index) => (
               <p key={index}>{subject}</p>
             ))}
-            <p className="text-lg font-semibold">Total Fee: {info?.totalFee}</p>
+            <p className="text-lg font-semibold">
+              Total Fee: GMD {info?.totalFee}
+            </p>
           </li>
         </ol>
       </div>
