@@ -1,4 +1,6 @@
 "use client";
+import { Input, Button } from "@nextui-org/react";
+
 import React from "react";
 
 const ConfirmResetPin = ({ resetStep, setResetStep }) => {
@@ -26,7 +28,7 @@ const ConfirmResetPin = ({ resetStep, setResetStep }) => {
           type="submit"
           color="success"
           variant="flat"
-          isLoading={loading}
+          // isLoading={loading}
         >
           Submit
         </Button>

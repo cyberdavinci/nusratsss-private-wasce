@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { Input, Button } from "@nextui-org/react";
 const VerifyEmail = ({ resetStep, setResetStep }) => {
   const [errorMsg, setErrorMsg] = React.useState("");
 
@@ -25,7 +26,7 @@ const VerifyEmail = ({ resetStep, setResetStep }) => {
           type="submit"
           color="success"
           variant="flat"
-          isLoading={loading}
+          // isLoading={loading}
         >
           Submit
         </Button>

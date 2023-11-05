@@ -32,22 +32,23 @@ const TokensTable = ({
   mutate,
   generateToken,
 }) => {
-  const [tokensToExport, setTokensToExport] = React.useState(null);
+  const [tokensToExport, setTokensToExport] = React.useState(1);
 
-  const filteredData = () => {
+  const filteredData = React.useMemo(() => {
     const filteredTokens =
-      tokensToExport === null ? tokens : tokens?.slice(0, tokensToExport + 1);
-    console.log(filteredTokens);
+      tokensToExport === 1 ? tokens : tokens?.slice(0, tokensToExport);
+    // console.log(filteredTokens);
+
     return filteredTokens;
-  };
+  }, [tokensToExport]);
+  // console.log(filteredData);
+  const exportExcel = React.useCallback(() => {
+    const ws = utils.json_to_sheet(filteredData);
+    const wb = utils.book_new();
 
-  // const exportExcel = React.useCallback(() => {
-  //   const ws = utils.json_to_sheet(filteredData());
-  //   const wb = utils.book_new();
-
-  //   utils.book_append_sheet(wb, ws, "Data");
-  //   writeFileXLSX(wb, "tokens.xlsx");
-  // }, [filteredData()]);
+    utils.book_append_sheet(wb, ws, "Data");
+    writeFileXLSX(wb, "tokens.xlsx");
+  }, [filteredData, tokensToExport]);
 
   // console.log(tokens);
   // please do not ask why does case values
@@ -128,6 +129,7 @@ const TokensTable = ({
                 type="number"
                 max={500}
                 min={50}
+                value={tokensToExport}
                 placeholder={"number of tokens to export"}
                 onChange={(e) => setTokensToExport(e.target.value)}
               />
@@ -136,7 +138,7 @@ const TokensTable = ({
                 variant="flat"
                 className="px-4 "
                 type="submit"
-                onClick={filteredData}
+                onClick={exportExcel}
               >
                 Export
               </Button>
