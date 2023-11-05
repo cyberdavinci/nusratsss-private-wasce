@@ -17,36 +17,37 @@ const Education = ({
     year_of_completion,
     duration_of_study,
     marital_status,
+    previousSchool,
   } = info;
   const isValidForm = isFormValid({
     occupation,
     highest_level_of_education,
     year_of_completion,
-
+    previousSchool,
     marital_status,
   });
 
   return (
-    <div className="flex flex-col items-center  h-screen justify-center w-full ">
+    <div className="flex flex-col items-center  h-screen  w-full ">
       <h1 className=" text-4xl font-extrabold p-3">Education</h1>
 
       <span className="text-[#ff261b] pb-2 font-semibold">
         {/* {!isValidForm && "Please fill all the inputs!"} */}
       </span>
 
-      <form className="flex gap-3 flex-col w-full justify-center  dark">
-        <div className="flex md:flex-row flex-col gap-3">
-          <div className="flex flex-col w-full">
+      <form className="flex gap-3 flex-col w-full  md:items-center ">
+        <div className="flex md:flex-row flex-col   gap-3">
+          <div className="flex flex-col ">
             <Input
               type="text"
               variant="bordered"
-              label={"Occupation"}
+              label={"Previous School"}
               className="md:w-[200px] w-full"
               isRequired
-              name="occupation"
-              value={occupation}
+              name="previousSchool"
+              value={previousSchool}
               onChange={handleInputChange}
-              color={occupation ? "success" : null}
+              color={previousSchool ? "success" : null}
             />
           </div>
           <div className="">
@@ -86,7 +87,7 @@ const Education = ({
             />
           </div>
 
-          <div className="w-full">
+          {/* <div className="w-full">
             <Select
               name="marital_status"
               value={marital_status}
@@ -101,7 +102,7 @@ const Education = ({
               <SelectItem key={"single"}>Single</SelectItem>
               <SelectItem key={"married"}>Married</SelectItem>
             </Select>
-          </div>
+          </div> */}
         </div>
         <div className="flex w-full py-10 gap-4 justify-evenly">
           <Button

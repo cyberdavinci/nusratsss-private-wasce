@@ -1,5 +1,6 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
+import { read, utils, writeFileXLSX } from "xlsx";
 // import useSWR from "swr";
 import {
   Table,
@@ -10,6 +11,8 @@ import {
   TableCell,
   Chip,
   Spinner,
+  Input,
+  Button,
 } from "@nextui-org/react";
 const statusColorMap = {
   all: "primary",
@@ -25,8 +28,27 @@ const TokensTable = ({
   isGeneratingTokens,
   // handleDownload,
   componentRef,
-  beforePrintBgColor,
+  // beforePrintBgColor,
+  mutate,
+  generateToken,
 }) => {
+  const [tokensToExport, setTokensToExport] = React.useState(null);
+
+  const filteredData = () => {
+    const filteredTokens =
+      tokensToExport === null ? tokens : tokens?.slice(0, tokensToExport + 1);
+    console.log(filteredTokens);
+    return filteredTokens;
+  };
+
+  // const exportExcel = React.useCallback(() => {
+  //   const ws = utils.json_to_sheet(filteredData());
+  //   const wb = utils.book_new();
+
+  //   utils.book_append_sheet(wb, ws, "Data");
+  //   writeFileXLSX(wb, "tokens.xlsx");
+  // }, [filteredData()]);
+
   // console.log(tokens);
   // please do not ask why does case values
   // just print out the column key you will undertand
@@ -70,9 +92,57 @@ const TokensTable = ({
         topContentPlacement="outside"
         layout="auto"
         isStriped
-        // isHeaderSticky
-
-        // ref={componentRef}
+        topContent={
+          selectedTab === "all" ? (
+            <form
+              className="flex gap-2 flex-wrap w-full"
+              onSubmit={async (event) => {
+                await generateToken(event);
+                await mutate(`/api/tokens?filter=${selectedTab}`);
+              }}
+            >
+              <Input
+                type="number"
+                placeholder="Number of tokens to generate"
+                max={100}
+                min={1}
+                defaultValue={1}
+                variant="bordered"
+              />
+              <Button
+                color="success"
+                variant="ghost"
+                className="px-4 md:w-[200px] w-full"
+                type="submit"
+                isLoading={isGeneratingTokens}
+              >
+                {isGeneratingTokens
+                  ? "Generating tokens..."
+                  : " Generate Tokens"}
+              </Button>
+            </form>
+          ) : (
+            <div className="flex justify-end gap-2 w-full ">
+              <Input
+                className=""
+                type="number"
+                max={500}
+                min={50}
+                placeholder={"number of tokens to export"}
+                onChange={(e) => setTokensToExport(e.target.value)}
+              />
+              <Button
+                color="success"
+                variant="flat"
+                className="px-4 "
+                type="submit"
+                onClick={filteredData}
+              >
+                Export
+              </Button>
+            </div>
+          )
+        }
       >
         <TableHeader>
           <TableColumn>TOKEN</TableColumn>
@@ -89,7 +159,7 @@ const TokensTable = ({
               size="lg"
               labelColor="primary"
               color="primary"
-              label="Generating tokens..."
+              label="loading tokens..."
             />
           }
         >

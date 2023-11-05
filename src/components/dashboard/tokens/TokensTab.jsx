@@ -18,6 +18,8 @@ export default function TokensTab({
   componentRef,
   beforePrintBgColor,
   setBeforePrintBgColor,
+  generateToken,
+  mutate,
 }) {
   // const [selectedTab, setSelectedTab] = React.useState("all");
   // console.log(selectedTab);
@@ -51,6 +53,8 @@ export default function TokensTab({
               isLoading={isLoading}
               isError={isError}
               isGeneratingTokens={isGeneratingTokens}
+              generateToken={generateToken}
+              mutate={mutate}
 
               // handleDownload={handleDownload}
             />

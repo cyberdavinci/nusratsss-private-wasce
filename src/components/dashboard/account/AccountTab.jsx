@@ -6,7 +6,9 @@ import { Spinner } from "@nextui-org/react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import AccountTabInfo from "./AccountTabInfo";
 import useSWR from "swr";
+import AssessmentsTable from "./AssessmentsTable";
 const fetcher = (...args) =>
   fetch(...args).then(async (res) => await res.json());
 
@@ -32,7 +34,7 @@ export default function AccountTab() {
   //
   // console.log(data);
   return (
-    <div className="flex w-full flex-col max-w-[1000px]">
+    <div className="flex w-full flex-col ">
       <Tabs
         aria-label="Options"
         color="success"
@@ -68,10 +70,10 @@ export default function AccountTab() {
                     color="success"
                     variant="flat"
                   >
-                    View application
+                    View application form
                   </Button>
                   <p className=" uppercase font-extrabold md:text-2xl text-xl">
-                    Registration Id: #<span>{data?.registration_ID}</span>
+                    Student Id: #<span>{data?.registration_ID}</span>
                   </p>
                 </div>
                 <div className="flex w-full mt-8 gap-5  flex-wrap">
@@ -106,64 +108,12 @@ export default function AccountTab() {
                     </div>
                   </div>
                 </div>
-                {/* <form className="flex flex-col gap-4">
-            <Input
-            isRequired
-              label="Email"
-              placeholder="Enter your email"
-              type="email"
-            />
-            <Input
-              isRequired
-              label="Location"
-              placeholder="Location"
-              type="text"
-            />
-         
-
-            <div className="flex gap-2 justify-end">
-              <Button fullWidth color="primary">
-                Save Changes
-              </Button>
-              <Button fullWidth color="primary">
-                Reset
-              </Button>
-            </div>
-          </form> */}
               </div>
             </>
           )}
         </Tab>
 
-        <Tab
-          key="security"
-          title={
-            <div className="flex items-center space-x-1">
-              <Image
-                width={20}
-                height={20}
-                src={"/icons/account/security.svg"}
-              />
-              {/* <MusicIcon/> */}
-              <span>Security</span>
-            </div>
-          }
-        >
-          <div>
-            <form className="flex flex-col gap-4">
-              <Input isRequired label="Current password" type="password" />
-              <Input isRequired label="New password" type="password" />
-              <Input isRequired label="Confirm password" type="password" />
-
-              <div className="flex gap-3 justify-end">
-                <Button color="success">Save Changes</Button>
-                <Button color="danger" variant="flat">
-                  Reset
-                </Button>
-              </div>
-            </form>
-          </div>
-        </Tab>
+        
 
         <Tab
           key="info"
@@ -175,7 +125,21 @@ export default function AccountTab() {
             </div>
           }
         >
-          <div>Info Tab</div>
+          <AccountTabInfo data={data} />
+        </Tab>
+        <Tab
+          key="assessments"
+          title={
+            <div className="flex items-center space-x-1">
+              {/* <VideoIcon/> */}
+              {/* <Image width={20} height={20} src={"/icons/account/info.svg"} /> */}
+              <span>Assessments</span>
+            </div>
+          }
+        >
+          <div className="flex flex-wrap">
+            {/* <AssessmentsTable data={data} /> */}
+          </div>
         </Tab>
       </Tabs>
     </div>

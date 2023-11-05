@@ -30,7 +30,7 @@ const PrintApplication = ({ currentForm }) => {
   return (
     <div
       ref={componentRef}
-      className={`h-[100vh] w-[100%] py-2 px-8 text-slate-900 bg-white`}
+      className={`h-full w-[100%] py-2 px-8 text-slate-900 bg-white`}
     >
       <div>
         <h3 className="w-full p-2 bg-green-500 text-white rounded-lg">
@@ -44,29 +44,30 @@ const PrintApplication = ({ currentForm }) => {
         </h4>
       </div>
       {/*  */}
-      <div>
-        <div className=" w-full flex  justify-between mt-4">
-          <div className="flex gap-1">
-            <Button size="sm" variant="flat" onClick={handlePrint} className="">
-              Print Form
-            </Button>
-            <Button
-              size="sm"
-              variant="flat"
-              // color="primary"
-              onClick={handlePrint}
-              className=""
-            >
-              Download Form
-            </Button>
-          </div>
-          <div>
-            <p className="text-sm">APPLICATION NUMBER</p>
-            <h1 className="text-2xl">#{data?.registration_ID}</h1>
-          </div>
+      {/* <div> */}
+      <div className=" w-full flex  justify-between mt-4">
+        <div className="flex gap-1 flex-wrap">
+          <Button size="sm" variant="flat" onClick={handlePrint} className="">
+            Print Form
+          </Button>
+          <Button
+            size="sm"
+            variant="flat"
+            // color="primary"
+            onClick={handlePrint}
+            className=""
+          >
+            Download Form
+          </Button>
         </div>
+        <div>
+          <p className="text-sm">APPLICATION NUMBER</p>
+          <h1 className="text-2xl">#{data?.registration_ID}</h1>
+        </div>
+      </div>
 
-        {/* app from */}
+      {/* app from */}
+      <div className="flex flex-wrap justify-between mt-10 md:gap-0 gap-3">
         <div>
           <p>APPLICATION FROM</p>
           <h1 className="text-lg font-semibold uppercase">{data?.name}</h1>
@@ -99,65 +100,79 @@ const PrintApplication = ({ currentForm }) => {
           </p>
         </div>
         {/* more stuff */}
-        <div className="flex flex-wrap justify-between mt-10 md:gap-0 gap-3">
-          {/* Education */}
-          <div>
-            <h3 className="mb-2 font-semibold uppercase">Education</h3>
-            <p>
-              <span>Level of Education: </span>
-              {data?.highest_level_of_education}
-            </p>
-            <p>
-              <span>Year completion: </span>
-              {data?.year_of_completion}
-            </p>
+        {/* <div className="flex flex-wrap justify-between mt-10 md:gap-0 gap-3"> */}
+        {/* </div> */}
+        {/* Education */}
+        <div>
+          <h3 className="mb-2 font-semibold uppercase">Education</h3>
+          <p>
+            <span>Level of Education: </span>
+            {data?.highest_level_of_education}
+          </p>
+          <p>
+            <span>Year completion: </span>
+            {data?.year_of_completion}
+          </p>
 
-            <p>
-              <span>Occupation: </span>
-              {data?.occupation}
-            </p>
-          </div>
-          {/* family */}
-          <div>
-            <h3 className="mb-2 font-semibold uppercase">
-              Parent or Guardian Information,
-            </h3>
-            <p>
-              <span>Parent name: </span> {data?.parent_guardian_name}
-            </p>
-            <p>
-              <span>Relationship: </span>
-              {data?.relationship_to_applicant}
-            </p>
-            <p>
-              <span>Contact: </span>
-              {data?.contact_of_parent}
-            </p>
-            <p>
-              <span>Nationality: </span>
-              {data?.nationality_of_parent}
-            </p>
-
-            <p>
-              <span>Relationship 2:</span>
-              {data?.relationship_to_applicant_2}
-            </p>
-            <p>
-              <span>Contact: </span>
-              {data?.contact_of_parent_2}
-            </p>
-            <p>
-              <span>Nationality 2:</span> {data?.nationality_of_parent_2}
-            </p>
-          </div>
-          {/* subjects */}
-          <div>
-            <h3 className="mb-2 font-semibold uppercase">Subjects</h3>
-            {data?.subjects?.map((subject, index) => (
-              <p key={index}>{subject}</p>
-            ))}
-          </div>
+          <p>
+            <span>Occupation: </span>
+            {data?.occupation}
+          </p>
         </div>
+        {/* family */}
+        <div>
+          <h3 className="mb-2 font-semibold uppercase">Guardian Information</h3>
+          <p>
+            <span>Parent name: </span> {data?.parent_guardian_name}
+          </p>
+          <p>
+            <span>Relationship: </span>
+            {data?.relationship_to_applicant}
+          </p>
+          <p>
+            <span>Contact: </span>
+            {data?.contact_of_parent}
+          </p>
+          <p>
+            <span>Nationality: </span>
+            {data?.nationality_of_parent}
+          </p>
+
+          <p>
+            <span>Relationship 2:</span>
+            {data?.relationship_to_applicant_2}
+          </p>
+          <p>
+            <span>Contact: </span>
+            {data?.contact_of_parent_2}
+          </p>
+          <p>
+            <span>Nationality 2:</span> {data?.nationality_of_parent_2}
+          </p>
+        </div>
+        {/* subjects */}
+        <div>
+          <h3 className="mb-2 font-semibold uppercase">Subjects</h3>
+          {data?.subjects?.map((subject, index) => (
+            <p key={index}>{subject}</p>
+          ))}
+          <p className="text-lg font-semibold">Total Fee: {data?.totalFee}</p>
+        </div>
+        {/* </div> */}
+      </div>
+      <div>
+        <p className="font-semibold italic text-xl mt-4">
+          NOTE: This fee do not include WAEC exam fees, the payment is only for
+          the studies. Please print and submit this form with your payment as
+          soon you can to secure a position. The fee is paid in full before you
+          start classes. Also, bring along a copy of your previous WASSCE or
+          GABECE results with one passport size photograph.
+        </p>
+        {/* <p className="font-semibold mt-2">
+          You will need to bring a printed copy to the school for payment with a
+          copy of your previous WASSCE or GABECE results with one passport size
+          photograph.
+        </p> */}
       </div>
     </div>
   );

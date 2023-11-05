@@ -28,6 +28,7 @@ export const PATCH = async (request) => {
     registrationStatus,
     assessments,
     totalFee,
+    previousSchool,
   } = await request.json();
   // const assessments = subjects?.map((subject) => ({
   //   subject,
@@ -63,6 +64,7 @@ export const PATCH = async (request) => {
         nationality_of_parent_2,
         assessments,
         totalFee,
+        previousSchool,
       },
       { new: true }
     );

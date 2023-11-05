@@ -13,7 +13,7 @@ const FinishRegistration = () => {
   const session = useSession();
   const router = useRouter();
   const id = session.data?.user?._id;
-  const [currentForm, setCurrentForm] = useState(1);
+  const [currentForm, setCurrentForm] = useState(2);
   const [selectedSubjects, setSelectedSubjects] = useState([]);
 
   const [totalPrice, setTotalPrice] = useState(0);
@@ -41,7 +41,8 @@ const FinishRegistration = () => {
     relationship_to_applicant_2: "",
     contact_of_parent_2: "",
     nationality_of_parent_2: "",
-    totalFee: null,
+    totalFee: "",
+    previousSchool: "",
   });
 
   useEffect(() => {

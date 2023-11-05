@@ -30,7 +30,12 @@ export const ExportExcelButton = ({ data }) => {
     writeFileXLSX(wb, "privateStudentsList.xlsx");
   }, [newData()]);
   return (
-    <Button color="primary" onClick={exportExcel} endContent={<PlusIcon />}>
+    <Button
+      color="success"
+      variant="flat"
+      onClick={exportExcel}
+      endContent={<PlusIcon />}
+    >
       Export Excel
     </Button>
   );

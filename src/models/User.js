@@ -136,10 +136,22 @@ const userSchema = mongoose.Schema(
     assessments: {
       type: Array,
       default: [
-        { subject: "", test_1_score: "", test_2_score: "", test_3_score: "" },
+        {
+          subject: "",
+          test_1_score: "",
+          test_2_score: "",
+          test_3_score: "",
+          mean_score: "",
+          grade: "",
+          total_marks_obtained: "",
+        },
       ],
     },
     totalFee: {
+      type: String,
+      default: "",
+    },
+    previousSchool: {
       type: String,
       default: "",
     },

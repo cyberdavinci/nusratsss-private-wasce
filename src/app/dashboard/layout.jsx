@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import UserAvatar from "@/components/dashboard/UserAvatar";
 import { MainContextProvider } from "@/context/ContextProvider";
 import { RiMenuUnfoldLine } from "react-icons/ri";
+import { Spinner } from "@nextui-org/react";
 
 const Layout = ({ children }) => {
   const router = useRouter();
@@ -17,24 +18,17 @@ const Layout = ({ children }) => {
     if (session.status === "unauthenticated") router.replace("/login");
     if (session.data?.user?.role === "student")
       router.replace("/dashboard/account");
+  }, [router, session.status, session.data?.user?.role, expand]);
 
-    // session.data?.user?.registrationStatus === "incomplete"
-    //   ? router.replace(`/complete-registration`)
-    //   : null;
-  }, [
-    router,
-    session.status,
-    session.data?.user?.role,
-    expand,
-    // session.data?.user?.registrationStatus,
-  ]);
+  //
   useEffect(() => {
     // setExpand(false);
   }, [expand]);
   if (session.status === "loading")
     return (
       <div className="w-full h-full flex items-center justify-center font-extrabold text-xl">
-        <h1>Loading...</h1>
+        <Spinner label="loading..." color="success" />
+        {/* <h1>Loading...</h1> */}
       </div>
     );
   return (

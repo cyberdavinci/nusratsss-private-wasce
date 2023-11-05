@@ -1,7 +1,6 @@
 "use client";
 import React, { useRef, useState } from "react";
 import TokensTab from "@/components/dashboard/tokens/TokensTab";
-import { Input, Button } from "@nextui-org/react";
 import useSWR, { useSWRConfig } from "swr";
 import { useReactToPrint } from "react-to-print";
 
@@ -53,46 +52,6 @@ const Tokens = () => {
   });
   return (
     <div className="flex justify-between flex-wrap gap-3 flex-col overflow-hidden">
-      <form
-        className="flex gap-2 flex-wrap w-full"
-        onSubmit={async (event) => {
-          await generateToken(event);
-          await mutate(`/api/tokens?filter=${selectedTab}`);
-        }}
-      >
-        <Input
-          type="number"
-          placeholder="Number of tokens to generate"
-          max={100}
-          min={1}
-          defaultValue={1}
-          variant="bordered"
-        />
-        <Button
-          color="success"
-          variant="ghost"
-          className="px-4 md:w-[200px] w-full"
-          type="submit"
-          isLoading={isGeneratingTokens}
-
-          // onClick={async (event) => {
-          //   await generateToken(event);
-          //   await mutate(
-          //     `http://localhost:3000/api/tokens?filter=${selectedTab}`
-          //   );
-          // }}
-        >
-          {isGeneratingTokens ? "Generating tokens..." : " Generate Tokens"}
-        </Button>
-        <Button
-          color="success"
-          variant="flat"
-          className="px-4 md:w-[200px] w-full"
-          onClick={() => handleDownload()}
-        >
-          Export Tokens to PDF
-        </Button>
-      </form>
       <div className="">
         <TokensTab
           tokens={data}
@@ -105,6 +64,8 @@ const Tokens = () => {
           handleDownload={handleDownload}
           beforePrintBgColor={beforePrintBgColor}
           setBeforePrintBgColor={setBeforePrintBgColor}
+          generateToken={generateToken}
+          mutate={mutate}
         />
       </div>
     </div>

@@ -26,13 +26,11 @@ const FamilyInfo = ({
   });
   return (
     <div className="flex flex-col items-center  h-full justify-center w-full">
-      <h1 className=" md:text-2xl text-xl font-extrabold p-3">
-        Parent or Guardian Info
-      </h1>
+      <h1 className=" md:text-2xl text-xl font-extrabold p-3">Guardian Info</h1>
 
       <form className="flex  gap-6 items-center flex-col w-full">
         <span className="text-[#bbb]  font-semibold uppercase italic">
-          parent or guardian 1
+          guardian 1
         </span>
         <div className="flex gap-3 flex-col md:flex-row w-full justify-center dark">
           <div className="flex flex-col">
@@ -101,7 +99,7 @@ const FamilyInfo = ({
         <hr />
         {/* divider */}
         <span className="text-[#bbb]  font-semibold uppercase italic">
-          parent or guardian 2 (optional)
+          guardian 2 (optional)
         </span>
         <div className="flex gap-3 flex-col md:flex-row w-full justify-center dark">
           <div className="flex flex-col  ">

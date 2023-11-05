@@ -16,11 +16,11 @@ const SelectSubjects = ({
   // const [totalPrice, setTotalPrice] = useState(0);
   const subjects = [
     {
-      name: "English",
+      name: "English Language",
       icon: "/icons/eng.svg",
     },
     {
-      name: "Math",
+      name: "Mathematics",
       icon: "/icons/math.svg",
     },
     {
@@ -79,6 +79,10 @@ const SelectSubjects = ({
       name: "Literature",
       icon: "/icons/agric.svg",
     },
+    {
+      name: "Government",
+      icon: "/icons/agric.svg",
+    },
   ];
   const subjectsPricees = [
     {
@@ -114,6 +118,7 @@ const SelectSubjects = ({
       id: 8,
     },
   ];
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsError(() => false);

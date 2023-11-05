@@ -16,8 +16,16 @@ const PersonalInfo = ({
   isFormValid,
 }) => {
   const [err, setError] = useState("");
-  const { address, date_of_birth, nationality, gender, mobile, ethnicity } =
-    info;
+  const {
+    address,
+    date_of_birth,
+    nationality,
+    gender,
+    mobile,
+    ethnicity,
+    marital_status,
+    occupation,
+  } = info;
 
   const isValidForm = isFormValid({
     address,
@@ -26,15 +34,17 @@ const PersonalInfo = ({
     gender,
     mobile,
     ethnicity,
+    marital_status,
+    occupation,
   });
   const animatedComponents = makeAnimated();
 
   return (
-    <div className="flex flex-col items-center w-full justify-center h-screen">
+    <div className="flex flex-col items-center w-full justify-center h-full">
       <h1 className=" text-4xl font-extrabold p-3">Personal Info</h1>
       <span className="text-[#ff261b] pb-2 font-semibold">{err}</span>
-      <form className="flex flex-col  gap-4 w-full  ">
-        <div className="flex gap-3 flex-col md:flex-row w-full justify-center dark">
+      <form className="flex flex-col  gap-4 w-full md:items-center">
+        <div className="flex gap-3 flex-col md:flex-row ">
           <div className="flex flex-col">
             {/* <label htmlFor="">Date of Birth</label> */}
             <Input
@@ -77,37 +87,43 @@ const PersonalInfo = ({
           </div>
 
           <div className="flex flex-col">
-            {/* <label htmlFor="">Gender</label> */}
             <Select
               name="gender"
               value={gender}
               label="Select Gender"
               className="md:w-[200px] w-full dark"
-              // id=""
-              // className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none md:w-[200px] w-full"
               isRequired
               onChange={handleInputChange}
               color={gender ? "success" : null}
             >
-              {/* <option value="" className=" text-center">
-                Select gender
-              </option> */}
-              {/* <option value="Male">Male</option>
-              <option value="Female">Female</option> */}
               <SelectItem key={"Male"}>Male</SelectItem>
               <SelectItem key={"Female"}>Female</SelectItem>
             </Select>
           </div>
+          <div className="w-full">
+            <Select
+              name="marital_status"
+              value={marital_status}
+              label="Select Marital Status"
+              className="md:w-[200px] w-full dark"
+              // id=""
+              // className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none md:w-[200px] w-full"
+              isRequired
+              onChange={handleInputChange}
+              color={marital_status ? "success" : null}
+            >
+              <SelectItem key={"single"}>Single</SelectItem>
+              <SelectItem key={"married"}>Married</SelectItem>
+            </Select>
+          </div>
         </div>
         {/* divider */}
-        <div className="flex gap-3 flex-col md:flex-row w-full justify-center">
+        <div className="flex gap-3 flex-col md:flex-row ">
           <div className="flex flex-col">
             {/* <label htmlFor="">Address</label> */}
             <Input
               type="text"
               variant="bordered"
-              // className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none md:w-[200px] w-full"
-              // placeholder="address"
               label={"Address"}
               className="md:w-[200px] w-full"
               isRequired
@@ -156,6 +172,19 @@ const PersonalInfo = ({
               <SelectItem key={"Serer"}>Serer</SelectItem>
               <SelectItem key={"Other"}>Other</SelectItem>
             </Select>
+          </div>
+          <div className="flex flex-col ">
+            <Input
+              type="text"
+              variant="bordered"
+              label={"Occupation"}
+              className="md:w-[200px] w-full"
+              isRequired
+              name="occupation"
+              value={occupation}
+              onChange={handleInputChange}
+              color={occupation ? "success" : null}
+            />
           </div>
         </div>
         <div className="flex w-full py-10 gap-4 justify-evenly">
