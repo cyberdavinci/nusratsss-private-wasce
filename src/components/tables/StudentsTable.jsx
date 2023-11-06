@@ -114,16 +114,16 @@ const StudentsTable = () => {
   // rounds up pages or number of pages to the nearest integer value
   // const pages = Math.ceil(data?.length / rowsPerPage);
   const pages = React.useMemo(() => {
-    return data?.count ? Math.ceil(data.count / rowsPerPage) : 0;
+    return data?.length > 0 ? Math.ceil(data.length / rowsPerPage) : 0;
   }, [data?.count, rowsPerPage]);
 
-  // const items = React.useMemo(async () => {
-  //   const start = (page - 1) * rowsPerPage;
-  //   const end = start + rowsPerPage;
+  const items = React.useMemo(async () => {
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
 
-  //   return !isLoading && data ? filteredItems?.slice(start, end) : [];
-  // }, [page, filteredItems, rowsPerPage]);
-
+    return !isLoading && data ? filteredItems?.slice(start, end) : [];
+  }, [page, filteredItems, rowsPerPage]);
+  console.log(items);
   // const sortedItems = React.useMemo(async () => {
   //   if (data && !isLoading) {
   //     return [...items]?.sort((a, b) => {
@@ -355,6 +355,7 @@ const StudentsTable = () => {
               <option value="5">5</option>
               <option value="10">10</option>
               <option value="15">15</option>
+              <option value="15">100</option>
             </select>
           </label>
         </div>
@@ -370,6 +371,7 @@ const StudentsTable = () => {
     onSearchChange,
     hasSearchFilter,
   ]);
+  console.log(pages);
 
   const bottomContent = React.useMemo(() => {
     return (

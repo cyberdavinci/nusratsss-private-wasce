@@ -21,7 +21,7 @@ const Register = () => {
     if (session.status === "authenticated")
       router.push("/complete-registration");
   }, [session.status, router]);
-
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const handleSubmit = async (e) => {
     e.preventDefault();
     const name = e.target[0].value;
@@ -29,38 +29,48 @@ const Register = () => {
     const password = e.target[2].value;
     const token = e.target[4].value;
     // console.log(name, email, password, token);
-    try {
-      setIsLoading(() => true);
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          role: "student",
-          token,
-        }),
-      });
-      //clear form inputs
-      // e.target.reset();
-      // console.log(res);
-      res.status === 201 &&
-        // setIsLoading(() => false),
-        (await signIn("credentials", {
-          email,
-          password,
-          redirect: false,
-          // callbackUrl: "/complete-registration",
-        }));
-      res.status === 400 ? setErroMsg(() => "Invalid token!!!") : null;
-      res.status === 500 ? setErroMsg(() => "Internal server error!") : null;
-      setIsLoading(() => false);
-      e.target.reset();
-    } catch (err) {
-      setErr(true);
-      setIsLoading(() => false);
-      setErroMsg(err);
+    if (emailRegex.test(email)) {
+      // Valid email address
+      // You can perform further actions here, such as submitting the form.
+      try {
+        setIsLoading(() => true);
+        const res = await fetch("/api/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name,
+            email,
+            password,
+            role: "student",
+            token,
+          }),
+        });
+        //clear form inputs
+        // e.target.reset();
+        // console.log(res);
+        res.status === 201 &&
+          // setIsLoading(() => false),
+          (await signIn("credentials", {
+            email,
+            password,
+            redirect: false,
+            // callbackUrl: "/complete-registration",
+          }));
+        res.status === 400 ? setErroMsg(() => "Invalid token!!!") : null;
+        res.status === 500 ? setErroMsg(() => "Internal server error!") : null;
+        setIsLoading(() => false);
+        e.target.reset();
+      } catch (err) {
+        setErr(true);
+        setIsLoading(() => false);
+        setErroMsg(err);
+      }
+    } else {
+      // Invalid email address
+      alert("Please enter a valid email address.");
+      setErroMsg(() => "Invalid Email");
+      // Prevent the form from being submitted (if used in a form)
+      return false;
     }
   };
   // console.log(errMsg);
@@ -85,6 +95,8 @@ const Register = () => {
           variant="bordered"
           label="Full Name"
           isRequired
+          minLength={4}
+          maxLength={250}
         />
         <Input
           type="email"
@@ -93,11 +105,15 @@ const Register = () => {
           variant="bordered"
           label="Email"
           isRequired
+          minLength={5}
+          maxLength={250}
         />
         <Input
           label="Password"
           variant="bordered"
           placeholder="Enter your password"
+          minLength={8}
+          maxLength={250}
           endContent={
             <button
               className="focus:outline-none"
