@@ -20,6 +20,10 @@ const SelectSubjects = ({
       icon: "/icons/eng.svg",
     },
     {
+      name: "Agricultural Science",
+      icon: "/icons/agric.svg",
+    },
+    {
       name: "Mathematics",
       icon: "/icons/math.svg",
     },

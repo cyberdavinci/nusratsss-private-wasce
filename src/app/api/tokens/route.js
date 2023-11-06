@@ -5,13 +5,16 @@ import { NextResponse } from "next/server";
 export const GET = async (request) => {
   let filter = request.nextUrl.searchParams.get("filter");
   // let filter = "unused";
-
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
   await connect();
 
   try {
     filter = filter === "all" ? "" : filter;
     // console.log(filter);
-    const tokens = await Token.find(filter !== "" ? { status: filter } : {});
+    const tokens = await Token.find(
+      filter !== "" ? { status: filter } : {}
+    ).sort({ _id: -1 });
     return new NextResponse(JSON.stringify(tokens), { status: 200 });
   } catch (err) {
     return new NextResponse(err, { status: 500 });
@@ -24,8 +27,8 @@ export const GET = async (request) => {
 export const POST = async (request) => {
   const { numberOfTokens } = await request.json();
   const generateToken = async () => {
-    const characters = "abcdefghijklmnopqrstuvwxyz0123456789";
-    const tokenLength = 9;
+    const characters = "0123456789";
+    const tokenLength = 14;
 
     let token = "";
     for (let i = 0; i < tokenLength; i++) {
