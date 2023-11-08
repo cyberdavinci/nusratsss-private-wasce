@@ -18,16 +18,24 @@ const Student = () => {
     `/api/students/${id}`,
     fetcher
   );
+  const [newData, setNewData] = useState(isLoading ? {} : data);
   // const [assessments, setAssessments] = useState([]);
-  const updateStudentData = async (newData) => {
+  const handleInputChange = (event) => {
+    setNewData((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
+  };
+  console.log(newData);
+  const updateStudentData = async (newDataTable) => {
     setUpdatingTable((prev) => true);
     try {
       const res = await fetch("/api/complete-registration", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...data,
-          assessments: [...newData],
+          ...newData,
+          assessments: [...newDataTable],
         }),
       });
       setUpdatingTable((prev) => false);
@@ -49,7 +57,11 @@ const Student = () => {
         onSelectionChange={setSelected}
       >
         <Tab key={"user"} title={"User"}>
-          <StudentInfoTab />
+          <StudentInfoTab
+            updateStudentData={updateStudentData}
+            newData={newData}
+            setNewData={setNewData}
+          />
         </Tab>
         <Tab key={"transcript"} title={"Transcript"}>
           <StudentTranscript

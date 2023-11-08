@@ -123,7 +123,7 @@ const StudentsTable = () => {
 
     return !isLoading && data ? filteredItems?.slice(start, end) : [];
   }, [page, filteredItems, rowsPerPage]);
-  console.log(items);
+  // console.log(items);
   // const sortedItems = React.useMemo(async () => {
   //   if (data && !isLoading) {
   //     return [...items]?.sort((a, b) => {
@@ -355,7 +355,7 @@ const StudentsTable = () => {
               <option value="5">5</option>
               <option value="10">10</option>
               <option value="15">15</option>
-              <option value="15">100</option>
+              <option value="100">100</option>
             </select>
           </label>
         </div>
@@ -371,7 +371,7 @@ const StudentsTable = () => {
     onSearchChange,
     hasSearchFilter,
   ]);
-  console.log(pages);
+  // console.log(pages);
 
   const bottomContent = React.useMemo(() => {
     return (
@@ -406,7 +406,7 @@ const StudentsTable = () => {
         /> */}
         <div className="flex flex-wrap justify-end gap-2">
           <Button
-            isDisabled={pages === 1}
+            // isDisabled={pages === 1}
             size="sm"
             variant="flat"
             onPress={onPreviousPage}
@@ -414,7 +414,7 @@ const StudentsTable = () => {
             Previous
           </Button>
           <Button
-            isDisabled={pages === 1}
+            // isDisabled={pages === 1}
             size="sm"
             variant="flat"
             onPress={onNextPage}

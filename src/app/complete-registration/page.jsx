@@ -41,16 +41,18 @@ const FinishRegistration = () => {
     relationship_to_applicant_2: "",
     contact_of_parent_2: "",
     nationality_of_parent_2: "",
-    totalFee: "",
+    totalFee: 0,
+    internalExamFee: 500,
+    studyFee: 0,
     previousSchool: "",
   });
 
-  useEffect(() => {
-    data?.registrationStatus === "complete"
-      ? router.replace(`/print-application`)
-      : null;
-    session.status === "unauthenticated" ? router.replace("/login") : null;
-  }, [session.status, data, router]);
+  // useEffect(() => {
+  //   data?.registrationStatus === "complete"
+  //     ? router.replace(`/print-application`)
+  //     : null;
+  //   session.status === "unauthenticated" ? router.replace("/login") : null;
+  // }, [session.status, data, router]);
 
   // console.log(session.data);
   const handleNext = () => {
@@ -59,9 +61,12 @@ const FinishRegistration = () => {
     setInfo((prev) => ({
       ...prev,
       subjects: [...selectedSubjects],
-      totalFee: totalPrice,
+      studyFee: totalPrice,
     }));
   };
+  console.log("Total Price" + " " + info?.studyFee);
+  console.log("Total Fee" + " " + info?.totalFee);
+
   //
   const handlePrevious = () => {
     currentForm !== 0 ? setCurrentForm((prev) => prev - 1) : null;

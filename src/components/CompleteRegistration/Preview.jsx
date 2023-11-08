@@ -132,6 +132,8 @@ const Preview = ({
             {info?.subjects?.map((subject, index) => (
               <p key={index}>{subject}</p>
             ))}
+            <p>Study Fee: GMD {info?.studyFee}</p>
+            <p>Internal Exam Fee: GMD {info?.internalExamFee}</p>
             <p className="text-lg font-semibold">
               Total Fee: GMD {info?.totalFee}
             </p>

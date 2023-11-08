@@ -209,7 +209,13 @@ const SelectSubjects = ({
               color="success"
               // disabled={currentForm === 5}
               onClick={() =>
-                isSubjectSelected() ? handleNext() : setIsError(() => true)
+                isSubjectSelected()
+                  ? (handleNext(),
+                    setInfo((prev) => ({
+                      ...prev,
+                      totalFee: prev?.studyFee + prev?.internalExamFee,
+                    })))
+                  : setIsError(() => true)
               }
             >
               Next

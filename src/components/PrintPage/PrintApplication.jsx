@@ -156,6 +156,10 @@ const PrintApplication = ({ currentForm }) => {
           {data?.subjects?.map((subject, index) => (
             <p key={index}>{subject}</p>
           ))}
+          <p className=" font-semibold">Study Fee Fee: GMD {data?.studyFee}</p>
+          <p className=" font-semibold">
+            Internal Exam Fee: GMD {data?.internalExamFee}
+          </p>
           <p className="text-lg font-semibold">Total Fee: {data?.totalFee}</p>
         </div>
         {/* </div> */}

@@ -22,7 +22,7 @@ export default async function Home() {
         <div className="flex-1 hidden md:block">
           <Image
             src={Hero}
-            className={styles.costum_animation}
+            className={`${styles.costum_animation} w-full h-full`}
             alt="home banner image"
           />
         </div>

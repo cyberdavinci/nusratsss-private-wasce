@@ -147,9 +147,17 @@ const userSchema = mongoose.Schema(
         },
       ],
     },
+    internalExamFee: {
+      type: Number,
+      default: 0,
+    },
+    studyFee: {
+      type: Number,
+      default: 0,
+    },
     totalFee: {
       type: String,
-      default: "",
+      default: 0,
     },
     previousSchool: {
       type: String,
