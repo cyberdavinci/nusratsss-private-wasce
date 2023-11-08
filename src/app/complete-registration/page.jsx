@@ -47,12 +47,12 @@ const FinishRegistration = () => {
     previousSchool: "",
   });
 
-  // useEffect(() => {
-  //   data?.registrationStatus === "complete"
-  //     ? router.replace(`/print-application`)
-  //     : null;
-  //   session.status === "unauthenticated" ? router.replace("/login") : null;
-  // }, [session.status, data, router]);
+  useEffect(() => {
+    data?.registrationStatus === "complete"
+      ? router.replace(`/print-application`)
+      : null;
+    session.status === "unauthenticated" ? router.replace("/login") : null;
+  }, [session.status, data, router]);
 
   // console.log(session.data);
   const handleNext = () => {
