@@ -9,13 +9,13 @@ export const ExportExcelButton = ({ data }) => {
     subjects are in an array and when we export the json data some how the subjects column in our sheet returns empty, so I decided to convert the array to string first, then remove all keys in object that are irrelivant
     */
     const subjectsArrayToString = data?.map((element) => {
-      const filteredElement = Object.keys(element)
+      const filteredElement = Object?.keys(element)
         .filter((key) => key !== "_id" && key !== "route" && key !== "status")
         .reduce((obj, key) => {
           obj[key] = element[key];
           return obj;
         }, {});
-      return { ...filteredElement, subjects: element.subjects.toString() };
+      return { ...filteredElement, subjects: element?.subjects?.toString() };
     });
     // const finalData = subjectsArrayToString.filter()
     // console.log(subjectsArrayToString);

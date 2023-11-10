@@ -18,16 +18,22 @@ import {
   User,
   Pagination,
   Spinner,
+  Tooltip,
+  useDisclosure,
 } from "@nextui-org/react";
 // import { PlusIcon } from "./PlusIcon";
 // import { VerticalDotsIcon } from "./VerticalDotsIcon";
 import { SearchIcon } from "./SearchIcon";
 import { ChevronDownIcon } from "./ChevronDownIcon";
+import { DeleteIcon } from "./DeleteIcon";
+import { EyeIcon } from "./EyeIcon";
 import { columns, statusOptions, subjectOptions } from "./data";
 import { capitalize } from "./utils";
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 import { useRouter } from "next/navigation";
 import { ExportExcelButton } from "../excelsheet/Sheet";
+import { VerticalDotsIcon } from "./VerticalDotsIcon";
+import ConfirmDeleteModal from "../dashboard/ConfirmDeleteModal";
 // import { useAsyncList } from "@react-stately/data";
 const statusColorMap = {
   complete: "success",
@@ -35,7 +41,12 @@ const statusColorMap = {
   // pending: "warning",
 };
 
-const INITIAL_VISIBLE_COLUMNS = ["name", "gender", "registrationStatus"];
+const INITIAL_VISIBLE_COLUMNS = [
+  "name",
+  "gender",
+  "registrationStatus",
+  "actions",
+];
 // Fetcher function for swr
 //
 const StudentsTable = () => {
@@ -44,10 +55,14 @@ const StudentsTable = () => {
     fetch(...args).then(async (res) => await res.json());
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
+  // const [selectedKey, setSelectedKey] = React.useState(null);
+  // const [currentUserId, setCurrentUserId] = React.useState(null);
+  const [currentUser, setCurrentUser] = React.useState(null);
   const [visibleColumns, setVisibleColumns] = React.useState(
     new Set(INITIAL_VISIBLE_COLUMNS)
   );
 
+  const [action, setAction] = React.useState("");
   const [statusFilter, setStatusFilter] = React.useState("all");
   const [selectedSubs, setSelectedSub] = React.useState("all");
   // const [selectedKeys, setSelectedKeys] = React.useState(new Set(["text"]));
@@ -56,11 +71,12 @@ const StudentsTable = () => {
     column: "subjects",
     direction: "ascending",
   });
+  const [deleting, setDeleting] = React.useState(false);
   const [page, setPage] = React.useState(1);
-
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const hasSearchFilter = Boolean(filterValue);
-
-  const { data, isLoading, error, mutate } = useSWR(
+  const { mutate } = useSWRConfig();
+  const { data, isLoading, error } = useSWR(
     `/api/students?page=${page}&search=${filterValue}&limit=${rowsPerPage}`,
 
     fetcher,
@@ -114,27 +130,38 @@ const StudentsTable = () => {
   // rounds up pages or number of pages to the nearest integer value
   // const pages = Math.ceil(data?.length / rowsPerPage);
   const pages = React.useMemo(() => {
+    // console.log(data?.count);
     return data?.length > 0 ? Math.ceil(data.length / rowsPerPage) : 0;
-  }, [data?.count, rowsPerPage]);
+  }, [data?.length, rowsPerPage]);
 
-  const items = React.useMemo(async () => {
+  const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
 
     return !isLoading && data ? filteredItems?.slice(start, end) : [];
   }, [page, filteredItems, rowsPerPage]);
-  // console.log(items);
-  // const sortedItems = React.useMemo(async () => {
-  //   if (data && !isLoading) {
-  //     return [...items]?.sort((a, b) => {
-  //       const first = a[sortDescriptor.column];
-  //       const second = b[sortDescriptor.column];
-  //       const cmp = first < second ? -1 : first > second ? 1 : 0;
 
-  //       return sortDescriptor.direction === "descending" ? -cmp : cmp;
-  //     });
-  //   }
-  // }, [sortDescriptor, items]);
+  // const updateSelectedKey = (key) => {
+  //   setCurrentUserId(key["currentKey"]);
+  //   // console.log(currentUserId);
+  // };
+  // console.log(currentUserId);
+  const deleteStudent = async (userId) => {
+    setDeleting(true);
+    try {
+      await fetch(`/api/students?id=${userId}`, {
+        method: "DELETE",
+      });
+
+      await mutate(
+        `/api/students?page=${page}&search=${filterValue}&limit=${rowsPerPage}`
+      ),
+        setDeleting(false);
+    } catch (err) {
+      console.log(err);
+      setDeleting(false);
+    }
+  };
 
   const renderCell = React.useCallback((user, columnKey) => {
     const cellValue = user[columnKey];
@@ -180,34 +207,47 @@ const StudentsTable = () => {
             ))}
           </ul>
         );
-      // case "actions":
-      //   return (
-      //     <div className="relative flex justify-end items-center gap-2 dark ">
-      //       <Dropdown className="dark text-slate-700">
-      //         <DropdownTrigger>
-      //           <Button isIconOnly size="sm" variant="dark">
-      //             <VerticalDotsIcon className="text-default-300" />
-      //           </Button>
-      //         </DropdownTrigger>
-      //         <DropdownMenu variant="dark">
-      //           <DropdownItem
-      //             className=" text-slate-600"
-      //             onClick={(e) => console.log(e.target)}
-      //           >
-      //             View
-      //           </DropdownItem>
-      //           <DropdownItem>Approve</DropdownItem>
-      //           <DropdownItem>Disapprove</DropdownItem>
-      //         </DropdownMenu>
-      //       </Dropdown>
-      //     </div>
-      //   );
+      case "actions":
+        return (
+          <div className="relative flex items-center gap-2">
+            <div>
+              <Tooltip content="View">
+                <span
+                  className="text-lg text-default-400 cursor-pointer active:opacity-50"
+                  key={"view"}
+                  onClick={() => router.push(`students/${user?._id}`)}
+                >
+                  <EyeIcon />
+                </span>
+              </Tooltip>
+            </div>
+            {/* <Tooltip content="Edit user">
+              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                <EditIcon />
+              </span>
+            </Tooltip> */}
+            <Tooltip color="danger" content="Delete user">
+              <span
+                className="text-lg text-danger cursor-pointer active:opacity-50"
+                key={"delete"}
+                // onClick={() => deleteStudent(user?._id)}
+                onClick={() => {
+                  setCurrentUser(user);
+                  onOpen();
+                }}
+              >
+                <DeleteIcon />
+              </span>
+            </Tooltip>
+          </div>
+        );
       default:
         return cellValue;
     }
   }, []);
 
   const onNextPage = React.useCallback(() => {
+    console.log(`page ${page} pages ${pages}`);
     if (page < pages) {
       setPage(page + 1);
     }
@@ -276,8 +316,8 @@ const StudentsTable = () => {
                 // className="dark"
               >
                 {statusOptions.map((status) => (
-                  <DropdownItem key={status.uid} className="capitalize">
-                    {capitalize(status.name)}
+                  <DropdownItem key={status?.uid} className="capitalize">
+                    {capitalize(status?.name)}
                   </DropdownItem>
                 ))}
               </DropdownMenu>
@@ -302,9 +342,9 @@ const StudentsTable = () => {
                 selectedKeys={selectedSubs}
                 onSelectionChange={setSelectedSub}
               >
-                {subjectOptions.map((subject) => (
-                  <DropdownItem key={subject.uid} className="capitalize">
-                    {capitalize(subject.name)}
+                {subjectOptions?.map((subject) => (
+                  <DropdownItem key={subject?.uid} className="capitalize">
+                    {capitalize(subject?.name)}
                   </DropdownItem>
                 ))}
               </DropdownMenu>
@@ -339,7 +379,7 @@ const StudentsTable = () => {
             {/* <Button color="primary" endContent={<PlusIcon />}>
               Export Excel
             </Button> */}
-            <ExportExcelButton data={filteredItems} />
+            <ExportExcelButton data={items} />
           </div>
         </div>
         <div className="flex justify-between items-center">
@@ -355,7 +395,8 @@ const StudentsTable = () => {
               <option value="5">5</option>
               <option value="10">10</option>
               <option value="15">15</option>
-              <option value="100">100</option>
+              <option value="100">200</option>
+              <option value={data?.length}>All</option>
             </select>
           </label>
         </div>
@@ -379,7 +420,7 @@ const StudentsTable = () => {
         <span className="w-[30%] text-small text-default-400">
           {selectedKeys === "all"
             ? "All items selected"
-            : `${selectedKeys.size} of ${filteredItems?.length} selected`}
+            : `${selectedKeys.size} of ${items?.length} selected`}
         </span>
         {pages > 0 ? (
           <div className="flex w-full justify-center">
@@ -404,7 +445,7 @@ const StudentsTable = () => {
           total={pages}
           onChange={(page) => setPage(page)}
         /> */}
-        <div className="flex flex-wrap justify-end gap-2">
+        {/* <div className="flex flex-wrap justify-end gap-2">
           <Button
             // isDisabled={pages === 1}
             size="sm"
@@ -421,56 +462,68 @@ const StudentsTable = () => {
           >
             Next
           </Button>
-        </div>
+        </div> */}
       </div>
     );
     // items.length,
   }, [selectedKeys, page, pages, hasSearchFilter]);
 
   return (
-    <Table
-      aria-label="Students Table, pagination and sorting"
-      isHeaderSticky
-      bottomContent={bottomContent}
-      bottomContentPlacement="outside"
-      classNames={{
-        wrapper: "max-h-[382px]",
-      }}
-      selectedKeys={selectedKeys}
-      selectionMode="multiple"
-      sortDescriptor={sortDescriptor}
-      topContent={topContent}
-      topContentPlacement="outside"
-      onSelectionChange={setSelectedKeys}
-      onSortChange={setSortDescriptor}
-      onRowAction={(key) => router.push(`students/${key}`)}
-    >
-      <TableHeader columns={headerColumns}>
-        {(column) => (
-          <TableColumn
-            key={column.uid}
-            align={column.uid === "actions" ? "center" : "start"}
-            allowsSorting={column.sortable}
-          >
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody
-        emptyContent={"No users found"}
-        items={filteredItems ?? []}
-        isLoading={isLoading}
-        loadingContent={<Spinner label="Loading..." />}
+    <>
+      <Table
+        aria-label="Students Table, pagination and sorting"
+        isHeaderSticky
+        color="primary"
+        bottomContent={bottomContent}
+        bottomContentPlacement="outside"
+        classNames={{
+          wrapper: "max-h-[382px]",
+        }}
+        // selectedKeys={selectedKeys}
+        // selectionMode="multiple"
+        // selectionBehavior="replace"
+        topContent={topContent}
+        topContentPlacement="outside"
+        // onSelectionChange={(key) => updateSelectedKey(key)}
       >
-        {(item) => (
-          <TableRow key={item._id}>
-            {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
-            )}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+        <TableHeader columns={headerColumns}>
+          {(column) => (
+            <TableColumn
+              key={column.uid}
+              align={column.uid === "actions" ? "center" : "start"}
+              allowsSorting={column.sortable}
+            >
+              {column.name}
+            </TableColumn>
+          )}
+        </TableHeader>
+        <TableBody
+          emptyContent={"No users found"}
+          items={items ?? []}
+          isLoading={isLoading}
+          loadingContent={<Spinner label="Loading..." />}
+        >
+          {(item) =>
+            item?._id ? (
+              <TableRow key={item?._id}>
+                {(columnKey) => (
+                  <TableCell>{renderCell(item, columnKey)}</TableCell>
+                )}
+              </TableRow>
+            ) : null
+          }
+        </TableBody>
+      </Table>
+      <ConfirmDeleteModal
+        isOpen={isOpen}
+        // onClose={onClose}
+        deleteStudent={deleteStudent}
+        setCurrentUser={setCurrentUser}
+        currentUser={currentUser}
+        onOpenChange={onOpenChange}
+        deleting={deleting}
+      />
+    </>
   );
 };
 export default StudentsTable;
