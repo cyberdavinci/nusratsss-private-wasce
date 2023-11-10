@@ -31,6 +31,7 @@ export const PATCH = async (request) => {
     previousSchool,
     studyFee,
     internalExamFee,
+    userImg,
   } = await request.json();
   // const assessments = subjects?.map((subject) => ({
   //   subject,
@@ -69,6 +70,7 @@ export const PATCH = async (request) => {
         studyFee,
         internalExamFee,
         previousSchool,
+        userImg,
       },
       { new: true }
     );

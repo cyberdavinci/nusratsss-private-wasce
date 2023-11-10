@@ -1,10 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { Tabs, Tab } from "@nextui-org/react";
+import { Tabs, Tab, Spinner } from "@nextui-org/react";
 import useSWR from "swr";
 import { useParams } from "next/navigation";
 import StudentInfoTab from "@/components/dashboard/students/StudentInfoTab";
 import StudentTranscript from "@/components/dashboard/students/StudentTranscript";
+import { useEffect } from "react";
 
 const fetcher = (...args) =>
   fetch(...args).then(async (res) => await res.json());
@@ -13,21 +14,60 @@ const Student = () => {
   const { id } = useParams();
 
   const [selected, setSelected] = React.useState("user");
+  const [userImg, setUserImg] = React.useState(null);
   const [updatingTable, setUpdatingTable] = React.useState(false);
+  const [updatingInfo, setUpdatingInfo] = React.useState(false);
   const { data, isLoading, isError, mutate } = useSWR(
     `/api/students/${id}`,
     fetcher
   );
   const [newData, setNewData] = useState(isLoading ? {} : data);
   // const [assessments, setAssessments] = useState([]);
+  useEffect(() => {
+    setNewData((prev) => data);
+  }, [data]);
   const handleInputChange = (event) => {
     setNewData((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,
     }));
   };
-  console.log(newData);
-  const updateStudentData = async (newDataTable) => {
+  const handleImageChange = (event) => {
+    event.preventDefault();
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      // setUserImg(e.target.result);
+      setNewData((prev) => ({
+        ...prev,
+        userImg: e.target.result,
+      }));
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  };
+  // console.log(userImg);
+  // console.log(newData);
+  const updateStudentData = async (e) => {
+    e.preventDefault();
+    setUpdatingInfo((prev) => true);
+    try {
+      const res = await fetch("/api/complete-registration", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...newData,
+          // userImg,
+        }),
+      });
+      setUpdatingInfo((prev) => false);
+    } catch (err) {
+      setUpdatingInfo((prev) => false);
+      console.log(err);
+    }
+  };
+  // console.log(newData);
+
+  const updateAssessmentTable = async (newDataTable) => {
     setUpdatingTable((prev) => true);
     try {
       const res = await fetch("/api/complete-registration", {
@@ -57,17 +97,25 @@ const Student = () => {
         onSelectionChange={setSelected}
       >
         <Tab key={"user"} title={"User"}>
-          <StudentInfoTab
-            updateStudentData={updateStudentData}
-            newData={newData}
-            setNewData={setNewData}
-          />
+          {isLoading ? (
+            <Spinner label="loading data..." />
+          ) : (
+            <StudentInfoTab
+              updateStudentData={updateStudentData}
+              newData={newData}
+              setNewData={setNewData}
+              handleInputChange={handleInputChange}
+              handleImageChange={handleImageChange}
+              userImg={userImg}
+              updatingInfo={updatingInfo}
+            />
+          )}
         </Tab>
         <Tab key={"transcript"} title={"Transcript"}>
           <StudentTranscript
             data={data}
             isLoading={isLoading}
-            updateStudentData={updateStudentData}
+            updateAssessmentTable={updateAssessmentTable}
             updatingTable={updatingTable}
             mutate={mutate}
           />

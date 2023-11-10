@@ -32,10 +32,10 @@ const AccountTabInfo = ({ data }) => {
             <span>Ethnicity:</span> {data.ethnicity}
           </p>
           <p>
-            <span>Phone:</span> {data.mobile}
+            <span>Phone:</span> {data.phone}
           </p>
           <p>
-            <span>Phone:</span> {data.email}
+            <span>Email:</span> {data.email}
           </p>
         </li>
         <li className="mb-10 ml-4">

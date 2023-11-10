@@ -13,7 +13,7 @@ import {
 const StudentTranscript = ({
   data,
   isLoading,
-  updateStudentData,
+  updateAssessmentTable,
   updatingTable,
   mutate,
 }) => {
@@ -47,7 +47,7 @@ const StudentTranscript = ({
   };
   const handleUpdate = async () => {
     setUpdating(true);
-    await updateStudentData(asessments);
+    await updateAssessmentTable(asessments);
     setUpdating(false);
     mutate("/api/complete-registration");
   };

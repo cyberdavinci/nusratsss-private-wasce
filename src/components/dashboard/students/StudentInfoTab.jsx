@@ -2,14 +2,28 @@ import React from "react";
 import { Input, Button, Avatar } from "@nextui-org/react";
 import UserAvatar from "/public/icons/avatar.png";
 import Image from "next/image";
-const StudentInfoTab = ({ updateStudentData, newData, setNewData }) => {
+const StudentInfoTab = ({
+  updateStudentData,
+  newData,
+  setNewData,
+  handleInputChange,
+  handleImageChange,
+  userImg,
+  updatingInfo,
+}) => {
+  // const [readOnly, setReadOnly] = Ract.useState(true);
+
+  // console.log(newData);
   return (
     <div>
       <div>
         <Image
-          src={UserAvatar}
+          src={newData?.userImg ? newData?.userImg : UserAvatar}
           alt="user avatar"
-          className=" w-[175px] h-[200px] rounded-lg mb-2"
+          className=" w-[175px] h-[200px] rounded-lg mb-2 object-contain"
+          width={120}
+          height={150}
+          // fill={true}
         />
 
         <Button
@@ -22,7 +36,9 @@ const StudentInfoTab = ({ updateStudentData, newData, setNewData }) => {
             type="file"
             name=""
             id="uploadData"
+            onChange={(event) => handleImageChange(event)}
             className="w-0 opacity-0"
+            accept="image/*"
           />
           <label htmlFor="uploadData" className="cursor-pointer">
             Upload New Photo
@@ -33,6 +49,7 @@ const StudentInfoTab = ({ updateStudentData, newData, setNewData }) => {
         <form
           action=""
           className="flex flex-col  w-full md:items-start items-center"
+          onSubmit={updateStudentData}
         >
           {/* left */}
           <div className="flex md:flex-row flex-col gap-3 w-full justify-between ">
@@ -44,106 +61,132 @@ const StudentInfoTab = ({ updateStudentData, newData, setNewData }) => {
                 color="success"
                 variant="bordered"
                 value={newData?.name}
+                onChange={(event) => handleInputChange(event)}
+                name="name"
               />
               <Input
-                label={"Full name"}
-                placeholder="Enter full name"
+                label={"Email"}
+                placeholder="Enter email"
                 radius="none"
                 color="success"
                 variant="bordered"
                 value={newData?.email}
+                onChange={(event) => handleInputChange(event)}
+                name="email"
 
                 // className=" bg-black"
               />
               <Input
-                label={"Full name"}
-                placeholder="Enter full name"
+                label={"Phone"}
+                placeholder="Enter phone"
                 radius="none"
                 color="success"
                 variant="bordered"
-                value={newData?.phome}
+                value={newData?.phone}
+                onChange={(event) => handleInputChange(event)}
+                name="phone"
               />
               <Input
-                label={"Full name"}
-                placeholder="Enter full name"
+                label={"Address"}
+                placeholder="Enter address"
                 radius="none"
                 color="success"
                 variant="bordered"
                 value={newData?.address}
+                onChange={(event) => handleInputChange(event)}
+                name="address"
               />
               <Input
-                label={"Full name"}
-                placeholder="Enter full name"
+                label={"Date of birth"}
+                placeholder="Enter date of birth"
                 radius="none"
                 color="success"
                 variant="bordered"
                 value={newData?.date_of_birth}
+                onChange={(event) => handleInputChange(event)}
+                name="date_of_birth"
               />
               <Input
-                label={"Full name"}
-                placeholder="Enter full name"
+                label={"Marital status"}
+                placeholder="Enter marital status"
                 radius="none"
                 color="success"
                 variant="bordered"
-                value={newData?.marital_staus}
+                value={newData?.marital_status}
+                onChange={(event) => handleInputChange(event)}
+                name="marital_status"
               />
-            </div>
-            <div className="flex flex-col gap-2 w-full">
               <Input
-                label={"Full name"}
-                placeholder="Enter full name"
+                label={"Occupation"}
+                placeholder="Enter occupation"
                 radius="none"
                 color="success"
                 variant="bordered"
                 value={newData?.occupation}
+                onChange={(event) => handleInputChange(event)}
+                name="occupation"
               />
+            </div>
+            <div className="flex flex-col gap-2 w-full">
               <Input
-                label={"Full name"}
-                placeholder="Enter full name"
+                label={"Ethnicity"}
+                placeholder="Enter ethnicity"
                 radius="none"
                 color="success"
                 variant="bordered"
                 value={newData?.ethnicity}
+                onChange={(event) => handleInputChange(event)}
+                name="ethnicity"
               />
               <Input
-                label={"Full name"}
-                placeholder="Enter full name"
+                label={"Previous school"}
+                placeholder="Enter previous school"
                 radius="none"
                 color="success"
                 variant="bordered"
                 value={newData?.previousSchool}
+                onChange={(event) => handleInputChange(event)}
+                name="previousSchool"
               />
               <Input
-                label={"Full name"}
-                placeholder="Enter full name"
+                label={"Nationality"}
+                placeholder="Enter nationality"
                 radius="none"
                 color="success"
                 variant="bordered"
                 value={newData?.nationality}
+                onChange={(event) => handleInputChange(event)}
+                name="nationality"
               />
               <Input
-                label={"Full name"}
-                placeholder="Enter full name"
+                label={"Level of education"}
+                placeholder="Enter level education"
                 radius="none"
                 color="success"
                 variant="bordered"
                 value={newData?.highest_level_of_education}
+                onChange={(event) => handleInputChange(event)}
+                name="highest_level_of_education"
               />
               <Input
-                label={"Full name"}
-                placeholder="Enter full name"
+                label={"Year of completion"}
+                placeholder="Enter year of completion"
                 radius="none"
                 color="success"
                 variant="bordered"
                 value={newData?.year_of_completion}
+                onChange={(event) => handleInputChange(event)}
+                name="year_of_completion"
               />
               <Input
-                label={"Full name"}
-                placeholder="Enter full name"
+                label={"Contact of parent"}
+                placeholder="Enter contact of parent"
                 radius="none"
                 color="success"
                 variant="bordered"
                 value={newData?.contact_of_parent}
+                onChange={(event) => handleInputChange(event)}
+                name="contact_of_parent"
               />
             </div>
           </div>
@@ -153,8 +196,10 @@ const StudentInfoTab = ({ updateStudentData, newData, setNewData }) => {
               radius="none"
               variant="bordered"
               color="success"
+              type="submit"
+              isLoading={updatingInfo}
             >
-              Update
+              {updatingInfo ? "Updating..." : "Update"}
             </Button>
             <Button
               className="w-full"
