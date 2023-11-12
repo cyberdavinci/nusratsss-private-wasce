@@ -28,9 +28,9 @@ const ConfirmResetPin = ({ resetStep, setResetStep, states }) => {
     }
   };
 
-  const [time, setTime] = useState(120);
+  const [time, setTime] = React.useState(120);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (time > 0) {
       const timerId = setInterval(() => {
         setTime((prevTime) => prevTime - 1);
