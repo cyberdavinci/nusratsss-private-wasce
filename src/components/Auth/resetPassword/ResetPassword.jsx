@@ -2,24 +2,56 @@
 import { EyeFilledIcon } from "@/app/(auth)/login/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "@/app/(auth)/login/EyeSlashFilledIcon";
 import { Button, Input } from "@nextui-org/react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import React, { useEffect } from "react";
 
-import React from "react";
-
-const ResetPassword = ({ resetStep, setResetStep }) => {
+const ResetPassword = ({ resetStep, setResetStep, states }) => {
   const router = useRouter();
+  const session = useSession();
   const [errorMsg, setErrorMsg] = React.useState("");
   const [isVisible, setIsVisible] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
-  const toggleVisibility = () => setIsVisible(!isVisible);
+  //
 
-  const handleSubmit = (e) => {
-    const newPassword = e.target[0].value;
-    const confirmPassword = e.target[1].value;
+  useEffect(() => {
+    session.status === "authenticated" ? router.replace("/") : null;
+  }, [session.status]);
+  // console.log(session);s
+  //
+  const { email, resetPin } = states;
+  const toggleVisibility = () => setIsVisible(!isVisible);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const password = e.target[0].value;
+    const confirmPassword = e.target[2].value;
+    setLoading(true);
+    if (password === confirmPassword) {
+      try {
+        const res = await fetch(`/api/reset-password`, {
+          method: "POST",
+          body: JSON.stringify({ password, resetPin, email }),
+        });
+        res.ok
+          ? await signIn("credentials", {
+              email,
+              password,
+              redirect: false,
+              // callbackUrl: () => "/",
+            })
+          : setLoading(false);
+      } catch (err) {
+        setLoading(false);
+        console.log(err);
+      }
+    } else {
+      setErrorMsg("error, unmatch passwords");
+    }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-full">
+    <div className="flex flex-col items-center justify-center h-screen">
       <h1 className=" text-4xl font-extrabold p-3">Reset Password</h1>
       <span className="text-[#ff261b] pb-2 font-semibold">{errorMsg}</span>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>

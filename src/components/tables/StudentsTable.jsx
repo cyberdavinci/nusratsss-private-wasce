@@ -491,7 +491,7 @@ const StudentsTable = () => {
             <TableColumn
               key={column.uid}
               align={column.uid === "actions" ? "center" : "start"}
-              allowsSorting={column.sortable}
+              // allowsSorting={column.sortable}
             >
               {column.name}
             </TableColumn>

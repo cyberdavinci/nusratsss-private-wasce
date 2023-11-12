@@ -40,6 +40,10 @@ const userSchema = mongoose.Schema(
       type: String,
       default: null,
     },
+    resetToken: {
+      type: String,
+      default: null,
+    },
     address: {
       type: String,
       default: "",

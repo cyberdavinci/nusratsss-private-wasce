@@ -2,35 +2,104 @@
 import { Input, Button } from "@nextui-org/react";
 
 import React from "react";
-
-const ConfirmResetPin = ({ resetStep, setResetStep }) => {
+// import sendEmail from "@/utils/mailer";
+// import generateToken from "@/utils/generateToken";
+const ConfirmResetPin = ({ resetStep, setResetStep, states }) => {
+  const { resetPin, setResetPin, email } = states;
   const [errorMsg, setErrorMsg] = React.useState("");
-  const handleSubmit = (e) => {
+  const [loading, setLoading] = React.useState(false);
+  const [isDisabled, setIsDisabled] = React.useState(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const verificationPin = e.target[0].value;
-    setResetStep(() => "reset");
+    setResetPin((prev) => verificationPin);
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/verify-reset-pin`, {
+        method: "POST",
+        body: JSON.stringify({ verificationPin }),
+      });
+      res.ok
+        ? (setResetStep(() => "reset"), setLoading(false))
+        : (setErrorMsg("invalid reset pin"), setLoading(false));
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
+  };
+
+  const [time, setTime] = useState(120);
+
+  useEffect(() => {
+    if (time > 0) {
+      const timerId = setInterval(() => {
+        setTime((prevTime) => prevTime - 1);
+      }, 1000);
+
+      return () => clearInterval(timerId);
+    } else {
+      setIsDisabled(false);
+    }
+  }, [time, onTimerEnd]);
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-full">
+    <div className="flex flex-col items-center justify-center h-screen">
       <h1 className=" text-4xl font-extrabold p-3">Enter Verification Pin</h1>
-      <p>Verification pin has been sent to your email, please</p>
+      <p className=" font-semibold text-blue-400">
+        Verification pin has been sent to your email
+      </p>
       <span className="text-[#ff261b] pb-2 font-semibold">{errorMsg}</span>
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+      <form
+        className="flex flex-col gap-4 w-full justify-center items-center"
+        onSubmit={handleSubmit}
+      >
         <Input
           label="Verification Pin"
           variant="bordered"
           placeholder="Enter verification pin"
           isRequired
           autoComplete={false}
+          className="max-w-[320px]"
         />
 
         <Button
           type="submit"
           color="success"
           variant="flat"
-          // isLoading={loading}
+          className="max-w-[320px] min-w-[320px]"
+          isLoading={loading}
         >
           Submit
+        </Button>
+        {/* <div className="flex gap-4 items-center"> */}
+        <Button
+          type="submit"
+          // color="success"
+          variant="flat"
+          className="bg-transparent"
+          isDisabled={isDisabled}
+          // isLoading={loading}
+          onClick={async () => {
+            await fetch(`/api/verify-user`, {
+              method: "POST",
+              body: JSON.stringify({ email }),
+            });
+            setIsDisabled(true);
+            setTime(120);
+          }}
+          endContent={() => (
+            <span className=" text-blue-500 font-semibold cursor-pointer">
+              {formatTime(time)}
+            </span>
+          )}
+        >
+          Didn't recieve pin
         </Button>
       </form>
       {/* {err && <h1 className={styles.errorText}>Something went wrong!</h1>} */}
