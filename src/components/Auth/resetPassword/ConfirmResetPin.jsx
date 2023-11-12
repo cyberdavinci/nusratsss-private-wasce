@@ -8,7 +8,7 @@ const ConfirmResetPin = ({ resetStep, setResetStep, states }) => {
   const { resetPin, setResetPin, email } = states;
   const [errorMsg, setErrorMsg] = React.useState("");
   const [loading, setLoading] = React.useState(false);
-  const [isDisabled, setIsDisabled] = React.useState(true);
+  const [isDisabled, setIsDisabled] = React.useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const verificationPin = e.target[0].value;
@@ -40,7 +40,7 @@ const ConfirmResetPin = ({ resetStep, setResetStep, states }) => {
     } else {
       setIsDisabled(false);
     }
-  }, [time, onTimerEnd]);
+  }, [time]);
 
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
