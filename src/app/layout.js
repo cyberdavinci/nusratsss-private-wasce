@@ -27,7 +27,7 @@ export default async function RootLayout({ children }) {
           <AuthProvider>
             <ReduxProvider>
               <UIProvider>
-                <div className=" relative w-full min-h-screen  flex gap-8 justify-between ">
+                <div className=" relative w-full min-h-screen  flex gap-8 justify-between">
                   <Sidebar />
 
                   {/* </Sidebar> */}

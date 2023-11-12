@@ -7,7 +7,7 @@ import HomeButtons from "@/components/dashboard/home/HomeButtons";
 
 export default async function Home() {
   return (
-    <div className="flex flex-col justify-between items-center h-screen overflow-hidden ">
+    <div className="flex flex-col justify-between items-center h-screen overflow-x-hidden ">
       <div className="flex items-center justify-between flex-wrap-reverse h-full p-12">
         <div className="flex flex-col gap-10 flex-1">
           <h1
@@ -29,7 +29,7 @@ export default async function Home() {
           />
         </div>
       </div>
-      <footer class="shadow m-0  bg-gray-950 ">
+      <footer class="shadow m-0 w-full bg-gray-950 ">
         <div class="w-full mx-auto   p-4 text-center">
           <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">
             © 2023{" "}
