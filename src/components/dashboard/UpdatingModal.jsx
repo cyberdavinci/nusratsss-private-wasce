@@ -1,0 +1,66 @@
+"use client";
+import React from "react";
+import { CircularProgress } from "@nextui-org/react";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+} from "@nextui-org/react";
+
+const UpdatingModal = ({
+  isOpen,
+  onOpenChange,
+  //   deleteStudent,
+  //   setCurrentUser,
+  //   currentUser,
+  updatingInfo,
+  newData,
+  //   useDisclosure,
+}) => {
+  return (
+    <>
+      {/* <Button onPress={onOpen}>Open Modal</Button> */}
+      <Modal isOpen={updatingInfo} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                {newData?.name}
+              </ModalHeader>
+              <ModalBody className="flex items-center justify-center">
+                {updatingInfo ? (
+                  <CircularProgress label="updating data..." size="lg" />
+                ) : null}
+              </ModalBody>
+              {/* <ModalFooter>
+                <Button
+                  color="primary"
+                  variant="light"
+                  onPress={onClose}
+                  isDisabled={updatingInfo}
+                >
+                  No
+                </Button>
+                <Button
+                  color="danger"
+                  onPress={() => {
+                    deleteStudent(currentUser?._id);
+                    onClose();
+                  }}
+                  isDisabled={updatingInfo}
+                >
+                  Yes
+                </Button>
+              </ModalFooter> */}
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+    </>
+  );
+};
+export default UpdatingModal;

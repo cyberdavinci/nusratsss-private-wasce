@@ -1,10 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { Tabs, Tab, Spinner } from "@nextui-org/react";
+import { Tabs, Tab, Spinner, useDisclosure } from "@nextui-org/react";
 import useSWR from "swr";
 import { useParams } from "next/navigation";
 import StudentInfoTab from "@/components/dashboard/students/StudentInfoTab";
 import StudentTranscript from "@/components/dashboard/students/StudentTranscript";
+import UpdatingModal from "@/components/dashboard/UpdatingModal";
 import { useEffect } from "react";
 
 const fetcher = (...args) =>
@@ -12,7 +13,7 @@ const fetcher = (...args) =>
 
 const Student = () => {
   const { id } = useParams();
-
+  const { isOpen, onOpenChange } = useDisclosure();
   const [selected, setSelected] = React.useState("user");
   const [userImg, setUserImg] = React.useState(null);
   const [updatingTable, setUpdatingTable] = React.useState(false);
@@ -100,15 +101,18 @@ const Student = () => {
           {isLoading ? (
             <Spinner label="loading data..." />
           ) : (
-            <StudentInfoTab
-              updateStudentData={updateStudentData}
-              newData={newData}
-              setNewData={setNewData}
-              handleInputChange={handleInputChange}
-              handleImageChange={handleImageChange}
-              userImg={userImg}
-              updatingInfo={updatingInfo}
-            />
+            <>
+              <StudentInfoTab
+                updateStudentData={updateStudentData}
+                newData={newData}
+                setNewData={setNewData}
+                handleInputChange={handleInputChange}
+                handleImageChange={handleImageChange}
+                userImg={userImg}
+                updatingInfo={updatingInfo}
+              />
+              <UpdatingModal updatingInfo={updatingInfo} newData={newData} />
+            </>
           )}
         </Tab>
         <Tab key={"transcript"} title={"Transcript"}>

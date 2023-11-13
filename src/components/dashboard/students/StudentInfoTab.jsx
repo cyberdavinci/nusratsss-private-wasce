@@ -11,7 +11,7 @@ const StudentInfoTab = ({
   userImg,
   updatingInfo,
 }) => {
-  // const [readOnly, setReadOnly] = Ract.useState(true);
+  const [readOnly, setReadOnly] = React.useState(true);
 
   // console.log(newData);
   return (
@@ -63,6 +63,7 @@ const StudentInfoTab = ({
                 value={newData?.name}
                 onChange={(event) => handleInputChange(event)}
                 name="name"
+                isReadOnly={readOnly}
               />
               <Input
                 label={"Email"}
@@ -73,6 +74,7 @@ const StudentInfoTab = ({
                 value={newData?.email}
                 onChange={(event) => handleInputChange(event)}
                 name="email"
+                isReadOnly={readOnly}
 
                 // className=" bg-black"
               />
@@ -85,6 +87,7 @@ const StudentInfoTab = ({
                 value={newData?.phone}
                 onChange={(event) => handleInputChange(event)}
                 name="phone"
+                isReadOnly={readOnly}
               />
               <Input
                 label={"Address"}
@@ -95,6 +98,7 @@ const StudentInfoTab = ({
                 value={newData?.address}
                 onChange={(event) => handleInputChange(event)}
                 name="address"
+                isReadOnly={readOnly}
               />
               <Input
                 label={"Date of birth"}
@@ -105,6 +109,7 @@ const StudentInfoTab = ({
                 value={newData?.date_of_birth}
                 onChange={(event) => handleInputChange(event)}
                 name="date_of_birth"
+                isReadOnly={readOnly}
               />
               <Input
                 label={"Marital status"}
@@ -115,6 +120,7 @@ const StudentInfoTab = ({
                 value={newData?.marital_status}
                 onChange={(event) => handleInputChange(event)}
                 name="marital_status"
+                isReadOnly={readOnly}
               />
               <Input
                 label={"Occupation"}
@@ -125,6 +131,7 @@ const StudentInfoTab = ({
                 value={newData?.occupation}
                 onChange={(event) => handleInputChange(event)}
                 name="occupation"
+                isReadOnly={readOnly}
               />
             </div>
             <div className="flex flex-col gap-2 w-full">
@@ -137,6 +144,7 @@ const StudentInfoTab = ({
                 value={newData?.ethnicity}
                 onChange={(event) => handleInputChange(event)}
                 name="ethnicity"
+                isReadOnly={readOnly}
               />
               <Input
                 label={"Previous school"}
@@ -147,6 +155,7 @@ const StudentInfoTab = ({
                 value={newData?.previousSchool}
                 onChange={(event) => handleInputChange(event)}
                 name="previousSchool"
+                isReadOnly={readOnly}
               />
               <Input
                 label={"Nationality"}
@@ -157,6 +166,7 @@ const StudentInfoTab = ({
                 value={newData?.nationality}
                 onChange={(event) => handleInputChange(event)}
                 name="nationality"
+                isReadOnly={readOnly}
               />
               <Input
                 label={"Level of education"}
@@ -167,6 +177,7 @@ const StudentInfoTab = ({
                 value={newData?.highest_level_of_education}
                 onChange={(event) => handleInputChange(event)}
                 name="highest_level_of_education"
+                isReadOnly={readOnly}
               />
               <Input
                 label={"Year of completion"}
@@ -177,6 +188,7 @@ const StudentInfoTab = ({
                 value={newData?.year_of_completion}
                 onChange={(event) => handleInputChange(event)}
                 name="year_of_completion"
+                isReadOnly={readOnly}
               />
               <Input
                 label={"Contact of parent"}
@@ -187,6 +199,7 @@ const StudentInfoTab = ({
                 value={newData?.contact_of_parent}
                 onChange={(event) => handleInputChange(event)}
                 name="contact_of_parent"
+                isReadOnly={readOnly}
               />
             </div>
           </div>
@@ -206,6 +219,7 @@ const StudentInfoTab = ({
               radius="none"
               variant="bordered"
               color="warning"
+              onClick={() => setReadOnly(false)}
             >
               Edit
             </Button>
