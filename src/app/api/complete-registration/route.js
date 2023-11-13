@@ -1,5 +1,6 @@
 import connect from "@/utils/db";
 import User from "@/models/User";
+
 import { NextResponse } from "next/server";
 
 export const PATCH = async (request) => {
@@ -32,6 +33,8 @@ export const PATCH = async (request) => {
     studyFee,
     internalExamFee,
     userImg,
+    name,
+    email,
   } = await request.json();
   // const assessments = subjects?.map((subject) => ({
   //   subject,
@@ -71,6 +74,8 @@ export const PATCH = async (request) => {
         internalExamFee,
         previousSchool,
         userImg,
+        name,
+        email,
       },
       { new: true }
     );
