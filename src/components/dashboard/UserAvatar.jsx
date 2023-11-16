@@ -18,7 +18,7 @@ const UserAvatar = () => {
     <div className="flex items-center gap-4 relative cursor-pointer">
       <Dropdown placement="bottom-end" className="dark">
         <DropdownTrigger>
-          <div className=" absolute">
+          <div className="">
             <span className=" bg-[#2e3440] text-green-200 rounded-lg px-4 py-2  font-semibold">
               {name[1]}
             </span>
