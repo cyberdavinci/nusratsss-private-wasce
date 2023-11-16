@@ -73,7 +73,7 @@ const StudentTranscript = ({
       return newAsess;
     });
   };
-  console.log(asessments);
+  // console.log(asessments);
   const handleUpdate = async () => {
     setUpdating(true);
     await updateAssessmentTable(asessments);
