@@ -18,6 +18,7 @@ const Student = () => {
   const [userImg, setUserImg] = React.useState(null);
   const [updatingTable, setUpdatingTable] = React.useState(false);
   const [updatingInfo, setUpdatingInfo] = React.useState(false);
+  const [newPassword, setNewPassword] = React.useState("");
   const { data, isLoading, isError } = useSWR(`/api/students/${id}`, fetcher);
   const [newData, setNewData] = useState(isLoading ? {} : data);
   // const [assessments, setAssessments] = useState([]);
@@ -77,7 +78,7 @@ const Student = () => {
           assessments: [...newDataTable],
         }),
       });
-      console.log(res);
+      // console.log(res);
       setUpdatingTable((prev) => false);
     } catch (err) {
       setUpdatingTable((prev) => false);
@@ -109,6 +110,8 @@ const Student = () => {
                 handleImageChange={handleImageChange}
                 userImg={userImg}
                 updatingInfo={updatingInfo}
+                newPassword={newPassword}
+                setNewPassword={setNewPassword}
               />
               <UpdatingModal updatingInfo={updatingInfo} newData={newData} />
             </>

@@ -1,6 +1,6 @@
 import connect from "@/utils/db";
 import User from "@/models/User";
-
+import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 
 export const PATCH = async (request) => {
@@ -35,6 +35,7 @@ export const PATCH = async (request) => {
     userImg,
     name,
     email,
+    password,
   } = await request.json();
   // const assessments = subjects?.map((subject) => ({
   //   subject,
@@ -43,6 +44,8 @@ export const PATCH = async (request) => {
   //   test_3_score: "",
   // }));
   await connect();
+  const updatedPassword = await bcrypt.hash(password, 5);
+  console.log(`Plain passs ${password} updated-hashed ${updatedPassword}`);
   try {
     const updatedUser = await User.findByIdAndUpdate(
       _id,
@@ -76,6 +79,7 @@ export const PATCH = async (request) => {
         userImg,
         name,
         email,
+        // password: updatedPassword,
       },
       { new: true }
     );

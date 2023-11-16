@@ -10,6 +10,8 @@ const StudentInfoTab = ({
   handleImageChange,
   userImg,
   updatingInfo,
+  newPassword,
+  setNewPassword,
 }) => {
   const [readOnly, setReadOnly] = React.useState(true);
 
@@ -57,9 +59,8 @@ const StudentInfoTab = ({
               <Input
                 label={"Full name"}
                 placeholder="Enter full name"
-                radius="none"
-                color="success"
-                variant="bordered"
+                radius="md"
+                variant={`${readOnly ? "flat" : "bordered"}`}
                 value={newData?.name}
                 onChange={(event) => handleInputChange(event)}
                 name="name"
@@ -68,9 +69,8 @@ const StudentInfoTab = ({
               <Input
                 label={"Email"}
                 placeholder="Enter email"
-                radius="none"
-                color="success"
-                variant="bordered"
+                radius="md"
+                variant={`${readOnly ? "flat" : "bordered"}`}
                 value={newData?.email}
                 onChange={(event) => handleInputChange(event)}
                 name="email"
@@ -81,9 +81,8 @@ const StudentInfoTab = ({
               <Input
                 label={"Phone"}
                 placeholder="Enter phone"
-                radius="none"
-                color="success"
-                variant="bordered"
+                radius="md"
+                variant={`${readOnly ? "flat" : "bordered"}`}
                 value={newData?.phone}
                 onChange={(event) => handleInputChange(event)}
                 name="phone"
@@ -92,9 +91,8 @@ const StudentInfoTab = ({
               <Input
                 label={"Address"}
                 placeholder="Enter address"
-                radius="none"
-                color="success"
-                variant="bordered"
+                radius="md"
+                variant={`${readOnly ? "flat" : "bordered"}`}
                 value={newData?.address}
                 onChange={(event) => handleInputChange(event)}
                 name="address"
@@ -103,9 +101,8 @@ const StudentInfoTab = ({
               <Input
                 label={"Date of birth"}
                 placeholder="Enter date of birth"
-                radius="none"
-                color="success"
-                variant="bordered"
+                radius="md"
+                variant={`${readOnly ? "flat" : "bordered"}`}
                 value={newData?.date_of_birth}
                 onChange={(event) => handleInputChange(event)}
                 name="date_of_birth"
@@ -114,9 +111,8 @@ const StudentInfoTab = ({
               <Input
                 label={"Marital status"}
                 placeholder="Enter marital status"
-                radius="none"
-                color="success"
-                variant="bordered"
+                radius="md"
+                variant={`${readOnly ? "flat" : "bordered"}`}
                 value={newData?.marital_status}
                 onChange={(event) => handleInputChange(event)}
                 name="marital_status"
@@ -125,9 +121,8 @@ const StudentInfoTab = ({
               <Input
                 label={"Occupation"}
                 placeholder="Enter occupation"
-                radius="none"
-                color="success"
-                variant="bordered"
+                radius="md"
+                variant={`${readOnly ? "flat" : "bordered"}`}
                 value={newData?.occupation}
                 onChange={(event) => handleInputChange(event)}
                 name="occupation"
@@ -135,12 +130,24 @@ const StudentInfoTab = ({
               />
             </div>
             <div className="flex flex-col gap-2 w-full">
+              <div>
+                <Input
+                  label={"New password"}
+                  placeholder="Enter new password"
+                  radius="md"
+                  variant={`${readOnly ? "flat" : "bordered"}`}
+                  // value={newData?.ethnicity}
+                  onChange={(event) => handleInputChange(event)}
+                  name="password"
+                  isReadOnly={readOnly}
+                />
+                <p className="font-semibold ">{newData?.password}</p>
+              </div>
               <Input
                 label={"Ethnicity"}
                 placeholder="Enter ethnicity"
-                radius="none"
-                color="success"
-                variant="bordered"
+                radius="md"
+                variant={`${readOnly ? "flat" : "bordered"}`}
                 value={newData?.ethnicity}
                 onChange={(event) => handleInputChange(event)}
                 name="ethnicity"
@@ -149,9 +156,8 @@ const StudentInfoTab = ({
               <Input
                 label={"Previous school"}
                 placeholder="Enter previous school"
-                radius="none"
-                color="success"
-                variant="bordered"
+                radius="md"
+                variant={`${readOnly ? "flat" : "bordered"}`}
                 value={newData?.previousSchool}
                 onChange={(event) => handleInputChange(event)}
                 name="previousSchool"
@@ -160,9 +166,8 @@ const StudentInfoTab = ({
               <Input
                 label={"Nationality"}
                 placeholder="Enter nationality"
-                radius="none"
-                color="success"
-                variant="bordered"
+                radius="md"
+                variant={`${readOnly ? "flat" : "bordered"}`}
                 value={newData?.nationality}
                 onChange={(event) => handleInputChange(event)}
                 name="nationality"
@@ -171,9 +176,8 @@ const StudentInfoTab = ({
               <Input
                 label={"Level of education"}
                 placeholder="Enter level education"
-                radius="none"
-                color="success"
-                variant="bordered"
+                radius="md"
+                variant={`${readOnly ? "flat" : "bordered"}`}
                 value={newData?.highest_level_of_education}
                 onChange={(event) => handleInputChange(event)}
                 name="highest_level_of_education"
@@ -182,9 +186,8 @@ const StudentInfoTab = ({
               <Input
                 label={"Year of completion"}
                 placeholder="Enter year of completion"
-                radius="none"
-                color="success"
-                variant="bordered"
+                radius="md"
+                variant={`${readOnly ? "flat" : "bordered"}`}
                 value={newData?.year_of_completion}
                 onChange={(event) => handleInputChange(event)}
                 name="year_of_completion"
@@ -193,9 +196,8 @@ const StudentInfoTab = ({
               <Input
                 label={"Contact of parent"}
                 placeholder="Enter contact of parent"
-                radius="none"
-                color="success"
-                variant="bordered"
+                radius="md"
+                variant={`${readOnly ? "flat" : "bordered"}`}
                 value={newData?.contact_of_parent}
                 onChange={(event) => handleInputChange(event)}
                 name="contact_of_parent"
@@ -205,18 +207,21 @@ const StudentInfoTab = ({
           </div>
           <div className="mt-5 flex  gap-2 md:w-[50%] w-full md:flex-row flex-col">
             <Button
-              className="w-full"
-              radius="none"
-              variant="bordered"
               color="success"
+              className="w-full"
+              radius="md"
+              variant="bordered"
               type="submit"
               isLoading={updatingInfo}
+              // onClick={() => {
+              //   console.log(newData?.password);
+              // }}
             >
               {updatingInfo ? "Updating..." : "Update"}
             </Button>
             <Button
               className="w-full"
-              radius="none"
+              radius="md"
               variant="bordered"
               color="warning"
               onClick={() => setReadOnly(false)}
