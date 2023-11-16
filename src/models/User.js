@@ -148,12 +148,12 @@ const userSchema = mongoose.Schema(
       default: [
         {
           subject: "",
-          test_1_score: "",
-          test_2_score: "",
-          test_3_score: "",
-          mean_score: "",
+          test_1_score: 0,
+          test_2_score: 0,
+          mock: 0,
+          mean_score: 0,
           grade: "",
-          total_marks_obtained: "",
+          total_marks_obtained: 0,
         },
       ],
     },

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Tabs, Tab, Spinner, useDisclosure } from "@nextui-org/react";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import { useParams } from "next/navigation";
 import StudentInfoTab from "@/components/dashboard/students/StudentInfoTab";
 import StudentTranscript from "@/components/dashboard/students/StudentTranscript";
@@ -18,10 +18,7 @@ const Student = () => {
   const [userImg, setUserImg] = React.useState(null);
   const [updatingTable, setUpdatingTable] = React.useState(false);
   const [updatingInfo, setUpdatingInfo] = React.useState(false);
-  const { data, isLoading, isError, mutate } = useSWR(
-    `/api/students/${id}`,
-    fetcher
-  );
+  const { data, isLoading, isError } = useSWR(`/api/students/${id}`, fetcher);
   const [newData, setNewData] = useState(isLoading ? {} : data);
   // const [assessments, setAssessments] = useState([]);
   useEffect(() => {
@@ -60,6 +57,7 @@ const Student = () => {
           // userImg,
         }),
       });
+
       setUpdatingInfo((prev) => false);
     } catch (err) {
       setUpdatingInfo((prev) => false);
@@ -79,6 +77,7 @@ const Student = () => {
           assessments: [...newDataTable],
         }),
       });
+      console.log(res);
       setUpdatingTable((prev) => false);
     } catch (err) {
       setUpdatingTable((prev) => false);
@@ -122,6 +121,7 @@ const Student = () => {
             updateAssessmentTable={updateAssessmentTable}
             updatingTable={updatingTable}
             mutate={mutate}
+            id={id}
           />
         </Tab>
       </Tabs>

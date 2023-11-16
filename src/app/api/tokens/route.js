@@ -45,7 +45,7 @@ export const POST = async (request) => {
       // console.log(token);
       return { token };
     } catch (generateTokenError) {
-      console.error("Error generating token:", generateTokenError);
+      // console.error("Error generating token:", generateTokenError);
       throw generateTokenError;
     }
   });

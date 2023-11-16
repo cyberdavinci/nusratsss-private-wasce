@@ -47,7 +47,7 @@ const Register = () => {
         });
         //clear form inputs
         // e.target.reset();
-        // console.log(res);
+        console.log(res);
         res.status === 201 &&
           // setIsLoading(() => false),
           (await signIn("credentials", {
@@ -56,10 +56,12 @@ const Register = () => {
             redirect: false,
             // callbackUrl: "/complete-registration",
           }));
-        res.status === 400 ? setErroMsg(() => "Invalid token!!!") : null;
+        res.status === 400
+          ? setErroMsg(() => "Token has already been used")
+          : null;
         res.status === 500 ? setErroMsg(() => "Internal server error!") : null;
         setIsLoading(() => false);
-        e.target.reset();
+        // e.target.reset();
       } catch (err) {
         setErr(true);
         setIsLoading(() => false);
@@ -67,7 +69,7 @@ const Register = () => {
       }
     } else {
       // Invalid email address
-      alert("Please enter a valid email address.");
+      // alert("Please enter a valid email address.");
       setErroMsg(() => "Invalid Email");
       // Prevent the form from being submitted (if used in a form)
       return false;
@@ -107,6 +109,7 @@ const Register = () => {
           isRequired
           minLength={5}
           maxLength={250}
+          isInvalid={errMsg?.includes("Email") ? true : false}
         />
         <Input
           label="Password"
@@ -138,6 +141,7 @@ const Register = () => {
           variant="bordered"
           label="Token"
           isRequired
+          isInvalid={errMsg?.includes("Token") ? true : false}
         />
 
         <Button

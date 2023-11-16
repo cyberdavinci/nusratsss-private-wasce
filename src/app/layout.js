@@ -32,7 +32,7 @@ export default async function RootLayout({ children }) {
 
                   {/* </Sidebar> */}
 
-                  <div className="flex-1 h-full">{children}</div>
+                  <div className="flex-1 h-screen ">{children}</div>
                 </div>
               </UIProvider>
             </ReduxProvider>

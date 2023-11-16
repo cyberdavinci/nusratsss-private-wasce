@@ -20,18 +20,18 @@ export const POST = async (request) => {
     token,
     role,
   });
-  console.log(token);
+  // console.log(token);
   try {
     const isTokenValid = await Token.findOne({
       token,
       status: "unused",
     });
-    console.log(isTokenValid);
+    // console.log(isTokenValid);
 
     if (!isTokenValid) {
-      return new NextResponse("Invalid token", {
+      return new NextResponse("Token is already used", {
         status: 400,
-        message: "Invalid token",
+        message: "Token is already used",
       });
     }
 
@@ -41,13 +41,17 @@ export const POST = async (request) => {
       { status: "used" },
       { new: true }
     );
+    // console.log(newUser);
     // isTokenValid.status = "used";
     // await isTokenValid.save();
 
     // console.log("user created");
     return new NextResponse("user created", { status: 201 });
   } catch (err) {
-    console.log(err);
-    return new NextResponse("server error, please try again", { status: 500 });
+    // console.log(err);
+    return new NextResponse("server error, please try again", {
+      status: 500,
+      error: err,
+    });
   }
 };
