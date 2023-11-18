@@ -78,8 +78,8 @@ export const PATCH = async (request) => {
         previousSchool,
         userImg,
         name,
-        email,
-        password: updatedPassword,
+        // email,
+        // password: updatedPassword,
       },
       { new: true }
     );
