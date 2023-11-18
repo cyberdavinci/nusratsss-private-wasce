@@ -34,8 +34,8 @@ export const PATCH = async (request) => {
     internalExamFee,
     userImg,
     name,
-    email,
-    password,
+    // email,
+    // password,
   } = await request.json();
   // const assessments = subjects?.map((subject) => ({
   //   subject,
@@ -44,8 +44,8 @@ export const PATCH = async (request) => {
   //   test_3_score: "",
   // }));
   await connect();
-  const updatedPassword = await bcrypt.hash(password, 5);
-  console.log(`Plain passs ${password} updated-hashed ${updatedPassword}`);
+  // const updatedPassword = await bcrypt.hash(password, 5);
+  // console.log(`Plain passs ${password} updated-hashed ${updatedPassword}`);
   try {
     const updatedUser = await User.findByIdAndUpdate(
       _id,
