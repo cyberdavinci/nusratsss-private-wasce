@@ -221,9 +221,12 @@ const StudentInfoTab = ({
             <div className="mt-4">
               <h1 className="text-lg uppercase font-semibold">Subjects</h1>
               <ul className="flex gap-2 items-center flex-wrap">
-                {newData?.subjects?.map((subject) => {
+                {newData?.subjects?.map((subject, index) => {
                   return (
-                    <li className="subCard rounded-lg text-center h-[50px] bg-slate-900 font-semibold flex items-center px-2">
+                    <li
+                      className="subCard rounded-lg text-center h-[50px] bg-slate-900 font-semibold flex items-center px-2"
+                      key={index}
+                    >
                       {subject}
                     </li>
                   );
