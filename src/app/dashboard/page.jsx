@@ -8,31 +8,34 @@ import { MdGeneratingTokens } from "react-icons/md";
 
 const Dashboard = () => {
   return (
-    <div className="w-full">
-      <div className="flex w-full justify-center gap-4 flex-wrap">
+    <div className="w-full h-auto ml-0">
+      <div className="grid grid-cols-2 w-full gap-2">
         <MyCard
           icon={<MdGeneratingTokens size={30} />}
           text={"Tokens"}
           text2={"3000"}
-          bg={"bg-green-600"}
+          colspan={"col-span-2"}
+          // bg={"bg-green-600"}
         />
         <MyCard
           icon={<PiStudentDuotone size={30} />}
           text={"Students"}
           text2={"765"}
-          bg={"bg-[#16181A]"}
+          // bg={"bg-[#16181A]"}
         />
         <MyCard
           icon={<FaMale size={30} />}
           text={"Male"}
           text2={"342"}
-          bg={"bg-[#0072F5]"}
+          // bg={"bg-[#0072F5]"}
         />
         <MyCard
           icon={<FaFemale size={30} />}
           text={"Female"}
           text2={"368"}
-          bg={"bg-[#17C964]"}
+          colspan={"col-span-2"}
+
+          // bg={"bg-[#17C964]"}
         />
       </div>
     </div>

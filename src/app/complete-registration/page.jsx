@@ -64,8 +64,8 @@ const FinishRegistration = () => {
       studyFee: totalPrice,
     }));
   };
-  console.log("Total Price" + " " + info?.studyFee);
-  console.log("Total Fee" + " " + info?.totalFee);
+  // console.log("Total Price" + " " + info?.studyFee);
+  // console.log("Total Fee" + " " + info?.totalFee);
 
   //
   const handlePrevious = () => {

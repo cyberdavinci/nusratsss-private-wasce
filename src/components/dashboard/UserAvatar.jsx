@@ -6,6 +6,7 @@ import {
   DropdownMenu,
   DropdownItem,
   Avatar,
+  AvatarIcon,
 } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
@@ -18,22 +19,28 @@ const UserAvatar = () => {
     <div className="flex items-center gap-4 relative cursor-pointer">
       <Dropdown placement="bottom-end" className="dark">
         <DropdownTrigger>
-          <div className="">
+          {/* <div className="">
             <span className=" bg-[#2e3440] text-green-200 rounded-lg px-4 py-2  font-semibold">
               {name[1]}
             </span>
-          </div>
-          {/* <Avatar
+          </div> */}
+          <Avatar
             as="button"
-            // size="lg"
-            name={name[1]}
+            size="md"
+            // name={name[1]}
             //   src="https://images.unsplash.com/broken"
-            radius="md"
-            isBordered
+            radius="full"
+            classNames={{
+              base: "bg-gradient-to-br from-[#51cf66] to-[#37b24d]",
+              icon: "text-black/80",
+            }}
+            // isBordered
             showFallback
-            classNames={{ base: "float-right w-16" }}
+            icon={<AvatarIcon />}
+            // fallback={() => <p>{name[1]}</p>}
+            // classNames={{ base: "float-right w-16" }}
             // className="float-right w-16"
-          /> */}
+          />
         </DropdownTrigger>
         <DropdownMenu aria-label="Profile Actions" variant="flat">
           <DropdownItem key="profile" className="h-14 gap-2">

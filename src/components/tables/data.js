@@ -18,12 +18,24 @@ const statusOptions = [
   { name: "Denied", uid: "denied" },
 ];
 const subjectOptions = [
-  { name: "Math", uid: "math" },
-  { name: "English", uid: "english" },
+  { name: "Mathematics", uid: "mathematics" },
+  { name: "English Language", uid: "english language" },
   { name: "Physics", uid: "physics" },
   { name: "Chemistry", uid: "chemistry" },
-  { name: "Arts", uid: "arts" },
   { name: "Geography", uid: "geography" },
+  { name: "Agricultural Science", uid: "agricultural science" },
+  { name: "Biology", uid: "biology" },
+  { name: "History", uid: "history" },
+  { name: "Health Science", uid: "health science" },
+  { name: "General Science", uid: "general science" },
+  { name: "Islamic Studies", uid: "islamic studies" },
+  { name: "French", uid: "french" },
+  { name: "Economics", uid: "economics" },
+  { name: "Financial Accounting", uid: "financial accounting" },
+  { name: "Business Management", uid: "business management" },
+  { name: "Commerce", uid: "commerce" },
+  { name: "Literature", uid: "literature" },
+  { name: "Government", uid: "government" },
 ];
 
 export { columns, statusOptions, subjectOptions };

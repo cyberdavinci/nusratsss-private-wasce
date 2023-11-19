@@ -84,7 +84,7 @@ const StudentsTable = () => {
       keepPreviousData: true,
     }
   );
-
+  // console.log(selectedSubs);
   const headerColumns = React.useMemo(() => {
     if (visibleColumns === "all") return columns;
 
@@ -323,7 +323,10 @@ const StudentsTable = () => {
               </DropdownMenu>
             </Dropdown>
             {/*  */}
-            <Dropdown>
+            <Dropdown
+              classNames={{ base: "max-h-[300px]overflow-scroll" }}
+              shouldBlockScroll={false}
+            >
               <DropdownTrigger>
                 <Button
                   variant="bordered"
@@ -334,6 +337,11 @@ const StudentsTable = () => {
                 </Button>
               </DropdownTrigger>
               <DropdownMenu
+                className="h-[200px] overflow-y-scroll"
+                classNames={{
+                  base: "h-[200px] overflow-y-scroll",
+                  list: "h-[200px] overflow-y-scroll",
+                }}
                 aria-label="Multiple selection example"
                 variant="flat"
                 closeOnSelect={false}
@@ -379,7 +387,7 @@ const StudentsTable = () => {
             {/* <Button color="primary" endContent={<PlusIcon />}>
               Export Excel
             </Button> */}
-            <ExportExcelButton data={items} />
+            <ExportExcelButton data={items} selectedSubs={selectedSubs} />
           </div>
         </div>
         <div className="flex justify-between items-center">
@@ -477,7 +485,7 @@ const StudentsTable = () => {
         bottomContent={bottomContent}
         bottomContentPlacement="outside"
         classNames={{
-          wrapper: "max-h-[382px]",
+          wrapper: "max-h-[382px] sTable",
         }}
         // selectedKeys={selectedKeys}
         // selectionMode="multiple"

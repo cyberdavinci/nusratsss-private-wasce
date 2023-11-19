@@ -30,6 +30,7 @@ const TokensTable = ({
   componentRef,
   // beforePrintBgColor,
   mutate,
+  filteredTokens,
   generateToken,
 }) => {
   const [tokensToExport, setTokensToExport] = React.useState(1);
@@ -77,29 +78,47 @@ const TokensTable = ({
         return cellValue;
     }
   }, []);
+  const classNames = React.useMemo(
+    () => ({
+      wrapper: ["max-h-[382px]", "max-w-3xl", "shadow-xl", "bg-none"],
+      th: ["text-default-500", "shadow-2xl"],
+      td: [
+        // changing the rows border radius
+        // first
+        "group-data-[first=true]:first:before:rounded-none",
+        "group-data-[first=true]:last:before:rounded-none",
+        // middle
+        "group-data-[middle=true]:before:rounded-none",
+        // last
+        "group-data-[last=true]:first:before:rounded-none",
+        "group-data-[last=true]:last:before:rounded-none",
+      ],
+    }),
+    []
+  );
 
   return (
-    <div className=" overflow-x-auto" ref={componentRef}>
+    <div className=" overflow-x-auto " ref={componentRef}>
       <Table
         isCompact
         // removeWrapper
         aria-label="Example table with custom cells, pagination and sorting"
         // align="right"
-        classNames={{
-          wrapper: "max-h-[382px] overflow-auto",
-        }}
+        classNames={classNames}
+        // classNames
         // isHeaderSticky
         bottomContentPlacement="outside"
         topContentPlacement="outside"
         layout="auto"
-        isStriped
+        // isStriped
         topContent={
           selectedTab === "all" ? (
             <form
               className="flex gap-2 flex-wrap w-full"
               onSubmit={async (event) => {
                 await generateToken(event);
-                await mutate(`/api/tokens?filter=${selectedTab}`);
+                // await mutate(`/api/tokens?filter=${selectedTab}`);
+                await mutate(`/api/tokens`);
               }}
             >
               <Input
@@ -153,7 +172,7 @@ const TokensTable = ({
           {/* <TableColumn>USED By</TableColumn> */}
         </TableHeader>
         <TableBody
-          items={tokens ? tokens : []}
+          items={filteredTokens ? filteredTokens : []}
           emptyContent={"No tokens found."}
           isLoading={isLoading}
           loadingContent={

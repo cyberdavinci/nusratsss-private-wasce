@@ -20,9 +20,11 @@ export default function TokensTab({
   setBeforePrintBgColor,
   generateToken,
   mutate,
+  filteredTokens,
 }) {
   // const [selectedTab, setSelectedTab] = React.useState("all");
   // console.log(selectedTab);
+
   return (
     <div className="flex w-full flex-col">
       <Tabs
@@ -49,6 +51,7 @@ export default function TokensTab({
           <div>
             <TokensTable
               selectedTab={selectedTab}
+              filteredTokens={filteredTokens}
               tokens={tokens}
               isLoading={isLoading}
               isError={isError}
@@ -79,6 +82,7 @@ export default function TokensTab({
             <TokensTable
               selectedTab={selectedTab}
               tokens={tokens}
+              filteredTokens={filteredTokens}
               isLoading={isLoading}
               isError={isError}
               isGeneratingTokens={isGeneratingTokens}
@@ -106,6 +110,7 @@ export default function TokensTab({
             <TokensTable
               selectedTab={selectedTab}
               tokens={tokens}
+              filteredTokens={filteredTokens}
               isLoading={isLoading}
               isError={isError}
               isGeneratingTokens={isGeneratingTokens}

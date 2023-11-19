@@ -12,9 +12,10 @@ export const GET = async (request) => {
   try {
     filter = filter === "all" ? "" : filter;
     // console.log(filter);
-    const tokens = await Token.find(
-      filter !== "" ? { status: filter } : {}
-    ).sort({ _id: -1 });
+    const tokens = await Token.find({}).sort({ _id: -1 });
+    // const tokens = await Token.find(
+    //   filter !== "" ? { status: filter } : {}
+    // ).sort({ _id: -1 });
     return new NextResponse(JSON.stringify(tokens), { status: 200 });
   } catch (err) {
     return new NextResponse(err, { status: 500 });

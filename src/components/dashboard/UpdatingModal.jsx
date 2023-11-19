@@ -17,14 +17,14 @@ const UpdatingModal = ({
   //   deleteStudent,
   //   setCurrentUser,
   //   currentUser,
-  updatingInfo,
+  updating,
   newData,
   //   useDisclosure,
 }) => {
   return (
     <>
       {/* <Button onPress={onOpen}>Open Modal</Button> */}
-      <Modal isOpen={updatingInfo} onOpenChange={onOpenChange}>
+      <Modal isOpen={updating} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
             <>
@@ -32,7 +32,7 @@ const UpdatingModal = ({
                 {newData?.name}
               </ModalHeader>
               <ModalBody className="flex items-center justify-center">
-                {updatingInfo ? (
+                {updating ? (
                   <CircularProgress label="updating data..." size="lg" />
                 ) : null}
               </ModalBody>

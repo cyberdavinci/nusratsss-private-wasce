@@ -47,7 +47,8 @@ const Sidebar = ({ children }) => {
             expand ? "w-[220px] translate-x-[5px]" : "w-0 translate-x-[-200px]"
           } z-40 ${pathName.includes("print-application") ? "hidden w-0" : ""}`}
         >
-          <nav className="h-full flex flex-col bg-black border-r border-slate-800 shadow-sm w-full relative">
+          {/* bg-[#16181A] */}
+          <nav className="sidebar h-full flex flex-col  border-r border-slate-800 shadow-sm w-full relative">
             <div className=" pb-2  w-full float-right  justify-end text-end">
               {/* <Image
             src={"https://img.logoipsum.com/243.svg"}

@@ -32,11 +32,12 @@ const Layout = ({ children }) => {
       </div>
     );
   return (
-    <div className=" p-4 w-full ">
-      <div className=" w-[85%] h-10 md:ml-[85px]">
+    <div className="dLayout  w-[80%] md:ml-[85px] h-16  shadow-2xl  self-center mx-auto mt-[20px]">
+      {/* bg-[#16181A] */}
+      <div className="md:ml-[85px]  avatarWrapper p-4 rounded-full">
         <div className="flex justify-between ">
           <button
-            className="p-1.5 rounded-lg text-white font-extrabold hover:text-green-800 ml-3"
+            className="p-1.5 rounded-lg text-white font-extrabold hover:text-green-800 ml-3 overflow-hidden"
             onClick={() => setExpand(() => true)}
           >
             {!expand ? <RiMenuUnfoldLine size={25} className="" /> : null}
@@ -45,8 +46,8 @@ const Layout = ({ children }) => {
         </div>
       </div>
       {/* <Divider className="my-4 text-[10px]" /> */}
-      <hr className="my-4 h-[1px] bg-gray-800" />
-      <div className="md:ml-[85px]">{children}</div>
+      {/* <hr className="my-4 h-[1px] bg-gray-800" /> */}
+      <div className=" md:ml-[85px] mt-6">{children}</div>
     </div>
   );
 };

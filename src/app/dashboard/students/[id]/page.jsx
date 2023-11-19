@@ -5,6 +5,7 @@ import useSWR, { mutate } from "swr";
 import { useParams } from "next/navigation";
 import StudentInfoTab from "@/components/dashboard/students/StudentInfoTab";
 import StudentTranscript from "@/components/dashboard/students/StudentTranscript";
+import StudentSecurityTab from "@/components/dashboard/students/StudentSecurityTab";
 import UpdatingModal from "@/components/dashboard/UpdatingModal";
 import { useEffect } from "react";
 
@@ -14,11 +15,12 @@ const fetcher = (...args) =>
 const Student = () => {
   const { id } = useParams();
   const { isOpen, onOpenChange } = useDisclosure();
-  const [selected, setSelected] = React.useState("user");
+  const [selected, setSelected] = React.useState("info");
   const [userImg, setUserImg] = React.useState(null);
   const [updatingTable, setUpdatingTable] = React.useState(false);
   const [updatingInfo, setUpdatingInfo] = React.useState(false);
-  const [newPassword, setNewPassword] = React.useState("");
+  const [updatingSecurity, setUpdatinfSecurity] = React.useState(false);
+
   const { data, isLoading, isError } = useSWR(`/api/students/${id}`, fetcher);
   const [newData, setNewData] = useState(isLoading ? {} : data);
   // const [assessments, setAssessments] = useState([]);
@@ -66,6 +68,28 @@ const Student = () => {
     }
   };
   // console.log(newData);
+  const updateStudentSecurity = async (email, password) => {
+    // e.preventDefault();
+    setUpdatinfSecurity((prev) => true);
+    try {
+      const res = await fetch("/api/security-update", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          _id: newData?._id,
+          email,
+          password,
+          // userImg,
+        }),
+      });
+
+      setUpdatinfSecurity((prev) => false);
+    } catch (err) {
+      setUpdatinfSecurity((prev) => false);
+      console.log(err);
+    }
+  };
+  // console.log(newData);
 
   const updateAssessmentTable = async (newDataTable) => {
     setUpdatingTable((prev) => true);
@@ -97,7 +121,7 @@ const Student = () => {
         selectedKey={selected}
         onSelectionChange={setSelected}
       >
-        <Tab key={"user"} title={"User"}>
+        <Tab key={"info"} title={"Info"}>
           {isLoading ? (
             <Spinner label="loading data..." />
           ) : (
@@ -110,10 +134,24 @@ const Student = () => {
                 handleImageChange={handleImageChange}
                 userImg={userImg}
                 updatingInfo={updatingInfo}
-                newPassword={newPassword}
-                setNewPassword={setNewPassword}
+                // newPassword={newPassword}
+                // setNewPassword={setNewPassword}
               />
-              <UpdatingModal updatingInfo={updatingInfo} newData={newData} />
+              <UpdatingModal updating={updatingInfo} newData={newData} />
+            </>
+          )}
+        </Tab>
+        <Tab key={"security"} title={"Security"}>
+          {isLoading ? (
+            <Spinner label="loading data..." />
+          ) : (
+            <>
+              <StudentSecurityTab
+                updateStudentSecurity={updateStudentSecurity}
+                newData={newData}
+                updatingSecurity={updatingSecurity}
+              />
+              <UpdatingModal updating={updatingSecurity} newData={newData} />
             </>
           )}
         </Tab>

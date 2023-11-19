@@ -13,14 +13,18 @@ const Tokens = () => {
   const [beforePrintBgColor, setBeforePrintBgColor] = useState("black");
   const { mutate, cache } = useSWRConfig();
 
-  const { data, isLoading, isError } = useSWR(
-    `/api/tokens?filter=${selectedTab}`,
-    fetcher,
-    {
-      keepPreviousData: true,
-    }
-  );
-  mutate(selectedTab);
+  const { data, isLoading, isError } = useSWR(`/api/tokens`, fetcher, {
+    keepPreviousData: true,
+  });
+
+  // const { data, isLoading, isError } = useSWR(
+  //   `/api/tokens?filter=${selectedTab}`,
+  //   fetcher,
+  //   {
+  //     keepPreviousData: true,
+  //   }
+  // );
+  // mutate(selectedTab);
   // console.log(isLoading ? "Loading" : data);
 
   const generateToken = async (event) => {
@@ -42,6 +46,15 @@ const Tokens = () => {
     }
     // console.log(`${numberOfTokens} token will be generated!`);
   };
+  const filteredTokens = React.useMemo(() => {
+    let filtered = data !== undefined && !isLoading ? [...data] : [];
+
+    if (selectedTab !== "all") {
+      filtered = filtered?.filter((token) => token.status === selectedTab);
+    }
+
+    return filtered;
+  }, [selectedTab, isLoading]);
 
   const componentRef = useRef();
   const handleDownload = useReactToPrint({
@@ -66,6 +79,7 @@ const Tokens = () => {
           setBeforePrintBgColor={setBeforePrintBgColor}
           generateToken={generateToken}
           mutate={mutate}
+          filteredTokens={filteredTokens}
         />
       </div>
     </div>
