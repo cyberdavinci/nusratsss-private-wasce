@@ -423,11 +423,11 @@ const StudentsTable = () => {
   const bottomContent = React.useMemo(() => {
     return (
       <div className="py-2 px-2 flex justify-between items-center">
-        <span className="w-[30%] text-small text-default-400">
+        {/* <span className="w-[30%] text-small text-default-400">
           {selectedKeys === "all"
             ? "All items selected"
             : `${selectedKeys.size} of ${items?.length} selected`}
-        </span>
+        </span> */}
         {pages > 0 ? (
           <div className="flex w-full justify-center">
             <Pagination
@@ -483,7 +483,7 @@ const StudentsTable = () => {
         bottomContent={bottomContent}
         bottomContentPlacement="outside"
         classNames={{
-          wrapper: "max-h-[382px] sTable",
+          wrapper: "max-h-[382px] sTable md:w-full",
         }}
         // selectedKeys={selectedKeys}
         // selectionMode="multiple"

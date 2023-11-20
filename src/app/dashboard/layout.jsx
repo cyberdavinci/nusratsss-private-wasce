@@ -32,7 +32,7 @@ const Layout = ({ children }) => {
       </div>
     );
   return (
-    <div className="dLayout  w-[80%] md:ml-[85px] h-16  shadow-2xl  self-center mx-auto mt-[20px]">
+    <div className="dLayout  w-[80%]  h-16  shadow-2xl  self-center mx-auto mt-[20px]">
       {/* bg-[#16181A] */}
       <div className="md:ml-[85px]  avatarWrapper p-4 rounded-full">
         <div className="flex justify-between ">
@@ -47,7 +47,7 @@ const Layout = ({ children }) => {
       </div>
       {/* <Divider className="my-4 text-[10px]" /> */}
       {/* <hr className="my-4 h-[1px] bg-gray-800" /> */}
-      <div className=" md:ml-[85px] mt-6">{children}</div>
+      <div className="  mt-6">{children}</div>
     </div>
   );
 };
