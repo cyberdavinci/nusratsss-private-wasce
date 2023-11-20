@@ -41,12 +41,10 @@ const statusColorMap = {
   // pending: "warning",
 };
 
-const INITIAL_VISIBLE_COLUMNS = [
-  "name",
-  "gender",
-  "registrationStatus",
-  "actions",
-];
+const INITIAL_VISIBLE_COLUMNS =
+  window.innerWidth <= 768
+    ? ["name", "actions"]
+    : ["name", "gender", "registrationStatus", "actions"];
 // Fetcher function for swr
 //
 const StudentsTable = () => {

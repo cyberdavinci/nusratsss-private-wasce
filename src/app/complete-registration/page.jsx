@@ -49,7 +49,7 @@ const FinishRegistration = () => {
 
   useEffect(() => {
     data?.registrationStatus === "complete"
-      ? router.replace(`/print-application`)
+      ? router.replace(`/print-application?id=${id}`)
       : null;
     session.status === "unauthenticated" ? router.replace("/login") : null;
   }, [session.status, data, router]);

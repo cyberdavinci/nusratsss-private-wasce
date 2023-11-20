@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Tabs, Tab, Spinner, useDisclosure } from "@nextui-org/react";
 import useSWR, { mutate } from "swr";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import StudentInfoTab from "@/components/dashboard/students/StudentInfoTab";
 import StudentTranscript from "@/components/dashboard/students/StudentTranscript";
 import StudentSecurityTab from "@/components/dashboard/students/StudentSecurityTab";
@@ -20,7 +20,7 @@ const Student = () => {
   const [updatingTable, setUpdatingTable] = React.useState(false);
   const [updatingInfo, setUpdatingInfo] = React.useState(false);
   const [updatingSecurity, setUpdatinfSecurity] = React.useState(false);
-
+  const router = useRouter();
   const { data, isLoading, isError } = useSWR(`/api/students/${id}`, fetcher);
   const [newData, setNewData] = useState(isLoading ? {} : data);
   // const [assessments, setAssessments] = useState([]);
@@ -134,6 +134,7 @@ const Student = () => {
                 handleImageChange={handleImageChange}
                 userImg={userImg}
                 updatingInfo={updatingInfo}
+                router={router}
                 // newPassword={newPassword}
                 // setNewPassword={setNewPassword}
               />

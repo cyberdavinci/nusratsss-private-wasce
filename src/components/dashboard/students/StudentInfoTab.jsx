@@ -12,6 +12,7 @@ const StudentInfoTab = ({
   updatingInfo,
   newPassword,
   setNewPassword,
+  router,
 }) => {
   const [readOnly, setReadOnly] = React.useState(true);
   const [initialSubjects, setInitialSubjects] = React.useState(
@@ -27,12 +28,22 @@ const StudentInfoTab = ({
     // console.log(newSub);
     setNewSub("");
   };
-  // console.log(newData?.subjects);
+  const removeSubject = (sub) => {
+    let subs = [...newData?.subjects]?.filter((subject) => subject !== sub);
+    setNewData((prev) => ({ ...prev, subjects: [...subs] }));
+    // subs = subs?.filter
+  };
+  const imgSrc =
+    newData?.gender === "Male"
+      ? "/avatars/avatar-male.svg"
+      : "/avatars/avatar-female.svg";
+
+  console.log(newData?.gender);
   return (
     <div>
       <div>
         <Image
-          src={newData?.userImg ? newData?.userImg : UserAvatar}
+          src={newData?.userImg ? newData?.userImg : imgSrc}
           alt="user avatar"
           className=" w-[175px] h-[200px] rounded-lg mb-2 object-contain"
           width={120}
@@ -43,7 +54,7 @@ const StudentInfoTab = ({
         <Button
           variant="flat"
           color="success"
-          radius="none"
+          radius="lg"
           className={"w-[175px]"}
         >
           <input
@@ -57,6 +68,15 @@ const StudentInfoTab = ({
           <label htmlFor="uploadData" className="cursor-pointer">
             Upload New Photo
           </label>
+        </Button>
+        <Button
+          variant="ghost"
+          color="primary"
+          radius="lg"
+          className={"w-[175px] mt-[10px] ml-[10px]"}
+          onClick={() => router.push(`/print-application?id=${newData?._id}`)}
+        >
+          View applicaton form
         </Button>
       </div>
       <div className="flex items-center w-full mt-5">
@@ -219,21 +239,35 @@ const StudentInfoTab = ({
               </div>
             </div>
             <div className="mt-4">
-              <h1 className="text-lg uppercase font-semibold">Subjects</h1>
+              <h1 className="text-lg uppercase font-semibold">
+                Subjects <span>({newData?.subjects?.length})</span>
+              </h1>
               <ul className="flex gap-2 items-center flex-wrap">
                 {newData?.subjects?.map((subject, index) => {
                   return (
                     <li
-                      className="subCard rounded-lg text-center h-[50px] bg-slate-900 font-semibold flex items-center px-2"
+                      className="subCard rounded-lg text-center h-[50px] bg-slate-900 font-semibold flex items-center px-2 relative"
                       key={index}
                     >
+                      {!readOnly ? (
+                        <span
+                          className=" text-red-300 font-semibold text-lg absolute top-[-3px] right-[-2px] bg-red-600 rounded-full w-[20px] h-[20px] flex items-center justify-center cursor-pointer"
+                          onClick={() => removeSubject(subject)}
+                        >
+                          -
+                        </span>
+                      ) : null}
+
                       {subject}
                     </li>
                   );
                 })}
                 <Input
-                  placeholder="add new subject"
-                  radius="none"
+                  label={"New subject"}
+                  placeholder="add new subject..."
+                  // radius="lg"
+
+                  isReadOnly={readOnly}
                   value={newSub}
                   onChange={handleSubjectInputChange}
                   // label={"New subject"}
@@ -245,26 +279,19 @@ const StudentInfoTab = ({
                       "placeholder:text-default-700/50 dark:placeholder:text-white/60",
                     ],
                     // innerWrapper: "h-[50px]",
-                    innerWrapper: ["bg-transparent"],
+
                     inputWrapper: [
                       "shadow-xl",
-                      "bg-default-200/50",
-                      "dark:bg-default/60",
-                      "backdrop-blur-xl",
-                      "backdrop-saturate-200",
-                      "hover:bg-default-200/70",
-                      "dark:hover:bg-default/70",
-                      "group-data-[focused=true]:bg-default-200/50",
-                      "dark:group-data-[focused=true]:bg-default/60",
                       "!cursor-text",
                       "h-[50px]",
-                      "rounded-sm",
+                      "rounded-lg",
+                      "inputWrapper",
                     ],
                   }}
-                  labelPlacement="outside"
+                  labelPlacement="inside"
                   endContent={
                     <div
-                      className="rtext-[30px] h-full w-[50px] bg-blue-900 text-white  flex items-center justify-center text-center cursor-pointer absolute right-0"
+                      className="  rtext-[30px] h-full w-[50px] bg-blue-900 text-white  flex items-center justify-center text-center cursor-pointer absolute right-0 top-0 rounded-lg"
                       onClick={() => updateSubjects()}
                     >
                       <span>+</span>

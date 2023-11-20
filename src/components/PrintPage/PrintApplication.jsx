@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import useSWR from "swr";
 import { useSession } from "next-auth/react";
 import { Button, Spinner } from "@nextui-org/react";
@@ -10,7 +10,8 @@ const fetcher = (...args) =>
 
 const PrintApplication = ({ currentForm }) => {
   const session = useSession();
-  const id = session.data?.user?._id;
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
   const { data, isLoading, isError } = useSWR(`/api/students/${id}`, fetcher);
   // console.log(data);
   const componentRef = useRef();
@@ -30,7 +31,7 @@ const PrintApplication = ({ currentForm }) => {
   return (
     <div
       ref={componentRef}
-      className={`h-full w-[100%] py-2 px-8 text-slate-900 bg-white`}
+      className={`h-screen w-[100%] py-2 px-8 text-slate-900`}
     >
       <div>
         <h3 className="w-full p-2 bg-green-500 text-white rounded-lg">
