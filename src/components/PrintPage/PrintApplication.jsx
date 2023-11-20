@@ -20,6 +20,7 @@ const PrintApplication = ({ currentForm }) => {
     content: () => componentRef?.current,
     documentTitle: "application-form",
     onAfterPrint: () => router.replace("/dashboard/account"),
+    // onBeforeGetContent:()=>
   });
   if (session.status === "loading") {
     return (
@@ -31,7 +32,7 @@ const PrintApplication = ({ currentForm }) => {
   return (
     <div
       ref={componentRef}
-      className={`h-screen w-[100%] py-2 px-8 text-slate-900`}
+      className={`h-screen w-[100%] py-2 px-8 text-slate-900 bg-white`}
     >
       <div>
         <h3 className="w-full p-2 bg-green-500 text-white rounded-lg">

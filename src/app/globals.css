@@ -40,6 +40,7 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   background-color: #0d0a0b;
+  /* bg-[#] */
   /* background-image: linear-gradient(315deg, #0d0a0b 0%, #009fc2 74%); */
   /* background-color: #111; */
   /* background-color: #000; */
