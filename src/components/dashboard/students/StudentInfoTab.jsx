@@ -38,7 +38,7 @@ const StudentInfoTab = ({
       ? "/avatars/avatar-male.svg"
       : "/avatars/avatar-female.svg";
 
-  console.log(newData?.gender);
+  // console.log(newData?.gender);
   return (
     <div>
       <div>
