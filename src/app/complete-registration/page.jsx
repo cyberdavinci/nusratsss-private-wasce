@@ -104,7 +104,7 @@ const FinishRegistration = () => {
 
       !res.ok
         ? (alert("Failed to Submit"), setIsLoading((prev) => !prev))
-        : router.replace(`/print-application?id=${id}`);
+        : router.replace(`/print-application?id=${session.data?.user?._id}`);
     } catch (err) {
       setIsLoading((prev) => false);
       console.log(err);
