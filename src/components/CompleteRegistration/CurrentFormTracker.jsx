@@ -18,7 +18,7 @@ const CurrentFormTracker = ({ currentForm }) => {
   };
   return (
     <div>
-      <ol className="flex gap-2 flex-wrap my-4">
+      <ol className="flex gap-2 flex-wrap my-4 text-slate-400">
         {[1, 2, 3, 4, 5].map((current) => (
           <li
             className={` text-lg  ${currentBg(

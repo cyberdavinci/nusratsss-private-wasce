@@ -32,22 +32,31 @@ const Layout = ({ children }) => {
       </div>
     );
   return (
-    <div className="dLayout  w-[80%]  h-16  shadow-2xl  self-center mx-auto mt-[20px]">
+    <div className="dLayout  flex-2 w-full  shadow-2xl mx-auto min-h-screen md:w-[80%] mt-[20px] md:p-[10px] md:float-right px-3">
       {/* bg-[#16181A] */}
-      <div className="md:ml-[85px]  avatarWrapper p-4 rounded-full">
-        <div className="flex justify-between ">
+      <div className="md:ml-[20px]  avatarWrapper p-4 rounded-full ">
+        <div className="flex justify-between items-center">
           <button
-            className="p-1.5 rounded-lg text-white font-extrabold hover:text-green-800 ml-3 overflow-hidden"
+            className=" p-1.5 rounded-lg text-white font-extrabold hover:text-green-800 ml-3 overflow-hidden md:hidden md:w-0 block w-auto"
             onClick={() => setExpand(() => true)}
           >
-            {!expand ? <RiMenuUnfoldLine size={25} className="" /> : null}
+            {!expand ? (
+              <div className="md:hidden md:w-0 flex w-auto items-center gap-[4px]">
+                {" "}
+                <RiMenuUnfoldLine size={18} className="font-semibold" />
+                <span>Menu</span>{" "}
+              </div>
+            ) : null}
           </button>
+          <span className="font-semibold md:text-lg text-sm text-center">
+            Welcome back {session?.data?.user?.name?.split(" ")[0]}
+          </span>
           <UserAvatar />
         </div>
       </div>
       {/* <Divider className="my-4 text-[10px]" /> */}
       {/* <hr className="my-4 h-[1px] bg-gray-800" /> */}
-      <div className="  mt-6">{children}</div>
+      <div className="mt-6 md:mx-auto md:ml-[10px]  p-4">{children}</div>
     </div>
   );
 };

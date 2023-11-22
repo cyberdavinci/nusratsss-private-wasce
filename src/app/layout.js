@@ -7,8 +7,8 @@ import AuthProvider from "@/authProvider/AuthProvider";
 import { ReduxProvider } from "@/redux/features/provider";
 import UIProvider from "../components/NextUiProvider/UIProvider";
 import { ContextProvider } from "@/context/ContextProvider";
-import { authOptions } from "./api/auth/[...nextauth]/route";
-import { getServerSession } from "next-auth";
+// import { authOptions } from "./api/auth/[...nextauth]/route";
+// import { getServerSession } from "next-auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,12 +27,14 @@ export default async function RootLayout({ children }) {
           <AuthProvider>
             <ReduxProvider>
               <UIProvider>
-                <div className=" relative w-full min-h-screen  flex gap-8 justify-between">
+                <div className=" relative w-full min-h-screen h-full flex gap-8 justify-between">
                   <Sidebar />
 
                   {/* </Sidebar> */}
 
-                  <div className="flex-1 min-h-screen">{children}</div>
+                  <div className="flex-1 min-h-screen h-full w-full md:mx-auto float-right">
+                    {children}
+                  </div>
                 </div>
               </UIProvider>
             </ReduxProvider>

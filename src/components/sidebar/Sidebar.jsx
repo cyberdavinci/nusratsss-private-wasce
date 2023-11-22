@@ -23,7 +23,7 @@ const Sidebar = ({ children }) => {
     const shortName =
       session.status === "authenticated"
         ? `${shortNameArray[0][0]}${
-            shortNameArray[1] ? shortNameArray[1][1] : ""
+            shortNameArray[1] ? shortNameArray[1][0] : ""
           }`
         : "";
 
@@ -43,12 +43,12 @@ const Sidebar = ({ children }) => {
         <aside
           className={`${
             pathName?.includes("dashboard") ? "block" : "hidden w-0"
-          } md:translate-x-0 translate-x-[-200px] w-0 md:w-fit transition-all h-screen fixed  float-left ${
-            expand ? "w-[220px] translate-x-[5px]" : "w-0 translate-x-[-200px]"
+          } md:translate-x-0   md:w-[22%] transition-all min-h-screen h-full float-left  fixed ${
+            expand ? "w-[220px] translate-x-0" : "w-0 translate-x-[-200px]"
           } z-40 ${pathName.includes("print-application") ? "hidden w-0" : ""}`}
         >
           {/* bg-[#16181A] */}
-          <nav className="sidebar h-full flex flex-col  border-r border-slate-800 shadow-sm w-full relative">
+          <nav className="sidebar min-h-screen flex flex-col  border-r  border-slate-800 shadow-sm w-full h-full">
             <div className=" pb-2  w-full float-right  justify-end text-end">
               {/* <Image
             src={"https://img.logoipsum.com/243.svg"}
@@ -117,7 +117,7 @@ const Sidebar = ({ children }) => {
               />
             </ul>
             {/* </SideBarContext.Provider> */}
-            <div className="border-t border-slate-800 flex p-3 justify-between ">
+            <div className="border-t border-slate-800 flex px-1 py-3 justify-between w-full ">
               {/* <Image
             src={
               "https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
@@ -131,8 +131,8 @@ const Sidebar = ({ children }) => {
                 {shortName?.toUpperCase()}
               </p>
               <div
-                className={` flex justify-between items-center  overflow-hidden transition-all ${
-                  expand ? "w-52 ml-2" : "w-0"
+                className={` flex justify-between items-center  overflow-hidden transition-all w-fit ${
+                  expand ? "w-fit ml-2" : "w-0"
                 }`}
               >
                 <div className="leading-4">
@@ -141,7 +141,7 @@ const Sidebar = ({ children }) => {
                     {session.data?.user?.email}
                   </span>
                 </div>
-                <FiMoreVertical size={25} color="#000" />
+                {/* <FiMoreVertical size={25} color="#000" /> */}
               </div>
             </div>
           </nav>
@@ -160,18 +160,17 @@ export function SideBarItem({ icon, text, active, alert, link }) {
     // {routeType ===  ? :}
     <Link href={link} onClick={() => setExpand(() => false)}>
       <li
-        className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors ${
-          pathName === link
-            ? " bg-green-950 text-green-400"
-            : " hover:bg-green text-gray-400"
+        className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors hover:bg-green-500 hover:text-white ${
+          pathName === link ? " bg-green-950 text-green-400" : "  text-gray-400"
         }`}
       >
         <Image src={icon} width={25} height={25} alt="some icon" />
         {/* {icon} */}
         <span
-          className={`overflow-hidden transition-all ${
-            expand ? "w-52 ml-3" : "w-0"
-          }`}
+          className={`overflow-hidden transition-all`}
+          // className={`overflow-hidden transition-all ${
+          //   expand ? "w-52 ml-3" : "w-0"
+          // }`}
         >
           {text}
         </span>

@@ -80,7 +80,7 @@ const TokensTable = ({
   }, []);
   const classNames = React.useMemo(
     () => ({
-      wrapper: ["max-h-[382px]", "max-w-3xl", "shadow-xl", "bg-none"],
+      wrapper: ["max-h-[382px]", "w-full", "shadow-xl", "bg-none"],
       th: ["text-default-500", "shadow-2xl"],
       td: [
         // changing the rows border radius

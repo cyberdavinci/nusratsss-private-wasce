@@ -22,7 +22,7 @@ const PrintApplication = ({ currentForm }) => {
     onAfterPrint: () => router.replace("/dashboard/account"),
     // onBeforeGetContent:()=>
   });
-  if (session.status === "loading") {
+  if (session.status === "loading" || isLoading) {
     return (
       <div className="w-full h-full flex items-center justify-center">
         <Spinner size="lg" color="success" label="loading page..." />

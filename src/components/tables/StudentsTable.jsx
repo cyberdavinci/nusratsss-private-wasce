@@ -483,7 +483,7 @@ const StudentsTable = () => {
         bottomContent={bottomContent}
         bottomContentPlacement="outside"
         classNames={{
-          wrapper: "max-h-[382px] sTable md:w-full",
+          wrapper: "max-h-[382px] sTable w-full",
         }}
         // selectedKeys={selectedKeys}
         // selectionMode="multiple"

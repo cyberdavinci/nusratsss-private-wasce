@@ -4,15 +4,15 @@ const MyCard = ({ icon, text, text2, bg, colspan }) => {
   return (
     // max-w-[250px] w-[375px]
     <Card
-      className={`card ${bg} ${colspan} w-full   px-6 rounded-xl h-[175px] text-white font-bold`}
+      className={`card ${bg} ${colspan} w-full   md:px-6 px-3 rounded-xl h-[175px] text-white font-bold`}
     >
-      <CardBody className="py-10">
+      <CardBody className="md:py-10 py-5">
         <div>
-          <div>
+          <div className="flex flex-col md:flex-row">
             {icon}
             <p>{text}</p>
           </div>
-          <p className=" text-3xl">{text2}</p>
+          <p className=" md:text-3xl text-xl">{text2}</p>
         </div>
       </CardBody>
     </Card>

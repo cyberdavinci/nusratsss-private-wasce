@@ -8,8 +8,8 @@ import { MdGeneratingTokens } from "react-icons/md";
 
 const Dashboard = () => {
   return (
-    <div className="w-full h-auto ml-0">
-      <div className="grid grid-cols-2 w-full gap-2">
+    <div className="w-full h-full min-h-screen mb-3 pb-4 mx-[10px] pr-[20px]">
+      <div className="grid grid-cols-2  gap-2 mb-4">
         <MyCard
           icon={<MdGeneratingTokens size={30} />}
           text={"Tokens"}
