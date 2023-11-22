@@ -24,7 +24,7 @@ const Layout = ({ children }) => {
   useEffect(() => {
     // setExpand(false);
   }, [expand]);
-  if (session.status === "loading")
+  if (session.status === "loading" || session.status === "unauthenticated")
     return (
       <div className="w-full h-full flex items-center justify-center font-extrabold text-xl">
         <Spinner label="loading..." color="success" />
