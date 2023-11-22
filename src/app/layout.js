@@ -32,7 +32,7 @@ export default async function RootLayout({ children }) {
 
                   {/* </Sidebar> */}
 
-                  <div className="flex-1 min-h-screen h-full w-full md:mx-auto float-right">
+                  <div className="flex-1 min-h-screen  w-full md:mx-auto float-right">
                     {children}
                   </div>
                 </div>

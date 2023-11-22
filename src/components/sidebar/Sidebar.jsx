@@ -117,7 +117,7 @@ const Sidebar = ({ children }) => {
               />
             </ul>
             {/* </SideBarContext.Provider> */}
-            <div className="border-t border-slate-800 flex px-1 py-3 justify-between w-full ">
+            <div className="border-t border-slate-800 flex px-1 py-3 justify-around w-full ">
               {/* <Image
             src={
               "https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
