@@ -158,16 +158,25 @@ const PrintApplication = ({ currentForm }) => {
           {data?.subjects?.map((subject, index) => (
             <p key={index}>{subject}</p>
           ))}
-          <p className=" font-semibold">Study Fee: GMD {data?.studyFee}</p>
           <p className=" font-semibold">
-            Internal Exam Fee: GMD {data?.internalExamFee}
+            Study Fee: GMD{" "}
+            {data?.studyFee === 0 ? data?.totalFee : data?.studyFee}
           </p>
-          <p className="text-lg font-semibold">Total Fee: {data?.totalFee}</p>
+          <p className=" font-semibold">
+            Internal Exam Fee: GMD{" "}
+            {data?.internalExamFee === 0 ? 500 : data?.internalExamFee}
+          </p>
+          <p className="text-lg font-semibold">
+            Total Fee:{" "}
+            {data?.studyFee === 0 && data?.internalExamFee === 0
+              ? parseInt(data?.totalFee) + 500
+              : data?.totalFee}
+          </p>
         </div>
         {/* </div> */}
       </div>
       <div>
-        <p className="font-semibold italic text-xl mt-4">
+        <p className="font-semibold italic text-xl mt-4 test-justify">
           NOTE: This fee do not include WAEC exam fees, the payment is only for
           the studies. Please print and submit this form with your payment as
           soon you can to secure a position. The fee is paid in full before you
