@@ -1,5 +1,5 @@
 import React from "react";
-import { Input, Button, Avatar } from "@nextui-org/react";
+import { Input, Button, Avatar, Divider, Tooltip } from "@nextui-org/react";
 import UserAvatar from "/public/icons/avatar.png";
 import Image from "next/image";
 const StudentInfoTab = ({
@@ -21,20 +21,30 @@ const StudentInfoTab = ({
   // console.log(newData);
   // loook nto this.
   React.useEffect(() => {
-    setTotalFee((prev) => newData?.totalFee);
-    setStudyFee((prev) => newData?.studyFee);
+    setTotalFee((prev) => parseInt(newData?.totalFee));
+    setStudyFee((prev) => parseInt(newData?.studyFee));
   }, [newData?.subjects]);
   const handleSubjectInputChange = (e) => {
     setNewSub(e.target.value);
   };
   const updateSubjects = () => {
-    setNewData((prev) => ({ ...prev, subjects: [...prev?.subjects, newSub] }));
+    setNewData((prev) => ({
+      ...prev,
+      subjects: [...prev?.subjects, newSub],
+      totalFee: totalFee + 500,
+      studyFee: studyFee + 500,
+    }));
     // console.log(newSub);
     setNewSub("");
   };
   const removeSubject = (sub) => {
     let subs = [...newData?.subjects]?.filter((subject) => subject !== sub);
-    setNewData((prev) => ({ ...prev, subjects: [...subs] }));
+    setNewData((prev) => ({
+      ...prev,
+      subjects: [...subs],
+      totalFee: totalFee - 500,
+      studyFee: studyFee - 500,
+    }));
     // subs = subs?.filter
   };
   const imgSrc =
@@ -176,20 +186,12 @@ const StudentInfoTab = ({
                   isReadOnly={readOnly}
                 />
               </div>
+              <Divider className="my-4 md:hidden block" />
+              {/* <Divider
+                className="mx-4 md:block hidden"
+                orientation="vertical"
+              /> */}
               <div className="flex flex-col gap-2 w-full">
-                {/* <div>
-                <Input
-                  label={"New password"}
-                  placeholder="Enter new password"
-                  radius="md"
-                  variant={`${readOnly ? "flat" : "bordered"}`}
-                  // value={newData?.ethnicity}
-                  onChange={(event) => handleInputChange(event)}
-                  name="password"
-                  isReadOnly={readOnly}
-                />
-                <p className="font-semibold ">{newData?.password}</p>
-              </div> */}
                 <Input
                   label={"Ethnicity"}
                   placeholder="Enter ethnicity"
@@ -325,7 +327,7 @@ const StudentInfoTab = ({
               </ul>
             </div>
           </div>
-          <div className="mt-5 flex  gap-2 md:w-[50%] w-full md:flex-row flex-col">
+          <div className="mt-5 flex  gap-2 md:w-[80%] w-full md:flex-row flex-col">
             <Button
               color="success"
               className="w-full"
@@ -333,22 +335,28 @@ const StudentInfoTab = ({
               variant="bordered"
               type="submit"
               isLoading={updatingInfo}
-              // onClick={() => {
-              //   console.log(newData?.password);
-              // }}
+              // onClick={() => }
+              isDisabled={readOnly}
             >
               {updatingInfo ? "Updating..." : "Update"}
             </Button>
-            <Button
-              className="w-full"
-              radius="md"
-              variant="bordered"
-              color="warning"
-              onClick={() => setReadOnly(false)}
-            >
-              Edit
-            </Button>
+            {/* <div className="flex "> */}
+            <Tooltip content="Click the edit button to set edit mode on or off">
+              <Button
+                className="w-full"
+                radius="md"
+                variant="bordered"
+                color="warning"
+                onClick={() => setReadOnly((prev) => !prev)}
+              >
+                Edit
+              </Button>
+            </Tooltip>
+            {/* </div> */}
           </div>
+          {/* <span className="text-sm text-slate-300 font-semibold text-center">
+            Click the edit button to set edit on or off
+          </span> */}
           {/* rigth */}
         </form>
       </div>
