@@ -15,11 +15,15 @@ const StudentInfoTab = ({
   router,
 }) => {
   const [readOnly, setReadOnly] = React.useState(true);
-  const [initialSubjects, setInitialSubjects] = React.useState(
-    newData?.subjects
-  );
+  const [totalFee, setTotalFee] = React.useState(newData?.studyFee);
+  const [studyFee, setStudyFee] = React.useState(newData?.totalFee);
   const [newSub, setNewSub] = React.useState("");
   // console.log(newData);
+  // loook nto this.
+  React.useEffect(() => {
+    setTotalFee((prev) => newData?.totalFee);
+    setStudyFee((prev) => newData?.studyFee);
+  }, [newData?.subjects]);
   const handleSubjectInputChange = (e) => {
     setNewSub(e.target.value);
   };
@@ -161,6 +165,16 @@ const StudentInfoTab = ({
                   name="occupation"
                   isReadOnly={readOnly}
                 />
+                <Input
+                  label={"Study Fee"}
+                  placeholder="Enter new study fee"
+                  radius="md"
+                  variant={`${readOnly ? "flat" : "bordered"}`}
+                  value={newData?.studyFee}
+                  onChange={(event) => handleInputChange(event)}
+                  name="studyFee"
+                  isReadOnly={readOnly}
+                />
               </div>
               <div className="flex flex-col gap-2 w-full">
                 {/* <div>
@@ -234,6 +248,16 @@ const StudentInfoTab = ({
                   value={newData?.contact_of_parent}
                   onChange={(event) => handleInputChange(event)}
                   name="contact_of_parent"
+                  isReadOnly={readOnly}
+                />
+                <Input
+                  label={"Total Fee"}
+                  placeholder="Enter new total fee"
+                  radius="md"
+                  variant={`${readOnly ? "flat" : "bordered"}`}
+                  value={newData?.totalFee}
+                  onChange={(event) => handleInputChange(event)}
+                  name="totalFee"
                   isReadOnly={readOnly}
                 />
               </div>

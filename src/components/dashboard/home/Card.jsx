@@ -1,14 +1,16 @@
 "use client";
-import { Card, CardBody } from "@nextui-org/react";
+
+import React from "react";
+import { Card, CardBody, Skeleton } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
 const MyCard = ({ icon, text, text2, bg, colspan }) => {
   const session = useSession();
-  useEffect(() => {}, [
-    router,
-    session.status,
-    session.data?.user?.role,
-    expand,
-  ]);
+  // React.useEffect(() => {}, [
+  //   router,
+  //   session.status,
+  //   session.data?.user?.role,
+  //   expand,
+  // ]);
 
   return (
     // max-w-[250px] w-[375px]
