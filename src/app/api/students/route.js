@@ -19,7 +19,8 @@ export const GET = async (request, { params }) => {
     const students = await User.find(query)
       .skip((parseInt(page) - 1) * parseInt(limit))
       // .limit(parseInt(limit))
-      .select("-password");
+      .select("-password")
+      .sort({ _id: -1 });
     // console.log(students);
     return new NextResponse(JSON.stringify(students), { status: 200 });
   } catch (err) {

@@ -139,11 +139,7 @@ const StudentsTable = () => {
     return !isLoading && data ? filteredItems?.slice(start, end) : [];
   }, [page, filteredItems, rowsPerPage]);
 
-  // const updateSelectedKey = (key) => {
-  //   setCurrentUserId(key["currentKey"]);
-  //   // console.log(currentUserId);
-  // };
-  // console.log(currentUserId);
+
   const deleteStudent = async (userId) => {
     setDeleting(true);
     try {
