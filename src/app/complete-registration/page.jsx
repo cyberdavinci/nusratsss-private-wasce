@@ -49,7 +49,7 @@ const FinishRegistration = () => {
 
   useEffect(() => {
     data?.registrationStatus === "complete"
-      ? router.push(`/print-application?id=${id}`)
+      ? router.push(`/print-application?id=${session.data?.user?._id}`)
       : null;
     session.status === "unauthenticated" ? router.replace("/login") : null;
   }, [session.status, data, router]);
@@ -64,8 +64,6 @@ const FinishRegistration = () => {
       studyFee: totalPrice,
     }));
   };
-  // console.log("Total Price" + " " + info?.studyFee);
-  // console.log("Total Fee" + " " + info?.totalFee);
 
   //
   const handlePrevious = () => {

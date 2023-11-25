@@ -65,7 +65,11 @@ export default function AccountTab() {
               <div>
                 <div>
                   <Button
-                    onClick={() => router.push("/print-application")}
+                    onClick={() =>
+                      data?.registrationStatus === "complete"
+                        ? router.push("/print-application")
+                        : null
+                    }
                     className="mb-2"
                     color="success"
                     variant="flat"
