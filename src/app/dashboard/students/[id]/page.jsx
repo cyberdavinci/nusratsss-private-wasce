@@ -24,9 +24,9 @@ const Student = () => {
   const { data, isLoading, isError } = useSWR(`/api/students/${id}`, fetcher);
   const [newData, setNewData] = useState(isLoading ? {} : data);
   // const [assessments, setAssessments] = useState([]);
-  useEffect(() => {
-    setNewData((prev) => data);
-  }, [data]);
+  // useEffect(() => {
+  //   setNewData((prev) => data);
+  // }, [data]);
   const handleInputChange = (event) => {
     setNewData((prev) => ({
       ...prev,
@@ -158,7 +158,8 @@ const Student = () => {
         </Tab>
         <Tab key={"transcript"} title={"Transcript"}>
           <StudentTranscript
-            data={data}
+            newData={newData}
+            setNewData={setNewData}
             isLoading={isLoading}
             updateAssessmentTable={updateAssessmentTable}
             updatingTable={updatingTable}

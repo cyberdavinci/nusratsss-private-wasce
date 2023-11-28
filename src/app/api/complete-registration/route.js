@@ -34,6 +34,9 @@ export const PATCH = async (request) => {
     internalExamFee,
     userImg,
     name,
+    total_test_1_score,
+    total_test_2_score,
+    total_mock_score,
     // email,
     // password,
   } = await request.json();
@@ -78,6 +81,10 @@ export const PATCH = async (request) => {
         previousSchool,
         userImg,
         name,
+        total_test_1_score,
+        total_test_2_score,
+        total_mock_score,
+
         // email,
         // password: updatedPassword,
       },
