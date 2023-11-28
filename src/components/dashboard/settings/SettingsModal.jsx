@@ -16,6 +16,7 @@ import {
 import { SearchIcon } from "@/components/tables/SearchIcon";
 import { EyeFilledIcon } from "@/app/(auth)/login/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "@/app/(auth)/login/EyeSlashFilledIcon";
+import { useSession } from "next-auth/react";
 const SettingsModal = () => {
   const [isVisible, setIsVisible] = React.useState(false);
   const [name, setName] = React.useState("");
@@ -23,8 +24,10 @@ const SettingsModal = () => {
   const [password, setPassword] = React.useState("");
   const [role, setRole] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
+  const [done, setDone] = React.useState(false);
   const [statusMsg, setStatusMsg] = React.useState("");
   const [err, setIsErr] = React.useState("");
+  const session = useSession();
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const clearInputs = () => {
@@ -46,7 +49,7 @@ const SettingsModal = () => {
       });
 
       res.status === 201
-        ? (clearInputs(), setIsLoading(() => false))
+        ? (clearInputs(), setIsLoading(() => false), setDone(true))
         : setIsLoading(() => false);
       // setIsLoading(() => false);
       console.log(res);
@@ -83,7 +86,11 @@ const SettingsModal = () => {
               {(onClose) => (
                 <>
                   <ModalHeader className="flex flex-col gap-1">
-                    Add a new user
+                    {isLoading
+                      ? "Creating new user..."
+                        ? done
+                        : "successfully created user"
+                      : "Add new user"}
                   </ModalHeader>
                   <form
                     className="flex flex-col gap-4 font-bold"
@@ -142,6 +149,10 @@ const SettingsModal = () => {
                         isRequired
                         value={role}
                         onChange={(e) => setRole((prev) => e.target.value)}
+                        disabledKeys={
+                          session?.data?.user?.role !== "admin" ? ["admin"] : []
+                        }
+                        description="subscribers don't have permission to create admin account"
                       >
                         <SelectItem
                           key={"subscriber"}
@@ -150,10 +161,12 @@ const SettingsModal = () => {
                         >
                           Subscriber
                         </SelectItem>
+                        {/* {session?.data?.user?.role ==="admin"} */}
                         <SelectItem
                           key={"admin"}
                           value={"admin"}
                           className="dark font-bold"
+                          // isReadOnly={session?.data?.user?.role === !"admin"}
                         >
                           Admin
                         </SelectItem>
@@ -168,6 +181,7 @@ const SettingsModal = () => {
                         onPress={() => {
                           onClose();
                           clearInputs();
+                          setDone(true);
                         }}
                       >
                         Cancel
@@ -180,7 +194,7 @@ const SettingsModal = () => {
                         isLoading={isLoading}
                         //   onClick={createUser}
                       >
-                        {isLoading ? "Creating user" : "Submit"}
+                        {isLoading ? "Creating user..." : "Submit"}
                       </Button>
                     </ModalFooter>
                   </form>

@@ -34,7 +34,9 @@ const UpdatingModal = ({
               <ModalBody className="flex items-center justify-center">
                 {updating ? (
                   <CircularProgress label="updating data..." size="lg" />
-                ) : null}
+                ) : (
+                  "Done!"
+                )}
               </ModalBody>
               {/* <ModalFooter>
                 <Button

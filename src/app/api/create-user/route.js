@@ -8,8 +8,11 @@ export const GET = async (request) => {
   await connect();
 
   try {
-    const users = await User.find({}).select("-password");
-    return new NextResponse(users, { status: 200 });
+    const users = await User.find({
+      role: { $in: ["admin", "subscriber"] },
+    }).select("-password");
+    // console.log(users);
+    return new NextResponse(JSON.stringify(users), { status: 200 });
   } catch (error) {
     return new NextResponse(error, { status: 500 });
   }

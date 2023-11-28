@@ -54,8 +54,7 @@ const StudentsTable = () => {
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
   // const [selectedKey, setSelectedKey] = React.useState(null);
-  // const [currentUserId, setCurrentUserId] = React.useState(null);
-  const [currentUser, setCurrentUser] = React.useState(null);
+  const [userToDelete, setUserToDelete] = React.useState(null);
   const [visibleColumns, setVisibleColumns] = React.useState(
     new Set(INITIAL_VISIBLE_COLUMNS)
   );
@@ -108,7 +107,7 @@ const StudentsTable = () => {
       Array.from(statusFilter).length !== statusOptions.length
     ) {
       filteredUsers = filteredUsers.filter((user) =>
-        Array.from(statusFilter).includes(user.status.toLowerCase())
+        Array.from(statusFilter).includes(user.registrationStatus.toLowerCase())
       );
     }
     // filter by subjects
@@ -138,7 +137,6 @@ const StudentsTable = () => {
 
     return !isLoading && data ? filteredItems?.slice(start, end) : [];
   }, [page, filteredItems, rowsPerPage]);
-
 
   const deleteStudent = async (userId) => {
     setDeleting(true);
@@ -226,7 +224,7 @@ const StudentsTable = () => {
                 key={"delete"}
                 // onClick={() => deleteStudent(user?._id)}
                 onClick={() => {
-                  setCurrentUser(user);
+                  setUserToDelete(user);
                   onOpen();
                 }}
               >
@@ -482,7 +480,7 @@ const StudentsTable = () => {
           wrapper: "max-h-[382px] sTable w-full",
         }}
         // selectedKeys={selectedKeys}
-        // selectionMode="multiple"
+        selectionMode="single"
         // selectionBehavior="replace"
         topContent={topContent}
         topContentPlacement="outside"
@@ -520,8 +518,8 @@ const StudentsTable = () => {
         isOpen={isOpen}
         // onClose={onClose}
         deleteStudent={deleteStudent}
-        setCurrentUser={setCurrentUser}
-        currentUser={currentUser}
+        setUserToDelete={setUserToDelete}
+        userToDelete={userToDelete}
         onOpenChange={onOpenChange}
         deleting={deleting}
       />

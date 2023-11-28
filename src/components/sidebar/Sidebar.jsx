@@ -73,7 +73,8 @@ const Sidebar = ({ children }) => {
             </div>
             {/* <SideBarContext.Provider value={{ expand, currentName, toggleNav }}> */}
             <ul className="flex-1 px-3">
-              {session?.data?.user?.role === "admin" ? (
+              {session?.data?.user?.role === "admin" ||
+              session?.data?.user?.role === "subscriber" ? (
                 <>
                   <SideBarItem
                     text={"Dashboard"}
@@ -83,13 +84,16 @@ const Sidebar = ({ children }) => {
                     link={"/dashboard"}
                     routeType={"admin"}
                   />
-                  <SideBarItem
-                    text={"Tokens"}
-                    // icon={<AiOutlineKey size={25} />}
-                    icon={"/icons/sidebar/token.svg"}
-                    link={"/dashboard/tokens"}
-                    routeType={"admin"}
-                  />
+                  {session?.data?.user?.role === "admin" ? (
+                    <SideBarItem
+                      text={"Tokens"}
+                      // icon={<AiOutlineKey size={25} />}
+                      icon={"/icons/sidebar/token.svg"}
+                      link={"/dashboard/tokens"}
+                      routeType={"admin"}
+                    />
+                  ) : null}
+
                   <SideBarItem
                     text={"Students"}
                     // icon={<PiStudentDuotone size={25} />}
@@ -117,7 +121,7 @@ const Sidebar = ({ children }) => {
               />
             </ul>
             {/* </SideBarContext.Provider> */}
-            <div className="border-t border-slate-800 flex px-1 py-3 justify-around w-full ">
+            <div className="border-t border-slate-800 flex px-1 py-3 justify-center items-center gap-1 w-full ">
               {/* <Image
             src={
               "https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
@@ -127,7 +131,7 @@ const Sidebar = ({ children }) => {
             height={50}
             className=" w-10 h-10 rounded-md"
           /> */}
-              <p className=" text-center w-12 h-10 rounded-md bg-green-500 font-extrabold text-2xl flex items-center justify-center text-white">
+              <p className=" text-center w-12 h-10 rounded-lg bg-green-500 font-extrabold text-2xl flex items-center justify-center text-white">
                 {shortName?.toUpperCase()}
               </p>
               <div
@@ -160,7 +164,7 @@ export function SideBarItem({ icon, text, active, alert, link }) {
     // {routeType ===  ? :}
     <Link href={link} onClick={() => setExpand(() => false)}>
       <li
-        className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors hover:bg-green-500 hover:text-white ${
+        className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer  hover:bg-green-500 hover:text-white ${
           pathName === link ? " bg-green-950 text-green-400" : "  text-gray-400"
         }`}
       >

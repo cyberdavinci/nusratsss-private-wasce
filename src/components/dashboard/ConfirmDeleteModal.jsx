@@ -8,17 +8,30 @@ import {
   ModalBody,
   ModalFooter,
   Button,
-  useDisclosure,
 } from "@nextui-org/react";
-
+import { useSession } from "next-auth/react";
 const ConfirmDeleteModal = ({
   isOpen,
   onOpenChange,
   deleteStudent,
-  setCurrentUser,
+  deleteUser,
+  // setCurrentUser,
   currentUser,
+  userToDelete,
   deleting,
 }) => {
+  const session = useSession();
+  const Delete = () => {
+    if (userToDelete.role === "admin") {
+      return null;
+    }
+    if (userToDelete.role === "subscriber") {
+      return deleteUser(userToDelete?._id);
+    }
+    if (userToDelete.role === "student") {
+      return deleteStudent(userToDelete?._id);
+    }
+  };
   return (
     <>
       {/* <Button onPress={onOpen}>Open Modal</Button> */}
@@ -27,13 +40,18 @@ const ConfirmDeleteModal = ({
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                {currentUser?.name}
+                {userToDelete?.name}
               </ModalHeader>
               <ModalBody>
                 {deleting ? (
                   <Spinner size="lg" label="Deleting student..." />
                 ) : (
-                  <p>Are your sure you want to delete this student!!</p>
+                  <p>
+                    {userToDelete?.role === "admin" &&
+                    session?.data?.user?.role === "subscriber"
+                      ? "You don't have permission to delete admin!"
+                      : `Are your sure you want to delete this ${userToDelete?.name}!`}
+                  </p>
                 )}
               </ModalBody>
               <ModalFooter>
@@ -48,10 +66,10 @@ const ConfirmDeleteModal = ({
                 <Button
                   color="danger"
                   onPress={() => {
-                    deleteStudent(currentUser?._id);
+                    Delete();
                     onClose();
                   }}
-                  isDisabled={deleting}
+                  isDisabled={userToDelete.role === "admin" || deleting}
                 >
                   Yes
                 </Button>
