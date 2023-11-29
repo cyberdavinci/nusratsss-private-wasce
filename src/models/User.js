@@ -154,15 +154,21 @@ const userSchema = mongoose.Schema(
           mean_score: 0,
           grade: "",
           total_marks_obtained: 0,
-          total_test_1_score: 0,
-          total_test_2_score: 0,
-          total_mock_score: 0,
+          // total_test_1_score: 0,
+          // total_test_2_score: 0,
+          // total_mock_score: 0,
         },
       ],
     },
-    total_test_1_score: { type: Number, default: 0 },
-    total_test_2_score: { type: Number, default: 0 },
-    total_mock_score: { type: Number, default: 0 },
+    total_test_1_score: {
+      type: Number,
+      default: 0,
+    },
+    total_test_2_score: {
+      type: Number,
+      default: 0,
+    },
+    total_mock_score: { type: Number },
     internalExamFee: {
       type: Number,
       default: 0,
@@ -179,6 +185,10 @@ const userSchema = mongoose.Schema(
       type: String,
       default: "",
     },
+    conduct: { type: String, default: "Very Good" },
+    punctuality: { type: String, default: "Regular" },
+    responsibility: { type: String, default: "Nil" },
+    attitude: { type: String, default: "Postive" },
   },
 
   { timestamps: true }

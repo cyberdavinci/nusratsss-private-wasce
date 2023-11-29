@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Tabs, Tab, Spinner, useDisclosure } from "@nextui-org/react";
-import useSWR, { mutate } from "swr";
+import useSWR, { useSWRConfig } from "swr";
 import { useParams, useRouter } from "next/navigation";
 import StudentInfoTab from "@/components/dashboard/students/StudentInfoTab";
 import StudentTranscript from "@/components/dashboard/students/StudentTranscript";
@@ -9,10 +9,9 @@ import StudentSecurityTab from "@/components/dashboard/students/StudentSecurityT
 import UpdatingModal from "@/components/dashboard/UpdatingModal";
 import { useEffect } from "react";
 
-const fetcher = (...args) =>
-  fetch(...args).then(async (res) => await res.json());
-
 const Student = () => {
+  const fetcher = (...args) =>
+    fetch(...args).then(async (res) => await res.json());
   const { id } = useParams();
   const { isOpen, onOpenChange } = useDisclosure();
   const [selected, setSelected] = React.useState("info");
@@ -22,17 +21,22 @@ const Student = () => {
   const [updatingSecurity, setUpdatinfSecurity] = React.useState(false);
   const router = useRouter();
   const { data, isLoading, isError } = useSWR(`/api/students/${id}`, fetcher);
-  const [newData, setNewData] = useState(isLoading ? {} : data);
-  // const [assessments, setAssessments] = useState([]);
+  const { mutate } = useSWRConfig();
+  //
+  const [newData, setNewData] = useState(data ? data : null);
+  const [assessments, setAssessments] = useState([]);
+  //
   // useEffect(() => {
-  //   setNewData((prev) => data);
+  //   setNewData(() => ({ ...data }));
   // }, [data]);
+
   const handleInputChange = (event) => {
     setNewData((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,
     }));
   };
+  // console.log(newData);
   const handleImageChange = (event) => {
     event.preventDefault();
 
@@ -47,7 +51,9 @@ const Student = () => {
     reader.readAsDataURL(event.target.files[0]);
   };
   // console.log(userImg);
-  // console.log(newData);
+  // console.log(newData?.total_test_1_score);
+  // console.log(newData?.total_test_2_score);
+  // console.log(newData?.total_mock_score);
   const updateStudentData = async (e) => {
     e.preventDefault();
     setUpdatingInfo((prev) => true);
@@ -89,9 +95,14 @@ const Student = () => {
       console.log(err);
     }
   };
-  // console.log(newData);
 
-  const updateAssessmentTable = async (newDataTable) => {
+  // console.log(`New Data: ${newData}`);
+  // console.log(`Data: ${data}`);
+  // console.log(newData);
+  // console.log(data);
+
+  const updateAssessmentTable = async (newDataTable, remarks) => {
+    // console.log(remarks);
     setUpdatingTable((prev) => true);
     try {
       const res = await fetch("/api/complete-registration", {
@@ -114,21 +125,25 @@ const Student = () => {
 
   return (
     <div>
-      <Tabs
-        aria-label="Options"
-        color="success"
-        variant="bordered"
-        selectedKey={selected}
-        onSelectionChange={setSelected}
-      >
-        <Tab key={"info"} title={"Info"}>
-          {isLoading ? (
-            <Spinner label="loading data..." />
-          ) : (
-            <>
+      {isLoading && newData === null ? (
+        <div className="w-full h-screen flex items-center justify-center">
+          {" "}
+          <Spinner label="loading data" />
+        </div>
+      ) : (
+        <>
+          <Tabs
+            aria-label="Options"
+            color="success"
+            variant="bordered"
+            selectedKey={selected}
+            onSelectionChange={setSelected}
+          >
+            <Tab key={"info"} title={"Info"}>
               <StudentInfoTab
                 updateStudentData={updateStudentData}
                 newData={newData}
+                data={data}
                 setNewData={setNewData}
                 handleInputChange={handleInputChange}
                 handleImageChange={handleImageChange}
@@ -139,35 +154,30 @@ const Student = () => {
                 // setNewPassword={setNewPassword}
               />
               <UpdatingModal updating={updatingInfo} newData={newData} />
-            </>
-          )}
-        </Tab>
-        <Tab key={"security"} title={"Security"}>
-          {isLoading ? (
-            <Spinner label="loading data..." />
-          ) : (
-            <>
+            </Tab>
+            <Tab key={"security"} title={"Security"}>
               <StudentSecurityTab
                 updateStudentSecurity={updateStudentSecurity}
                 newData={newData}
                 updatingSecurity={updatingSecurity}
               />
               <UpdatingModal updating={updatingSecurity} newData={newData} />
-            </>
-          )}
-        </Tab>
-        <Tab key={"transcript"} title={"Transcript"}>
-          <StudentTranscript
-            newData={newData}
-            setNewData={setNewData}
-            isLoading={isLoading}
-            updateAssessmentTable={updateAssessmentTable}
-            updatingTable={updatingTable}
-            mutate={mutate}
-            id={id}
-          />
-        </Tab>
-      </Tabs>
+            </Tab>
+            <Tab key={"transcript"} title={"Transcript"}>
+              <StudentTranscript
+                newData={newData}
+                setNewData={setNewData}
+                isLoading={isLoading}
+                updateAssessmentTable={updateAssessmentTable}
+                updatingTable={updatingTable}
+                mutate={mutate}
+                id={id}
+                handleRemarksUpdate={handleInputChange}
+              />
+            </Tab>
+          </Tabs>
+        </>
+      )}
     </div>
   );
 };

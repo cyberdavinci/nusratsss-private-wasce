@@ -37,6 +37,10 @@ export const PATCH = async (request) => {
     total_test_1_score,
     total_test_2_score,
     total_mock_score,
+    conduct,
+    punctuality,
+    responsibility,
+    attitude,
     // email,
     // password,
   } = await request.json();
@@ -46,6 +50,12 @@ export const PATCH = async (request) => {
   //   test_2_score: "",
   //   test_3_score: "",
   // }));
+  console.log(
+    total_test_1_score,
+    total_test_2_score,
+    total_mock_score,
+    conduct
+  );
   await connect();
   // const updatedPassword = await bcrypt.hash(password, 5);
   // console.log(`Plain passs ${password} updated-hashed ${updatedPassword}`);
@@ -84,13 +94,17 @@ export const PATCH = async (request) => {
         total_test_1_score,
         total_test_2_score,
         total_mock_score,
+        conduct,
+        punctuality,
+        responsibility,
+        attitude,
 
         // email,
         // password: updatedPassword,
       },
       { new: true }
     );
-    // console.log(updatedUser);
+    console.log(updatedUser);
     return new NextResponse("registration complete", { status: 200 });
   } catch (err) {
     return new NextResponse(err, { status: 500, data: err });

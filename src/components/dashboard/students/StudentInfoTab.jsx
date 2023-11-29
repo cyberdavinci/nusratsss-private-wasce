@@ -9,6 +9,7 @@ const StudentInfoTab = ({
   handleInputChange,
   handleImageChange,
   userImg,
+  data,
   updatingInfo,
   newPassword,
   setNewPassword,
@@ -24,6 +25,11 @@ const StudentInfoTab = ({
     setTotalFee((prev) => parseInt(newData?.totalFee));
     setStudyFee((prev) => parseInt(newData?.studyFee));
   }, [newData?.subjects]);
+  //
+  React.useEffect(() => {
+    setNewData(() => ({ ...data }));
+  }, [data]);
+
   const handleSubjectInputChange = (e) => {
     setNewSub(e.target.value);
   };

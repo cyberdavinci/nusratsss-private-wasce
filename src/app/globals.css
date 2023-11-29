@@ -149,3 +149,16 @@ input[type="number"] {
   border-bottom-left-radius: 0; */
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
+
+.tra-table {
+  font-family: sans-serif;
+  border-collapse: collapse;
+}
+.tra-table th,
+td {
+  border: 1px solid black;
+  padding: 8px;
+}
+.tra-table thead th {
+  width: 25%;
+}

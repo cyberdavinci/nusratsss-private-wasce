@@ -10,7 +10,9 @@ import {
   Button,
   Spinner,
   Progress,
+  useDisclosure,
 } from "@nextui-org/react";
+import TranscriptModal from "./TranscriptModal";
 const StudentTranscript = ({
   newData,
   setNewData,
@@ -19,12 +21,20 @@ const StudentTranscript = ({
   updatingTable,
   mutate,
   id,
+  handleRemarksUpdate,
 }) => {
   const [readOnly, setReadOnly] = useState(true);
   const [updating, setUpdating] = useState(false);
 
   const [showProgress, setShowProgress] = useState(false);
   const [progress, setProgress] = useState(10);
+  const [btnState, setBtnState] = useState("save");
+  const [remarks, setRemarks] = useState({
+    conduct: newData?.conduct,
+    punctuality: newData?.punctuality,
+    responsibility: newData?.responsibility,
+    attitude: newData?.attitude,
+  });
   const initialValue = newData?.subjects?.map((subject) => ({
     subject,
     test_1_score: 0,
@@ -40,13 +50,25 @@ const StudentTranscript = ({
       : initialValue
   );
 
+  useEffect(() => {
+    totalTestsScores();
+  }, []);
+  useEffect(() => {
+    // totalTestsScores();
+  }, [btnState]);
+
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  // console.log(newData);
   //
+
   const handleInputChange = (e, index) => {
     // const inputId = e.target.id;
     const fieldName = e.target.name;
     const inputValue = e.target.value;
 
     // computeMeanScores(index);
+
+    //
     setUpdateAsessments((prevAsess) => {
       const newAsess = [...prevAsess];
       newAsess[index][fieldName] = inputValue;
@@ -60,45 +82,70 @@ const StudentTranscript = ({
       newAsess[index]["mean_score"] = mean_score;
       return newAsess;
     });
+    // totalTestsScores();
   };
-  const totalTestsScores = () => {
-    // if (!isLoading) {
-    let total_test_1_score = 0;
-    let total_test_2_score = 0;
-    let total_mock_score = 0;
-    for (let i = 0; i < asessments?.length; i++) {
-      total_test_1_score += Number(asessments[i]?.test_1_score);
-      total_test_2_score += Number(asessments[i]?.test_2_score);
-      total_mock_score += Number(asessments[i]?.mock);
-    }
-
-    setNewData((prevData) => ({
+  // remarks
+  const handleUpdateRemarks = (event) => {
+    setRemarks((prevData) => ({
       ...prevData,
-      total_test_1_score,
-      total_test_2_score,
-      total_mock_score,
+      [event.target.name]: event.target.value,
     }));
-
-    // }
-    // return 0;
   };
+  const updateRemarks = () => {
+    const { conduct, attitude, punctuality, responsibility } = remarks;
+    setNewData((prev) => {
+      prev["conduct"] = conduct;
+      prev["attitude"] = attitude;
+      prev["punctuality"] = punctuality;
+      prev["responsibility"] = responsibility;
+      return prev;
+    });
+  };
+  // total test score
+  const totalTestsScores = () => {
+    // const upData = { ...newData };
+    let total_test_1_sum = 0;
+    let total_test_2_sum = 0;
+    let total_mock_sum = 0;
+    // if (!isLoading) {
+    // let { total_test_1_score, total_test_2_score, total_mock_score } = newData;
+
+    for (let i = 0; i < asessments?.length; i++) {
+      total_test_1_sum += parseInt(asessments[i]?.test_1_score);
+      total_test_2_sum += parseInt(asessments[i]?.test_2_score);
+      total_mock_sum += parseInt(asessments[i]?.mock);
+    }
+    setNewData((prevData) => {
+      //
+      prevData["total_test_1_score"] = total_test_1_sum;
+      prevData["total_test_2_score"] = total_test_2_sum;
+      prevData["total_mock_score"] = total_mock_sum;
+
+      return prevData;
+    });
+  };
+  // console.log(remarks);
 
   const handleUpdate = async () => {
     setShowProgress(true);
-    setProgress(50);
+    setProgress(30);
     totalTestsScores();
-    setProgress(70);
+    // handleUpdateRemarks();
+    setProgress(50);
     setUpdating(true);
-    await updateAssessmentTable(asessments);
+    // updateRemarks();
+    setProgress(70);
+    await updateAssessmentTable(asessments, remarks);
     setProgress(90);
     setUpdating(false);
     mutate(`/api/students/${id}`);
     setProgress(100);
     setShowProgress(false);
+    setBtnState("save");
   };
 
   //
-  const renderGrade = (mean_score) => {
+  const renderGrade = (item, mean_score, index) => {
     if (mean_score > 75) {
       return <p>A</p>;
     }
@@ -108,10 +155,10 @@ const StudentTranscript = ({
     if (mean_score > 55 && mean_score < 66) {
       return <p>C</p>;
     }
-    if (mean_score > 44 && mean_score < 54) {
+    if (mean_score >= 45 && mean_score <= 55) {
       return <p>D</p>;
     }
-    if (mean_score > 39 && mean_score < 43) {
+    if (mean_score > 39 && mean_score <= 44) {
       return <p>E</p>;
     }
     if (mean_score < 40) {
@@ -171,7 +218,7 @@ const StudentTranscript = ({
         case "mean_score":
           return <p>{item?.mean_score}</p>;
         case "grade":
-          return renderGrade(item?.mean_score);
+          return renderGrade(item, item?.mean_score, index);
 
         default:
           null;
@@ -179,12 +226,12 @@ const StudentTranscript = ({
     },
     [readOnly]
   );
-
+  console.log(btnState);
   const topContent = useMemo(() => {
     return (
       <>
         <div className="flex justify-between items-center">
-          <Button>Download Transcript</Button>
+          <Button onClick={() => onOpen()}>Download Transcript</Button>
           <div className="flex gap-4  float-right justify-end">
             <Button
               // isDisabled={pages === 1}
@@ -194,19 +241,32 @@ const StudentTranscript = ({
               color="primary"
               onPress={() => setReadOnly(false)}
             >
-              Edit
+              edit
             </Button>
             <Button
               // isDisabled={pages === 1}
               size="lg"
               variant="flat"
-              color="success"
+              color={btnState === "save" ? "default" : "success"}
               // onPress={onNextPage}
-              onPress={() => setReadOnly(true)}
+              onPress={() => {
+                // setBtnState("update");
+                setReadOnly(true);
+              }}
               isLoading={updating}
-              onClick={async () => await handleUpdate()}
+              onClick={async () => {
+                if (btnState === "update") {
+                  updateRemarks();
+                  await handleUpdate();
+                } else {
+                  updateRemarks();
+                  setBtnState("update");
+                }
+
+                // btnState === "update" ? await handleUpdate() : null;
+              }}
             >
-              {updating ? "updating..." : "Save"}
+              {updating ? "updating..." : `${btnState}`}
             </Button>
           </div>
         </div>
@@ -223,64 +283,121 @@ const StudentTranscript = ({
         )}
       </>
     );
-  }, [readOnly, showProgress]);
-
+  }, [readOnly, showProgress, btnState]);
   return (
-    <Table
-      aria-label="Example static collection table"
-      topContent={topContent}
-      topContentPlacement="outside"
-    >
-      <TableHeader>
-        <TableColumn align="center" key={"subjects"}>
-          SUBJECTS
-        </TableColumn>
-        <TableColumn align="center" key={"test_1"}>
-          TEST 1
-        </TableColumn>
-        <TableColumn align="center" key={"test_2"}>
-          TEST 2
-        </TableColumn>
-        <TableColumn align="center" key={"mock"}>
-          MOCK
-        </TableColumn>
-        <TableColumn align="center" key={"mean_score"}>
-          MEAN SCORE
-        </TableColumn>
-        <TableColumn align="center" key={"grade"}>
-          GRADE
-        </TableColumn>
-      </TableHeader>
-      <TableBody
-        emptyContent={"No newData!!"}
-        items={asessments ?? []}
-        isLoading={isLoading}
-        loadingContent={<Spinner label="loading..." />}
+    <>
+      <Table
+        aria-label="Example static collection table"
+        topContent={topContent}
+        topContentPlacement="outside"
+        bottomContentPlacement="outside"
+        // bottomContent={bottomContent}
+        classNames={{ th: "border-0", td: "border-0" }}
       >
-        {asessments?.map((item, index) => (
-          <TableRow key={index}>
-            {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
-            )}
+        <TableHeader>
+          <TableColumn align="center" key={"subjects"}>
+            SUBJECTS
+          </TableColumn>
+          <TableColumn align="center" key={"test_1"}>
+            TEST 1
+          </TableColumn>
+          <TableColumn align="center" key={"test_2"}>
+            TEST 2
+          </TableColumn>
+          <TableColumn align="center" key={"mock"}>
+            MOCK
+          </TableColumn>
+          <TableColumn align="center" key={"mean_score"}>
+            MEAN SCORE
+          </TableColumn>
+          <TableColumn align="center" key={"grade"}>
+            GRADE
+          </TableColumn>
+        </TableHeader>
+        <TableBody
+          emptyContent={"No newData!!"}
+          items={asessments ?? []}
+          isLoading={isLoading}
+          loadingContent={<Spinner label="loading..." />}
+        >
+          {asessments?.map((item, index) => (
+            <TableRow key={index}>
+              {(columnKey) => (
+                <TableCell>{renderCell(item, columnKey)}</TableCell>
+              )}
+            </TableRow>
+          ))}
+          <TableRow>
+            <TableCell>Total Marks Obtained</TableCell>
+            <TableCell>
+              <p className="p-2"> {newData?.total_test_1_score}</p>
+            </TableCell>
+            <TableCell>
+              <p className="p-2">{newData?.total_test_2_score} </p>
+            </TableCell>
+            <TableCell>
+              <p className="p-2">{newData?.total_mock_score} </p>
+            </TableCell>
+            <TableCell>{"-"} </TableCell>
+            <TableCell>{"-"} </TableCell>
+            {/* <TableCell>{""} </TableCell> */}
           </TableRow>
-        ))}
-        <TableRow>
-          <TableCell>Total Marks Obtained</TableCell>
-          <TableCell>
-            <p className="p-2"> {newData?.total_test_1_score}</p>
-          </TableCell>
-          <TableCell>
-            <p className="p-2">{newData?.total_test_2_score} </p>
-          </TableCell>
-          <TableCell>
-            <p className="p-2">{newData?.total_mock_score} </p>
-          </TableCell>
-          <TableCell>{"-"} </TableCell>
-          <TableCell>{"-"} </TableCell>
-          {/* <TableCell>{""} </TableCell> */}
-        </TableRow>
-      </TableBody>
-    </Table>
+        </TableBody>
+      </Table>
+      <ul className="flex flex-col gap-2 justify-center bg-[#202020] w-[350px]  rounded-lg px-2 mt-4">
+        <li className="border-b w-full p-2">
+          <span>Conduct: </span>
+
+          <input
+            type="text"
+            placeholder="conduct remarks"
+            value={remarks?.conduct}
+            name="conduct"
+            onChange={(event) => handleUpdateRemarks(event)}
+            className="bg-transparent border border-b-3 border-b-slate-400 w-[200px]"
+          />
+        </li>
+        <li className="border-b w-full p-2">
+          <span>Puntuality: </span>
+          <input
+            placeholder="puntuality remarks"
+            className="bg-transparent border border-b-3 border-b-slate-400 w-[200px]"
+            type="text"
+            value={remarks?.punctuality}
+            name="punctuality"
+            onChange={(event) => handleUpdateRemarks(event)}
+          />
+        </li>
+        <li className="border-b w-full p-2">
+          <span>Responsibility: </span>
+          <input
+            placeholder="responsibility remarks"
+            className="bg-transparent border border-b-3 border-b-slate-400 w-[200px]"
+            type="text"
+            value={remarks?.responsibility}
+            name="responsibility"
+            onChange={(event) => handleUpdateRemarks(event)}
+          />
+        </li>
+        <li className=" w-full p-2">
+          <span>Attitude: </span>
+          <input
+            placeholder="attitude remarks"
+            className="bg-transparent border border-b-3 border-b-slate-400 w-[200px]"
+            type="text"
+            value={remarks?.attitude}
+            name="attitude"
+            onChange={(event) => handleUpdateRemarks(event)}
+          />
+        </li>
+      </ul>
+      <TranscriptModal
+        onOpen={onOpen}
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        transcript={newData}
+      />
+    </>
   );
 };
 
