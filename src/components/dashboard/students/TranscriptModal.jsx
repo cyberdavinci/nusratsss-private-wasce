@@ -12,8 +12,15 @@ import {
 } from "@nextui-org/react";
 import Image from "next/image";
 import { useReactToPrint } from "react-to-print";
-const TranscriptModal = ({ isOpen, onOpen, onOpenChange, transcript }) => {
+const TranscriptModal = ({
+  isOpen,
+  onOpen,
+  onOpenChange,
+  transcript,
+  // newData,
+}) => {
   const [scrollBehavior, setScrollBehavior] = React.useState("inside");
+  React.useEffect(() => {}, [transcript]);
   const imgSrc =
     transcript?.gender === "Male"
       ? "/avatars/avatar-male.svg"
