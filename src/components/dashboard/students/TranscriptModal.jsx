@@ -203,6 +203,12 @@ const TranscriptModal = ({
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
                 </Button>
+                <Button
+                  color="default"
+                  onPress={() => mutate(`/api/students/${id}`)}
+                >
+                  Refresh
+                </Button>
                 <Button color="primary" onPress={handlePrint}>
                   Print
                 </Button>
