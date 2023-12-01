@@ -80,6 +80,7 @@ const StudentTranscript = ({
       const mean_score = Math.ceil(total_marks_obtained / 3);
 
       newAsess[index]["mean_score"] = mean_score;
+      newAsess[index]["grade"] = renderGrade(mean_score);
       return newAsess;
     });
     // totalTestsScores();
@@ -114,7 +115,9 @@ const StudentTranscript = ({
       total_test_1_sum += parseInt(asessments[i]?.test_1_score);
       total_test_2_sum += parseInt(asessments[i]?.test_2_score);
       total_mock_sum += parseInt(asessments[i]?.mock);
+      // asessments[i]["grade"] = renderGrade(asessments[i]["mean_score"]);
     }
+    // console.log(renderGrade(asessments[i]["mean_score"]));
     setNewData((prevData) => {
       //
       prevData["total_test_1_score"] = total_test_1_sum;
@@ -145,24 +148,24 @@ const StudentTranscript = ({
   };
 
   //
-  const renderGrade = (item, mean_score, index) => {
+  const renderGrade = (mean_score) => {
     if (mean_score > 75) {
-      return <p>A</p>;
+      return "A";
     }
     if (mean_score > 65 && mean_score < 76) {
-      return <p>B</p>;
+      return "B";
     }
     if (mean_score > 55 && mean_score < 66) {
-      return <p>C</p>;
+      return "C";
     }
     if (mean_score >= 45 && mean_score <= 55) {
-      return <p>D</p>;
+      return "D";
     }
     if (mean_score > 39 && mean_score <= 44) {
-      return <p>E</p>;
+      return "E";
     }
     if (mean_score < 40) {
-      return <p>F</p>;
+      return "F";
     }
   };
   const renderCell = React.useCallback(
@@ -218,7 +221,7 @@ const StudentTranscript = ({
         case "mean_score":
           return <p>{item?.mean_score}</p>;
         case "grade":
-          return renderGrade(item, item?.mean_score, index);
+          return <p>{renderGrade(item, item?.mean_score, index)}</p>;
 
         default:
           null;
@@ -226,7 +229,7 @@ const StudentTranscript = ({
     },
     [readOnly]
   );
-  console.log(btnState);
+  // console.log(btnState);
   const topContent = useMemo(() => {
     return (
       <>
@@ -396,6 +399,8 @@ const StudentTranscript = ({
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         transcript={newData}
+        asessments={asessments}
+        renderGrade={renderGrade}
       />
     </>
   );

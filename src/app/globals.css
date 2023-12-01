@@ -157,7 +157,7 @@ input[type="number"] {
 .tra-table th,
 td {
   border: 1px solid black;
-  padding: 8px;
+  padding: 4px;
 }
 .tra-table thead th {
   width: 25%;

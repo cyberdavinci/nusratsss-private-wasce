@@ -17,7 +17,9 @@ const TranscriptModal = ({
   onOpen,
   onOpenChange,
   transcript,
+  asessments,
   // newData,
+  renderGrade,
 }) => {
   const [scrollBehavior, setScrollBehavior] = React.useState("inside");
   React.useEffect(() => {}, [transcript]);
@@ -82,8 +84,8 @@ const TranscriptModal = ({
                   {/* transcript header */}
                   <div className="flex justify-between">
                     {/* about */}
-                    <div>
-                      <div className="flex-2">
+                    <div className="flex-3 w-fit">
+                      <div>
                         {" "}
                         <Image
                           src={
@@ -108,7 +110,7 @@ const TranscriptModal = ({
                       </div>
                     </div>
                     {/* school info */}
-                    <div className="flex-3 text-center mt-6">
+                    <div className="flex-2 text-center mt-6">
                       {/* school code */}
                       <div className=" italic">
                         <p>In the name of God, the gracious the merciful</p>
@@ -126,7 +128,7 @@ const TranscriptModal = ({
                         </p>
                       </div>
                       {/* transcript type title */}
-                      <div>
+                      <div className="mt-10 font-semibold text-xl">
                         <h2>STUDENT'S TRANSCRIPT</h2>
                       </div>
                     </div>
@@ -157,16 +159,18 @@ const TranscriptModal = ({
                         </tr>
                       </thead>
                       <tbody>
-                        {transcript?.assessments?.map((assess) => {
+                        {asessments?.map((assess, index) => {
+                          // console.log(renderGrade(assess?.mean_score));
                           return (
                             <>
-                              <tr>
+                              <tr key={index}>
                                 <td>{assess?.subject}</td>
                                 <td>{assess?.test_1_score}</td>
                                 <td>{assess?.test_2_score}</td>
                                 <td>{assess?.mock}</td>
                                 <td>{assess?.mean_score}</td>
-                                <td>{assess?.grade}</td>
+                                {/* <td>{assess?.grade}</td> */}
+                                <td>{renderGrade(assess?.mean_score)}</td>
                               </tr>
                             </>
                           );
@@ -190,25 +194,84 @@ const TranscriptModal = ({
                       </thead>
                       <tbody>
                         <tr>
-                          <td></td>
+                          <td>A</td>
+                          <td>{">75"}</td>
+                          <td>Excellent</td>
+                          <td>Credit</td>
+                        </tr>
+                        <tr>
+                          <td>B</td>
+                          <td>66-75</td>
+                          <td>V.Good</td>
+                          <td>Good</td>
+                        </tr>
+                        <tr>
+                          <td>C</td>
+                          <td>56-65</td>
+                          <td>Good</td>
+                          <td>Credit</td>
+                        </tr>
+                        <tr>
+                          <td>D</td>
+                          <td>45-55</td>
+                          <td>Average</td>
+                          <td>Pass</td>
+                        </tr>
+                        <tr>
+                          <td>E</td>
+                          <td>40-44</td>
+                          <td>Week</td>
+                          <td>Pass</td>
+                        </tr>
+                        <tr>
+                          <td>F</td>
+                          <td>{"<40"}</td>
+                          <td>Fail</td>
+                          <td>Fail</td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
                   {/* transcript footer*/}
-                  <div></div>
+                  <div className="mt-4 flex justify-between">
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>Conduct</td>
+                          <td>{transcript?.conduct}</td>
+                        </tr>
+                        <tr>
+                          <td>Punctuality</td>
+                          <td>{transcript?.punctuality}</td>
+                        </tr>
+                        <tr>
+                          <td>Responsibility</td>
+                          <td>{transcript?.responsibility}</td>
+                        </tr>
+                        <tr>
+                          <td>Attitude</td>
+                          <td>{transcript?.attitude}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    {/* right footer side */}
+                    <div className=" flex flex-col justify-between">
+                      <p className="font-semibold">Principle's Signature:</p>
+                      <hr className=" w-full bg-black h-[2px] " />
+                      <p className="font-semibold">Date: </p>
+                    </div>
+                  </div>
+                  <p className="text-sm mt-10 text-center">
+                    A genuine transcript must bear the seal of the Principal and
+                    a recent photograph of the student
+                  </p>
                 </div>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
                 </Button>
-                <Button
-                  color="default"
-                  onPress={() => mutate(`/api/students/${id}`)}
-                >
-                  Refresh
-                </Button>
+
                 <Button color="primary" onPress={handlePrint}>
                   Print
                 </Button>
