@@ -20,7 +20,10 @@ const Student = () => {
   const [updatingInfo, setUpdatingInfo] = React.useState(false);
   const [updatingSecurity, setUpdatinfSecurity] = React.useState(false);
   const router = useRouter();
-  const { data, isLoading, isError } = useSWR(`/api/students/${id}`, fetcher);
+  const { data, isLoading, isError } = useSWR(
+    `/api/others/students/${id}`,
+    fetcher
+  );
   const { mutate } = useSWRConfig();
   //
   const [newData, setNewData] = useState(data ? data : null);
@@ -58,7 +61,7 @@ const Student = () => {
     e.preventDefault();
     setUpdatingInfo((prev) => true);
     try {
-      const res = await fetch("/api/complete-registration", {
+      const res = await fetch("/api/others/complete-registration", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -78,7 +81,7 @@ const Student = () => {
     // e.preventDefault();
     setUpdatinfSecurity((prev) => true);
     try {
-      const res = await fetch("/api/security-update", {
+      const res = await fetch("/api/others/security-update", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -105,7 +108,7 @@ const Student = () => {
     // console.log(remarks);
     setUpdatingTable((prev) => true);
     try {
-      const res = await fetch("/api/complete-registration", {
+      const res = await fetch("/api/others/complete-registration", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

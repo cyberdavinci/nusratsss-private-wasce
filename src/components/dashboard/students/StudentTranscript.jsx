@@ -141,7 +141,7 @@ const StudentTranscript = ({
     await updateAssessmentTable(asessments, remarks);
     setProgress(90);
     setUpdating(false);
-    mutate(`/api/students/${id}`);
+    mutate(`/api/others/students/${id}`);
     setProgress(100);
     setShowProgress(false);
     setBtnState("save");

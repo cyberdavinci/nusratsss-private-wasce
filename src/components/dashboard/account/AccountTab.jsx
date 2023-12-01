@@ -20,7 +20,10 @@ export default function AccountTab() {
   const id = session.data?.user?._id;
   const [selected, setSelected] = React.useState("account");
   // console.log(userId);
-  const { data, isLoading, isError } = useSWR(`/api/students/${id}`, fetcher);
+  const { data, isLoading, isError } = useSWR(
+    `/api/others/students/${id}`,
+    fetcher
+  );
   //
   useEffect(() => {
     if (

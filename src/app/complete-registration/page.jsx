@@ -18,7 +18,10 @@ const FinishRegistration = () => {
 
   const [totalPrice, setTotalPrice] = useState(0);
   const [loading, setIsLoading] = useState(false);
-  const { data, isLoading, isError } = useSWR(`/api/students/${id}`, fetcher);
+  const { data, isLoading, isError } = useSWR(
+    `/api/others/students/${id}`,
+    fetcher
+  );
 
   const [info, setInfo] = useState({
     address: "",
@@ -89,7 +92,7 @@ const FinishRegistration = () => {
   const finishRegistration = async () => {
     setIsLoading((prev) => !prev);
     try {
-      const res = await fetch("/api/complete-registration", {
+      const res = await fetch("/api/others/complete-registration", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

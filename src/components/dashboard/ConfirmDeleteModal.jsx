@@ -19,6 +19,7 @@ const ConfirmDeleteModal = ({
   currentUser,
   userToDelete,
   deleting,
+  // mutate
 }) => {
   const session = useSession();
   const Delete = () => {
@@ -65,8 +66,8 @@ const ConfirmDeleteModal = ({
                 </Button>
                 <Button
                   color="danger"
-                  onPress={() => {
-                    Delete();
+                  onPress={async () => {
+                    await Delete();
                     onClose();
                   }}
                   isDisabled={userToDelete.role === "admin" || deleting}

@@ -146,7 +146,7 @@ const TranscriptModal = ({
                   </div>
                   {/* transcript body*/}
                   <div className="transcript-table mt-6 flex justify-between gap-4">
-                    <table className="tra-table w-[85%]">
+                    <table className="tra-table table-main w-[85%]">
                       <thead>
                         <tr>
                           <th>Class: Private WASSCE 2023</th>
@@ -187,7 +187,7 @@ const TranscriptModal = ({
                         </tr>
                         <tr>
                           <th>Grade</th>
-                          <th>%</th>
+                          <th>range%</th>
                           <th>Remarks</th>
                           <th>result</th>
                         </tr>
@@ -234,7 +234,7 @@ const TranscriptModal = ({
                   </div>
                   {/* transcript footer*/}
                   <div className="mt-4 flex justify-between">
-                    <table>
+                    <table className="tra-table">
                       <tbody>
                         <tr>
                           <td>Conduct</td>

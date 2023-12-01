@@ -104,7 +104,7 @@ export const PATCH = async (request) => {
       },
       { new: true }
     );
-    console.log(updatedUser);
+    // console.log(updatedUser);
     return new NextResponse("registration complete", { status: 200 });
   } catch (err) {
     return new NextResponse(err, { status: 500, data: err });

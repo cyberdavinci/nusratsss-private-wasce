@@ -57,10 +57,11 @@ const TokensTable = ({
   // Note: according to nextui docs on table the column key was supposed to be used to render different rows of different styles but not sure why its giving me does wierd values
   const renderCell = React.useCallback((token, columnKey) => {
     const createdAt = new Date(token["createdAt"]);
+    const updateddAt = new Date(token["updatedAt"]);
     switch (columnKey) {
-      case "$.0":
+      case "token":
         return <p>{token["token"]}</p>;
-      case "$.1":
+      case "status":
         return (
           <Chip
             radius="sm"
@@ -72,8 +73,14 @@ const TokensTable = ({
             {selectedTab}
           </Chip>
         );
-      // case "$.2":
-      //   return <p>{createdAt.toLocaleString()}</p>;
+      case "date":
+        return (
+          <p>
+            {selectedTab === "used"
+              ? updateddAt.toLocaleString()
+              : createdAt.toLocaleString()}
+          </p>
+        );
       default:
         return cellValue;
     }
@@ -118,7 +125,7 @@ const TokensTable = ({
               onSubmit={async (event) => {
                 await generateToken(event);
                 // await mutate(`/api/tokens?filter=${selectedTab}`);
-                await mutate(`/api/tokens`);
+                await mutate(`/api/others/tokens`);
               }}
             >
               <Input
@@ -166,9 +173,9 @@ const TokensTable = ({
         }
       >
         <TableHeader>
-          <TableColumn>TOKEN</TableColumn>
-          <TableColumn>STATUS</TableColumn>
-          {/* <TableColumn>DATE</TableColumn> */}
+          <TableColumn key={"token"}>TOKEN</TableColumn>
+          <TableColumn key={"status"}>STATUS</TableColumn>
+          <TableColumn key={"date"}>DATE</TableColumn>
           {/* <TableColumn>USED By</TableColumn> */}
         </TableHeader>
         <TableBody

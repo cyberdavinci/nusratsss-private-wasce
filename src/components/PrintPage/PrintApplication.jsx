@@ -12,7 +12,10 @@ const PrintApplication = ({ currentForm }) => {
   const session = useSession();
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
-  const { data, isLoading, isError } = useSWR(`/api/students/${id}`, fetcher);
+  const { data, isLoading, isError } = useSWR(
+    `/api/others/students/${id}`,
+    fetcher
+  );
   // console.log(id);
   const componentRef = useRef();
   const router = useRouter();

@@ -29,7 +29,7 @@ const ResetPassword = ({ resetStep, setResetStep, states }) => {
     setLoading(true);
     if (password === confirmPassword) {
       try {
-        const res = await fetch(`/api/reset-password`, {
+        const res = await fetch(`/api/others/reset-password`, {
           method: "POST",
           body: JSON.stringify({ password, resetPin, email }),
         });

@@ -11,7 +11,14 @@ const Preview = ({
 }) => {
   const session = useSession();
   if (session.status === "loading") {
-    return <h1>Loading please wait...</h1>;
+    return (
+      <div className="h-screen flex justify-center items-center">
+        {" "}
+        <h1 className="text-slate-800 text-center text-2xl font-semibold">
+          Loading please wait...
+        </h1>
+      </div>
+    );
   }
   return (
     <div className={`preview flex  flex-col justify-between w-full `}>

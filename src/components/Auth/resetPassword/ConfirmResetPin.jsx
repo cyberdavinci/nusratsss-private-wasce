@@ -15,7 +15,7 @@ const ConfirmResetPin = ({ resetStep, setResetStep, states }) => {
     setResetPin((prev) => verificationPin);
     setLoading(true);
     try {
-      const res = await fetch(`/api/verify-reset-pin`, {
+      const res = await fetch(`/api/others/verify-reset-pin`, {
         method: "POST",
         body: JSON.stringify({ verificationPin }),
       });
@@ -86,7 +86,7 @@ const ConfirmResetPin = ({ resetStep, setResetStep, states }) => {
           isDisabled={isDisabled}
           // isLoading={loading}
           onClick={async () => {
-            await fetch(`/api/verify-user`, {
+            await fetch(`/api/others/verify-user`, {
               method: "POST",
               body: JSON.stringify({ email }),
             });

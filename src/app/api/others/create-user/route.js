@@ -50,3 +50,16 @@ export const POST = async (request) => {
     return new NextResponse(error, { status: 500 });
   }
 };
+export const DELETE = async (request) => {
+  await connect();
+  const id = await request.nextUrl.searchParams.get("id");
+
+  try {
+    await User.findByIdAndDelete(id);
+    return new NextResponse("user deleted successfuly", { status: 200 });
+  } catch (err) {
+    return new NextResponse("server error! cannot delete user", {
+      status: 500,
+    });
+  }
+};

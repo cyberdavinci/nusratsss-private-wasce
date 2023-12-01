@@ -155,7 +155,7 @@ input[type="number"] {
   border-collapse: collapse;
 }
 .tra-table th,
-td {
+.tra-table td {
   border: 1px solid black;
   padding: 4px;
 }

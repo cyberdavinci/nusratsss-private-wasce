@@ -15,7 +15,7 @@ const VerifyEmail = ({ resetStep, setResetStep, states, setUser }) => {
     setEmail((prev) => email);
     setLoading(true);
     try {
-      const res = await fetch(`/api/verify-user`, {
+      const res = await fetch(`/api/others/verify-user`, {
         method: "POST",
         body: JSON.stringify({ email }),
       });

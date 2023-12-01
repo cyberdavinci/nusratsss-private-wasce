@@ -12,9 +12,13 @@ const Settings = () => {
   const fetcher = (...args) =>
     fetch(...args).then(async (res) => await res.json());
   const { mutate } = useSWRConfig();
-  const { data, isLoading, error } = useSWR("/api/create-user", fetcher, {
-    keepPreviousData: true,
-  });
+  const { data, isLoading, error } = useSWR(
+    "/api/others/create-user",
+    fetcher,
+    {
+      keepPreviousData: true,
+    }
+  );
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   // const nameArr = !isLoading ? data?.name?.split(" ") : [];
@@ -25,11 +29,11 @@ const Settings = () => {
   const deleteUser = async (userId) => {
     setDeleting(true);
     try {
-      await fetch(`/api/create-user?id=${userId}`, {
+      await fetch(`/api/others/create-user?id=${userId}`, {
         method: "DELETE",
       });
 
-      await mutate(`/api/create-user`), setDeleting(false);
+      await mutate(`/api/others/create-user`), setDeleting(false);
     } catch (err) {
       console.log(err);
       setDeleting(false);

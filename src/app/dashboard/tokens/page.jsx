@@ -13,7 +13,7 @@ const Tokens = () => {
   const [beforePrintBgColor, setBeforePrintBgColor] = useState("black");
   const { mutate, cache } = useSWRConfig();
 
-  const { data, isLoading, isError } = useSWR(`/api/tokens`, fetcher, {
+  const { data, isLoading, isError } = useSWR(`/api/others/tokens`, fetcher, {
     keepPreviousData: true,
   });
 
@@ -32,7 +32,7 @@ const Tokens = () => {
     const numberOfTokens = event.target[0].value;
     setIsGeneratingTokens((prev) => true);
     try {
-      const res = await fetch(`/api/tokens`, {
+      const res = await fetch(`/api/others/tokens`, {
         method: "POST",
         body: JSON.stringify({ numberOfTokens }),
         headers: { "Content-Type": "application/json" },

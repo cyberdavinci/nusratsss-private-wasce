@@ -74,7 +74,7 @@ const StudentsTable = () => {
   const hasSearchFilter = Boolean(filterValue);
   const { mutate } = useSWRConfig();
   const { data, isLoading, error } = useSWR(
-    `/api/students?page=${page}&search=${filterValue}&limit=${rowsPerPage}`,
+    `/api/others/students?page=${page}&search=${filterValue}&limit=${rowsPerPage}`,
 
     fetcher,
     {
@@ -141,12 +141,12 @@ const StudentsTable = () => {
   const deleteStudent = async (userId) => {
     setDeleting(true);
     try {
-      await fetch(`/api/students?id=${userId}`, {
+      await fetch(`/api/others/students?id=${userId}`, {
         method: "DELETE",
       });
 
       await mutate(
-        `/api/students?page=${page}&search=${filterValue}&limit=${rowsPerPage}`
+        `/api/others/students?page=${page}&search=${filterValue}&limit=${rowsPerPage}`
       ),
         setDeleting(false);
     } catch (err) {
