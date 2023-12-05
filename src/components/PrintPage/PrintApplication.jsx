@@ -5,10 +5,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import useSWR from "swr";
 import { useSession } from "next-auth/react";
 import { Button, Spinner } from "@nextui-org/react";
-const fetcher = (...args) =>
-  fetch(...args).then(async (res) => await res.json());
 
 const PrintApplication = ({ currentForm }) => {
+  const fetcher = (...args) =>
+    fetch(...args).then(async (res) => await res.json());
   const session = useSession();
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
