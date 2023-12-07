@@ -41,7 +41,7 @@ const BarChart = () => {
   console.log(data);
   //
   const totalAmountSold = React.useMemo(() => {
-    return data?.length * 200;
+    return data?.length * 250;
   }, [data, isLoading]);
   //
   const nusratStudents = React.useMemo(() => {
