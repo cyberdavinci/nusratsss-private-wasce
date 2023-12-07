@@ -10,4 +10,4 @@ const PrintAppForm = () => {
   );
 };
 
-export default page;
+export default PrintAppForm;
