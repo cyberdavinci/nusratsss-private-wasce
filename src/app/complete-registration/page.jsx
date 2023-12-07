@@ -103,9 +103,15 @@ const FinishRegistration = () => {
       });
       // console.log(res);
 
-      !res.ok
-        ? (alert("Failed to Submit"), setIsLoading((prev) => !prev))
-        : router.replace(`/print-application?id=${session.data?.user?._id}`);
+      // !res.ok
+      //   ?
+      //   :
+      if (!res.ok) {
+        alert("Failed to Submit"), setIsLoading((prev) => !prev);
+      }
+      if (session.status === "authenticated") {
+        router.push(`/print-application?id=${session.data?.user?._id}`);
+      }
     } catch (err) {
       setIsLoading((prev) => false);
       console.log(err);
