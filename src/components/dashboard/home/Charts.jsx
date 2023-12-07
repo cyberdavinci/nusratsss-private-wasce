@@ -114,7 +114,7 @@ const BarChart = () => {
 
     // Count the number of students created on each date
     const tokensSoldPerDay = uniqueDates?.map(
-      (date) => createdDates?.filter((d) => d === date)?.length * 200
+      (date) => createdDates?.filter((d) => d === date)?.length * 250
     );
     return {
       labels: uniqueDates,
