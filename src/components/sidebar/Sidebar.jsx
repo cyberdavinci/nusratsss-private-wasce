@@ -109,6 +109,14 @@ const Sidebar = ({ children }) => {
                     link={"/dashboard/settings"}
                     routeType={"admin"}
                   />
+
+                  <SideBarItem
+                    text={"Announcements"}
+                    // icon={<AiOutlineSetting size={25} />}
+                    icon={"/icons/sidebar/announce.svg"}
+                    link={"/dashboard/announcements"}
+                    routeType={"admin"}
+                  />
                 </>
               ) : null}
 

@@ -98,7 +98,8 @@ const StudentsTable = () => {
       filteredUsers = filteredUsers?.filter(
         (user) =>
           user.name.toLowerCase().includes(filterValue.toLowerCase()) ||
-          user.subjects?.includes(filterValue.toLowerCase())
+          user.subjects?.includes(filterValue.toLowerCase()) ||
+          user.token?.includes(filterValue.toLowerCase())
       );
     }
     // filter by status
@@ -174,9 +175,12 @@ const StudentsTable = () => {
       case "gender":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{cellValue}</p>
-            <p className="text-bold text-tiny capitalize text-default-400">
+            {/* <p className="text-bold text-small capitalize">{cellValue}</p> */}
+            <p className="text-bold text-small capitalize">
               {user?.gender ? user?.gender : "unspecified"}
+            </p>
+            <p className="text-bold text-tiny capitalize text-default-400">
+              {user?.token}
             </p>
           </div>
         );
@@ -225,6 +229,7 @@ const StudentsTable = () => {
                 // onClick={() => deleteStudent(user?._id)}
                 onClick={() => {
                   setUserToDelete(user);
+                  // this will open the confirm delete modal
                   onOpen();
                 }}
               >

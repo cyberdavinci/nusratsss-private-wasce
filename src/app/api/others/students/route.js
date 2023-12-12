@@ -1,6 +1,8 @@
 import connect from "@/utils/db";
 import User from "@/models/User";
 import { NextResponse } from "next/server";
+
+//
 export const GET = async (request, { params }) => {
   await connect();
   const page = request.nextUrl.searchParams.get("page");
@@ -13,6 +15,7 @@ export const GET = async (request, { params }) => {
     query.$or = [
       { name: { $regex: new RegExp(search, "i") } },
       { email: { $regex: new RegExp(search, "i") } },
+      { token: { $regex: new RegExp(search, "i") } },
     ];
   }
   try {
