@@ -36,11 +36,13 @@ const TokensTable = ({
   const [tokensToExport, setTokensToExport] = React.useState(1);
 
   const filteredData = React.useMemo(() => {
-    const filteredTokens =
-      tokensToExport === 1 ? tokens : tokens?.slice(0, tokensToExport);
+    const filteredNumberTokens =
+      tokensToExport === 1
+        ? filteredTokens
+        : filteredTokens?.slice(0, tokensToExport);
     // console.log(filteredTokens);
 
-    return filteredTokens;
+    return filteredNumberTokens;
   }, [tokensToExport]);
   // console.log(filteredData);
   const exportExcel = React.useCallback(() => {
@@ -51,10 +53,6 @@ const TokensTable = ({
     writeFileXLSX(wb, "tokens.xlsx");
   }, [filteredData, tokensToExport]);
 
-  // console.log(tokens);
-  // please do not ask why does case values
-  // just print out the column key you will undertand
-  // Note: according to nextui docs on table the column key was supposed to be used to render different rows of different styles but not sure why its giving me does wierd values
   const renderCell = React.useCallback((token, columnKey) => {
     const createdAt = new Date(token["createdAt"]);
     const updateddAt = new Date(token["updatedAt"]);
