@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 import UserAvatar from "@/components/dashboard/UserAvatar";
 import { MainContextProvider } from "@/context/ContextProvider";
-import { RiMenuUnfoldLine } from "react-icons/ri";
+import { HiMenuAlt2 } from "react-icons/hi";
 import { Spinner } from "@nextui-org/react";
 
 const Layout = ({ children }) => {
@@ -40,13 +40,9 @@ const Layout = ({ children }) => {
             className=" p-1.5 rounded-lg text-white font-extrabold hover:text-green-800 ml-3 overflow-hidden md:hidden md:w-0 block w-auto"
             onClick={() => setExpand(() => true)}
           >
-            {!expand ? (
-              <div className="md:hidden md:w-0 flex w-auto items-center gap-[4px]">
-                {" "}
-                <RiMenuUnfoldLine size={18} className="font-semibold" />
-                <span>Menu</span>{" "}
-              </div>
-            ) : null}
+            {/* {!expand ? ( */}
+            <HiMenuAlt2 size={20} className="font-semibold" />
+            {/* ) : null} */}
           </button>
           <span className="font-semibold md:text-lg text-sm text-center">
             Welcome back {session?.data?.user?.name?.split(" ")[0]}

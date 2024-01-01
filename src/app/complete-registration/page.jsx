@@ -52,7 +52,7 @@ const FinishRegistration = () => {
 
   useEffect(() => {
     data?.registrationStatus === "complete"
-      ? router.push(`/print-application?id=${session.data?.user?._id}`)
+      ? router.push(`/dashboard/account`)
       : null;
     session.status === "unauthenticated" ? router.replace("/login") : null;
   }, [session.status, data, router]);
@@ -110,7 +110,8 @@ const FinishRegistration = () => {
         alert("Failed to Submit"), setIsLoading((prev) => !prev);
       }
       if (session.status === "authenticated") {
-        router.push(`/print-application?id=${session.data?.user?._id}`);
+        router.push(`/dashboard/account`);
+        // router.push(`/dashboard/account?id=${session.data?.user?._id}`);
       }
     } catch (err) {
       setIsLoading((prev) => false);

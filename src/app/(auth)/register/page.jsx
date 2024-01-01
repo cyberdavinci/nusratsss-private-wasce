@@ -47,7 +47,7 @@ const Register = () => {
         });
         //clear form inputs
         // e.target.reset();
-        console.log(res);
+        // console.log(res);
         res.status === 201 &&
           // setIsLoading(() => false),
           (await signIn("credentials", {
@@ -99,6 +99,7 @@ const Register = () => {
           isRequired
           minLength={4}
           maxLength={250}
+          labelPlacement="outside"
         />
         <Input
           type="email"
@@ -106,6 +107,7 @@ const Register = () => {
           className="max-w-xs"
           variant="bordered"
           label="Email"
+          labelPlacement="outside"
           isRequired
           minLength={5}
           maxLength={250}
@@ -115,6 +117,7 @@ const Register = () => {
           label="Password"
           variant="bordered"
           placeholder="Enter your password"
+          labelPlacement="outside"
           minLength={8}
           maxLength={250}
           endContent={
@@ -140,6 +143,7 @@ const Register = () => {
           className="max-w-xs"
           variant="bordered"
           label="Token"
+          labelPlacement="outside"
           isRequired
           isInvalid={errMsg?.includes("Token") ? true : false}
         />
