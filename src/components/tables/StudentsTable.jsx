@@ -81,7 +81,7 @@ const StudentsTable = () => {
       keepPreviousData: true,
     }
   );
-  // console.log(selectedSubs);
+  console.log(data);
   const headerColumns = React.useMemo(() => {
     if (visibleColumns === "all") return columns;
 

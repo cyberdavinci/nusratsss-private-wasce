@@ -51,7 +51,7 @@ const ConfirmResetPin = ({ resetStep, setResetStep, states }) => {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <h1 className=" text-4xl font-extrabold p-3">Enter Verification Pin</h1>
-      <p className=" font-semibold text-blue-400">
+      <p className=" font-semibold text-green-400">
         Verification pin has been sent to your email
       </p>
       <span className="text-[#ff261b] pb-2 font-semibold">{errorMsg}</span>
@@ -60,12 +60,14 @@ const ConfirmResetPin = ({ resetStep, setResetStep, states }) => {
         onSubmit={handleSubmit}
       >
         <Input
-          label="Verification Pin"
+          // label="Verification Pin"
           variant="bordered"
           placeholder="Enter verification pin"
           isRequired
           autoComplete={false}
           className="max-w-[320px]"
+          labelPlacement="outside"
+          typeof="number"
         />
 
         <Button
@@ -78,29 +80,31 @@ const ConfirmResetPin = ({ resetStep, setResetStep, states }) => {
           Submit
         </Button>
         {/* <div className="flex gap-4 items-center"> */}
-        <Button
-          type="submit"
-          // color="success"
-          variant="flat"
-          className="bg-transparent"
-          isDisabled={isDisabled}
-          // isLoading={loading}
-          onClick={async () => {
-            await fetch(`/api/others/verify-user`, {
-              method: "POST",
-              body: JSON.stringify({ email }),
-            });
-            setIsDisabled(true);
-            setTime(120);
-          }}
-          endContent={() => (
+        <div>
+          <Button
+            type="submit"
+            // color="success"
+            variant="flat"
+            className="bg-transparent"
+            isDisabled={isDisabled}
+            // isLoading={loading}
+            onClick={async () => {
+              await fetch(`/api/others/verify-user`, {
+                method: "POST",
+                body: JSON.stringify({ email }),
+              });
+              setIsDisabled(true);
+              setTime(120);
+            }}
+          >
+            Didn't recieve pin
+          </Button>
+          {time > 0 ? (
             <span className=" text-blue-500 font-semibold cursor-pointer">
               {formatTime(time)}
             </span>
-          )}
-        >
-          Didn't recieve pin
-        </Button>
+          ) : null}
+        </div>
       </form>
       {/* {err && <h1 className={styles.errorText}>Something went wrong!</h1>} */}
     </div>

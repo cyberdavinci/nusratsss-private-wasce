@@ -38,7 +38,7 @@ const fetcher = (...args) =>
 const BarChart = () => {
   const { mutate } = useSWRConfig();
   const { data, isLoading, error } = useSWR(`/api/others/students`, fetcher);
-  console.log(data);
+  // console.log(error);
   //
   const totalAmountSold = React.useMemo(() => {
     return data?.length * 250;
