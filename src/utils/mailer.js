@@ -1,13 +1,12 @@
 import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
-const USERMAIL = process.env.USERMAIL;
+const USER = process.env.USER;
 const PASS = process.env.PASS;
 const sendEmail = (emailTo, resetToken) => {
-  // console.log(USERMAIL, PASS);
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: USERMAIL,
+      user: USER,
       pass: PASS,
     },
   });
@@ -15,7 +14,7 @@ const sendEmail = (emailTo, resetToken) => {
     from: "ebrimatouray3937@gmail.com<academiaportal.vercel.app>",
     to: emailTo,
     subject: "Password reset request, academiaportal.vercel.app",
-    text: `Your password reset pin is ${resetToken}`,
+    text: `Your password reset token is ${resetToken}`,
   };
 
   //

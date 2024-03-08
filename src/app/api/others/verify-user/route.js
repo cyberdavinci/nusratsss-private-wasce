@@ -27,7 +27,7 @@ export const POST = async (request) => {
       { new: true }
     );
     if (student) {
-      // console.log(student);
+      console.log(student);
       sendEmail(email, resetToken);
       return new NextResponse(`verification pin sent to  ${email}`, {
         status: 200,
