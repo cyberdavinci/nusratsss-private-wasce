@@ -83,6 +83,17 @@ input:focus {
   outline-color: transparent;
   box-shadow: none !important;
 }
+textarea {
+  border: none;
+  /* outline: none; */
+}
+textarea:focus {
+  outline: none;
+  outline-width: 0;
+  outline-color: transparent !important;
+  box-shadow: none !important;
+  /* box-shadow: #666; */
+}
 /* select {
   border: transparent;
   outline: none;
@@ -122,11 +133,12 @@ input[type="number"] {
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  border-radius: 10px;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  /* border-radius: 10px; */
+  /* border-top-left-radius: 0; */
+  /* border-bottom-left-radius: 0; */
+  /* border: 1px solid rgba(255, 255, 255, 0.18); */
   /* color: #fff; */
+  /* margin-right: 100px; */
 }
 .sTable {
   /* background: rgba(0, 113, 249, 0.25); */

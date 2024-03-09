@@ -16,11 +16,14 @@
     "autoprefixer": "10.4.15",
     "bcryptjs": "^2.4.3",
     "chart.js": "^4.4.1",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
     "eslint": "8.49.0",
     "eslint-config-next": "13.4.19",
     "flowbite-react": "^0.6.0",
     "framer-motion": "^10.16.4",
     "loaders.css": "^0.1.2",
+    "lucide-react": "^0.352.0",
     "mongodb": "^6.0.0",
     "mongoose": "6.11.1",
     "next": "^13.5.4",
@@ -39,7 +42,9 @@
     "react-to-print": "^2.14.13",
     "redux": "^4.2.1",
     "swr": "^2.2.2",
+    "tailwind-merge": "^2.2.1",
     "tailwindcss": "3.3.3",
+    "tailwindcss-animate": "^1.0.7",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.0/xlsx-0.20.0.tgz"
   }
 }

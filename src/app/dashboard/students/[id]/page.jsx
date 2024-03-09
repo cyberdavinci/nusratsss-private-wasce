@@ -8,6 +8,7 @@ import StudentTranscript from "@/components/dashboard/students/StudentTranscript
 import StudentSecurityTab from "@/components/dashboard/students/StudentSecurityTab";
 import UpdatingModal from "@/components/dashboard/UpdatingModal";
 import { useEffect } from "react";
+import StudentTestimonialTab from "@/components/dashboard/students/StudentTestimonialTab";
 
 const Student = () => {
   const fetcher = (...args) =>
@@ -19,6 +20,7 @@ const Student = () => {
   const [updatingTable, setUpdatingTable] = React.useState(false);
   const [updatingInfo, setUpdatingInfo] = React.useState(false);
   const [updatingSecurity, setUpdatinfSecurity] = React.useState(false);
+
   const router = useRouter();
   const { data, isLoading, isError } = useSWR(
     `/api/others/students/${id}`,
@@ -28,10 +30,6 @@ const Student = () => {
   //
   const [newData, setNewData] = useState(data ? data : null);
   const [assessments, setAssessments] = useState([]);
-  //
-  // useEffect(() => {
-  //   setNewData(() => ({ ...data }));
-  // }, [data]);
 
   const handleInputChange = (event) => {
     setNewData((prev) => ({
@@ -53,10 +51,7 @@ const Student = () => {
     };
     reader.readAsDataURL(event.target.files[0]);
   };
-  // console.log(userImg);
-  // console.log(newData?.total_test_1_score);
-  // console.log(newData?.total_test_2_score);
-  // console.log(newData?.total_mock_score);
+
   const updateStudentData = async (e) => {
     e.preventDefault();
     setUpdatingInfo((prev) => true);
@@ -98,11 +93,6 @@ const Student = () => {
       console.log(err);
     }
   };
-
-  // console.log(`New Data: ${newData}`);
-  // console.log(`Data: ${data}`);
-  // console.log(newData);
-  // console.log(data);
 
   const updateAssessmentTable = async (newDataTable, remarks) => {
     // console.log(remarks);
@@ -173,6 +163,19 @@ const Student = () => {
                 isLoading={isLoading}
                 updateAssessmentTable={updateAssessmentTable}
                 updatingTable={updatingTable}
+                mutate={mutate}
+                id={id}
+                handleRemarksUpdate={handleInputChange}
+              />
+            </Tab>
+            <Tab key={"testimonial"} title={"Testimonial"}>
+              <StudentTestimonialTab
+                newData={newData}
+                setNewData={setNewData}
+                // isLoading={isLoading}
+                // updateAssessmentTable={updateAssessmentTable}
+                // updatingTable={updatingTable}
+                updatingInfo={updatingInfo}
                 mutate={mutate}
                 id={id}
                 handleRemarksUpdate={handleInputChange}

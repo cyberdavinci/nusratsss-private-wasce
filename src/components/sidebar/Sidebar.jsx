@@ -45,7 +45,9 @@ const Sidebar = ({ children }) => {
             pathName?.includes("dashboard") ? "block" : "hidden w-0"
           } md:translate-x-0   md:w-[22%] transition-all min-h-screen h-full float-left  fixed ${
             expand ? "w-[220px] translate-x-0" : "w-0 translate-x-[-200px]"
-          } z-40 ${pathName.includes("print-application") ? "hidden w-0" : ""}`}
+          } z-40 ${
+            pathName.includes("print-application") ? "hidden w-0" : ""
+          } `}
         >
           {/* bg-[#16181A] */}
           <nav className="sidebar min-h-screen flex flex-col  border-r  border-slate-800 shadow-sm w-full h-full">
