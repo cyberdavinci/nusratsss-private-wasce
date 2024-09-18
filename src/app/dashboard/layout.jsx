@@ -15,7 +15,8 @@ const Layout = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const session = useSession();
   useEffect(() => {
-    if (session.status === "unauthenticated") router.replace("/login");
+    if (session.status === "unauthenticated")
+      router.replace("https://nusrat.academiaportal.info");
     if (session.data?.user?.role === "student")
       router.replace("/dashboard/account");
   }, [router, session.status, session.data?.user?.role, expand]);

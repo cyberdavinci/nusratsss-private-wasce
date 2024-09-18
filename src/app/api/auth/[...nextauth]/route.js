@@ -59,7 +59,7 @@ export const authOptions = {
     },
   },
   pages: {
-    // signOut: "/login",
+    signOut: "https://nusrat.academiaportal.info",
     signIn: "/dashboard/account",
   },
 };
