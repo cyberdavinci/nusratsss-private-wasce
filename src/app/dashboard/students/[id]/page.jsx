@@ -58,7 +58,7 @@ const Student = () => {
     try {
       const res = await fetch("/api/others/complete-registration", {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",  },
         body: JSON.stringify({
           ...newData,
           // userImg,
