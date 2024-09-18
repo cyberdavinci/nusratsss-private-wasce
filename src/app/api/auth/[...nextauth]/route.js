@@ -59,7 +59,7 @@ export const authOptions = {
     },
   },
   pages: {
-    signOut: "/login",
+    // signOut: "/login",
     signIn: "/dashboard/account",
   },
 };
