@@ -87,6 +87,22 @@ const SelectSubjects = ({
       name: "Government",
       icon: "/icons/agric.svg",
     },
+    {
+      name: "French",
+      icon: "/icons/agric.svg",
+    },
+    {
+      name: "Civic Education",
+      icon: "/icons/agric.svg",
+    },
+    {
+      name: "Insurance",
+      icon: "/icons/agric.svg",
+    },
+    {
+      name: "Marketing",
+      icon: "/icons/agric.svg",
+    },
   ];
   const subjectsPricees = [
     {
