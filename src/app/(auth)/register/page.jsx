@@ -17,10 +17,10 @@ const Register = () => {
 
   const toggleVisibility = () => setIsVisible(!isVisible);
   // console.log(session);
-  // useEffect(() => {
-  //   if (session.status === "authenticated")
-  //     router.push("/complete-registration");
-  // }, [session.status, router]);
+  useEffect(() => {
+    if (session.status === "authenticated")
+      router.push("/complete-registration");
+  }, [session.status, router]);
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const handleSubmit = async (e) => {
     e.preventDefault();
