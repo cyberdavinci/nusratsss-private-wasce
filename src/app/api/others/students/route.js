@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../auth/[...nextauth]/route";
 import { Enrollment } from "@/models/Enrollment";
-import { updateStudentsWithEnrollmentID } from "../enrollments/route";
+// import { updateStudentsWithEnrollmentID } from "../enrollments/route";
 //
 export const GET = async (request, { params }, res) => {
   const selectedEnrollment = await request.nextUrl.searchParams.get(
@@ -14,7 +14,7 @@ export const GET = async (request, { params }, res) => {
   const session = await getServerSession(authOptions);
   // console.log(session);
   await connect();
-  await updateStudentsWithEnrollmentID("66fdb51244e63a9db08ff8b6");
+
   if (session) {
     const currentEnrollment = await Enrollment.findOne(
       { status: "Opened" },
