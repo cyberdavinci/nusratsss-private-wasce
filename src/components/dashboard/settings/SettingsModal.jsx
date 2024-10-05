@@ -13,7 +13,7 @@ import {
   SelectSection,
   SelectItem,
 } from "@nextui-org/react";
-import { SearchIcon } from "@/components/tables/SearchIcon";
+import { SearchIcon } from "@/components/icons/SearchIcon";
 import { EyeFilledIcon } from "@/app/(auth)/login/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "@/app/(auth)/login/EyeSlashFilledIcon";
 import { useSession } from "next-auth/react";

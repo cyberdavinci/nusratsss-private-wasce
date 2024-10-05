@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Table,
@@ -20,43 +20,45 @@ import {
   Spinner,
   Tooltip,
   useDisclosure,
-  Select,
-  SelectItem,
 } from "@nextui-org/react";
 // import { PlusIcon } from "./PlusIcon";
 // import { VerticalDotsIcon } from "./VerticalDotsIcon";
-import { SearchIcon } from "../icons/SearchIcon";
-import { ChevronDownIcon } from "../icons/ChevronDownIcon";
-import { DeleteIcon } from "../icons/DeleteIcon";
-import { EyeIcon } from "../icons/EyeIcon";
-import { columns, statusOptions, subjectOptions } from "./data";
-import { capitalize } from "./utils";
+import { SearchIcon } from "./icons/SearchIcon";
+import { ChevronDownIcon } from "./icons/ChevronDownIcon";
+import { DeleteIcon } from "./icons/DeleteIcon";
+import { EyeIcon } from "./icons/EyeIcon";
+import { enrollmentColumns, enrollmentStatusOptions } from "./tables/data";
+import { capitalize } from "./tables/utils";
 import useSWR, { useSWRConfig } from "swr";
 import { useRouter } from "next/navigation";
-import { ExportExcelButton } from "../excelsheet/Sheet";
-import { VerticalDotsIcon } from "../icons/VerticalDotsIcon";
-import ConfirmDeleteModal from "../dashboard/ConfirmDeleteModal";
+// import { ExportExcelButton } from "../excelsheet/Sheet";
+// import { VerticalDotsIcon } from "../icons/VerticalDotsIcon";
+// import ConfirmDeleteModal from "../dashboard/ConfirmDeleteModal";
+import { dummyEnrollments } from "./tables/dummy";
+import { PlusIcon } from "lucide-react";
+import { ReusableModal } from "./ReusableModal";
+import AddNewEnrollment from "./Forms/AddNewEnrollment";
+import UpdateEnrollment from "./Forms/UpdateEnrollment";
 // import { useAsyncList } from "@react-stately/data";
 const statusColorMap = {
-  complete: "success",
-  incomplete: "warning",
+  opened: "success",
+  closed: "danger",
   // pending: "warning",
 };
 
-const INITIAL_VISIBLE_COLUMNS =
-  window.innerWidth <= 768
-    ? ["name", "actions"]
-    : ["name", "gender", "registrationStatus", "actions"];
+// window.innerWidth <= 768
+//   ? ["name", "actions"]
+//   : ["name", "gender", "registrationStatus", "actions"];
 // Fetcher function for swr
 //
-const StudentsTable = () => {
+const Enrollments = () => {
+  const INITIAL_VISIBLE_COLUMNS = ["name", "status", "actions"];
   const router = useRouter();
   const fetcher = (...args) =>
     fetch(...args).then(async (res) => await res.json());
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
-  const [selectedEnrollment, setSelectedEnrollment] = React.useState("");
-
+  const [formType, setFormType] = useState("");
   // const [selectedKey, setSelectedKey] = React.useState(null);
   const [userToDelete, setUserToDelete] = React.useState(null);
   const [visibleColumns, setVisibleColumns] = React.useState(
@@ -65,157 +67,139 @@ const StudentsTable = () => {
 
   const [action, setAction] = React.useState("");
   const [statusFilter, setStatusFilter] = React.useState("all");
-  const [selectedSubs, setSelectedSub] = React.useState("all");
   // const [selectedKeys, setSelectedKeys] = React.useState(new Set(["text"]));
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [sortDescriptor, setSortDescriptor] = React.useState({
-    column: "subjects",
-    direction: "ascending",
-  });
+  const [isEnrollmentFormOpened, setEnrollmentFormStatus] = useState(false);
+  const [selectedEnrollment, setSelectedEnrollment] = useState(null);
   const [deleting, setDeleting] = React.useState(false);
   const [page, setPage] = React.useState(1);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const hasSearchFilter = Boolean(filterValue);
-  const { mutate } = useSWRConfig();
+  // const { mutate } = useSWRConfig();
+  const { data, isLoading, error, mutate } = useSWR(
+    `/api/others/enrollments`,
 
-  const enrollments = useSWR(`/api/others/enrollments`, fetcher);
-  // console.log(enrollments.data);
-
-  const { data, isLoading, error } = useSWR(
-    `/api/others/students?page=${page}&search=${filterValue}&limit=${rowsPerPage}&enrollmentId=${selectedEnrollment}`,
     fetcher,
     {
       keepPreviousData: true,
     }
   );
 
-  const handleSelectEnrollment = (e) => {
-    setSelectedEnrollment(e.target.value);
-    mutate();
+  const closeEnrollmentForm = () => {
+    setEnrollmentFormStatus(false);
   };
-  console.log(selectedEnrollment);
+
+  // yes i knoww but it won't happened! I think!
+  const openEnrollmentForm = (form, data) => {
+    if (form == "new") {
+      setFormType("new");
+    }
+    if (form == "update") {
+      setSelectedEnrollment(data);
+
+      setFormType("update");
+    }
+    setEnrollmentFormStatus(true);
+  };
+
+  // console.log(selectedEnrollment);
   // console.log(selectedSubs);
   const headerColumns = React.useMemo(() => {
-    if (visibleColumns === "all") return columns;
+    if (visibleColumns === "all") return enrollmentColumns;
 
-    return columns.filter((column) =>
+    return enrollmentColumns.filter((column) =>
       Array.from(visibleColumns).includes(column.uid)
     );
   }, [visibleColumns]);
 
   // simple filter function
   const filteredItems = React.useMemo(() => {
-    let filteredUsers = data !== undefined && !isLoading ? [...data] : [];
+    // let filteredEnrollments = dummyEnrollments;
+    // use this below when fetching from api!
+    let filteredEnrollments = data !== undefined && !isLoading ? [...data] : [];
 
     if (hasSearchFilter) {
-      filteredUsers = filteredUsers?.filter(
-        (user) =>
-          user.name.toLowerCase().includes(filterValue.toLowerCase()) ||
-          user.subjects?.includes(filterValue.toLowerCase()) ||
-          user.token?.includes(filterValue.toLowerCase())
+      filteredEnrollments = filteredEnrollments?.filter((enrollment) =>
+        enrollment.name.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
     // filter by status
     if (
       statusFilter !== "all" &&
-      Array.from(statusFilter).length !== statusOptions.length
+      Array.from(statusFilter).length !== enrollmentStatusOptions.length
     ) {
-      filteredUsers = filteredUsers.filter((user) =>
-        Array.from(statusFilter).includes(user.registrationStatus.toLowerCase())
+      filteredEnrollments = filteredEnrollments.filter((enrollment) =>
+        Array.from(statusFilter).includes(enrollment.status.toLowerCase())
       );
     }
     // filter by subjects
-    if (
-      selectedSubs !== "all" &&
-      Array.from(selectedSubs).length !== subjectOptions.length
-    ) {
-      filteredUsers = filteredUsers.filter((user) =>
-        user.subjects.some((item) =>
-          Array.from(selectedSubs).includes(item.toLowerCase())
-        )
-      );
-    }
 
-    return filteredUsers;
-  }, [data, filterValue, statusFilter, selectedSubs]);
+    return filteredEnrollments;
+    // include data later when fetching from api!
+  }, [filterValue, statusFilter, data]);
   // rounds up pages or number of pages to the nearest integer value
   // const pages = Math.ceil(data?.length / rowsPerPage);
   const pages = React.useMemo(() => {
     // console.log(data?.count);
+    // return Math.ceil(dummyEnrollments.length / rowsPerPage);
     return data?.length > 0 ? Math.ceil(data.length / rowsPerPage) : 0;
-  }, [data?.length, rowsPerPage]);
+
+    // include data?.length later when fetching from api!
+  }, [rowsPerPage, data?.length]);
 
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
 
+    // return filteredItems?.slice(start, end);
     return !isLoading && data ? filteredItems?.slice(start, end) : [];
   }, [page, filteredItems, rowsPerPage]);
 
-  const deleteStudent = async (userId) => {
-    setDeleting(true);
-    try {
-      await fetch(`/api/others/students?id=${userId}`, {
-        method: "DELETE",
-      });
+  // const deleteStudent = async (userId) => {
+  //   setDeleting(true);
+  //   try {
+  //     await fetch(`/api/others/students?id=${userId}`, {
+  //       method: "DELETE",
+  //     });
 
-      await mutate(
-        `/api/others/students?page=${page}&search=${filterValue}&limit=${rowsPerPage}`
-      ),
-        setDeleting(false);
-    } catch (err) {
-      console.log(err);
-      setDeleting(false);
-    }
-  };
+  //     await mutate(
+  //       `/api/others/students?page=${page}&search=${filterValue}&limit=${rowsPerPage}`
+  //     ),
+  //       setDeleting(false);
+  //   } catch (err) {
+  //     console.log(err);
+  //     setDeleting(false);
+  //   }
+  // };
 
-  const renderCell = React.useCallback((user, columnKey) => {
-    const cellValue = user[columnKey];
-    // console.log(cellValue);
+  const renderCell = React.useCallback((enrollment, columnKey) => {
+    const cellValue = enrollment[columnKey];
+    // console.log(enrollment);
     // console.log(columnKey);
 
     switch (columnKey) {
       case "name":
         return (
           <User
-            avatarProps={{ radius: "lg", name: user.name[0]?.toUpperCase() }}
-            description={user.email}
-            name={cellValue}
+            avatarProps={{ radius: "lg", name: enrollment?.studentIdPrefix }}
+            description={enrollment?.enrolllmentDate}
+            name={enrollment?.enrollmentID}
           >
-            {user.email}
+            {/* {enrollment.name} */}
           </User>
         );
-      case "gender":
-        return (
-          <div className="flex flex-col">
-            {/* <p className="text-bold text-small capitalize">{cellValue}</p> */}
-            <p className="text-bold text-small capitalize">
-              {user?.gender ? user?.gender : "unspecified"}
-            </p>
-            <p className="text-bold text-tiny capitalize text-default-400">
-              {user?.token}
-            </p>
-          </div>
-        );
-      case "registrationStatus":
+      case "status":
         return (
           <Chip
-            className="capitalize"
-            color={statusColorMap[user?.registrationStatus]}
+            className=" border-none gap-1 text-default-600"
+            color={statusColorMap[enrollment?.status?.toLowerCase()]}
             size="sm"
-            variant="flat"
+            variant="dot"
           >
-            {cellValue}
+            {enrollment?.status}
           </Chip>
         );
-      case "subjects":
-        return (
-          <ul>
-            {user?.subjects?.map((subject, index) => (
-              <li key={index}>-{subject}</li>
-            ))}
-          </ul>
-        );
+
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
@@ -224,7 +208,7 @@ const StudentsTable = () => {
                 <span
                   className="text-lg text-default-400 cursor-pointer active:opacity-50"
                   key={"view"}
-                  onClick={() => router.push(`students/${user?._id}`)}
+                  onClick={() => openEnrollmentForm("update", enrollment)}
                 >
                   <EyeIcon />
                 </span>
@@ -239,12 +223,12 @@ const StudentsTable = () => {
               <span
                 className="text-lg text-danger cursor-pointer active:opacity-50"
                 key={"delete"}
-                // onClick={() => deleteStudent(user?._id)}
-                onClick={() => {
-                  setUserToDelete(user);
-                  // this will open the confirm delete modal
-                  onOpen();
-                }}
+                // // onClick={() => deleteStudent(user?._id)}
+                // onClick={() => {
+                //   setUserToDelete(user);
+                //   // this will open the confirm delete modal
+                //   onOpen();
+                // }}
               >
                 <DeleteIcon />
               </span>
@@ -293,33 +277,26 @@ const StudentsTable = () => {
   const topContent = React.useMemo(() => {
     return (
       <div className="flex flex-col gap-4">
-        <div className="flex justify-between flex-col flex-wrap i gap-6">
-          <div className="flex flex-col items-center justify-between gap-14 md:flex-row">
-            <Input
-              isClearable
-              size="sm"
-              className="w-full sm:max-w-[44%] border-none outline-none"
-              placeholder="Search by name..."
-              startContent={<SearchIcon />}
-              value={filterValue}
-              onClear={() => onClear()}
-              onValueChange={onSearchChange}
-            />
-            <Select
-              size="sm"
-              label={"current enrollment"}
-              items={enrollments?.data || []}
-              isLoading={enrollments?.isLoading}
-              onChange={handleSelectEnrollment}
+        <div className="flex justify-between flex-wrap gap-3 items-end">
+          <Input
+            size="sm"
+            isClearable
+            className="w-full sm:max-w-[44%] border-none outline-none"
+            placeholder="Search by name..."
+            startContent={<SearchIcon />}
+            value={filterValue}
+            onClear={() => onClear()}
+            onValueChange={onSearchChange}
+          />
+          <div className="flex gap-3 flex-wrap">
+            <Button
+              color="success"
+              variant="flat"
+              endContent={<PlusIcon />}
+              onPress={() => openEnrollmentForm("new", null)}
             >
-              {(item) => (
-                <SelectItem key={item?._id} className="capitalize">
-                  {item.enrollmentID}
-                </SelectItem>
-              )}
-            </Select>
-          </div>
-          <div className="flex gap-3 flex-wrap items-center">
+              New Enrollment
+            </Button>
             {/*  */}
 
             {/*  */}
@@ -341,7 +318,7 @@ const StudentsTable = () => {
                 onSelectionChange={setStatusFilter}
                 // className="dark"
               >
-                {statusOptions.map((status) => (
+                {enrollmentStatusOptions.map((status) => (
                   <DropdownItem key={status?.uid} className="capitalize">
                     {capitalize(status?.name)}
                   </DropdownItem>
@@ -349,40 +326,7 @@ const StudentsTable = () => {
               </DropdownMenu>
             </Dropdown>
             {/*  */}
-            <Dropdown
-              classNames={{ base: "max-h-[300px]overflow-scroll" }}
-              shouldBlockScroll={false}
-            >
-              <DropdownTrigger>
-                <Button
-                  variant="bordered"
-                  className="capitalize"
-                  endContent={<ChevronDownIcon className="text-small" />}
-                >
-                  Subjects
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                className="h-[200px] overflow-y-scroll"
-                classNames={{
-                  base: "h-[200px] overflow-y-scroll",
-                  list: "h-[200px] overflow-y-scroll",
-                }}
-                aria-label="Multiple selection example"
-                variant="flat"
-                closeOnSelect={false}
-                disallowEmptySelection
-                selectionMode="multiple"
-                selectedKeys={selectedSubs}
-                onSelectionChange={setSelectedSub}
-              >
-                {subjectOptions?.map((subject) => (
-                  <DropdownItem key={subject?.uid} className="capitalize">
-                    {capitalize(subject?.name)}
-                  </DropdownItem>
-                ))}
-              </DropdownMenu>
-            </Dropdown>
+
             {/*  */}
 
             <Dropdown>
@@ -403,7 +347,7 @@ const StudentsTable = () => {
                 selectionMode="multiple"
                 onSelectionChange={setVisibleColumns}
               >
-                {columns.map((column) => (
+                {enrollmentColumns.map((column) => (
                   <DropdownItem key={column.uid} className="capitalize">
                     {capitalize(column.name)}
                   </DropdownItem>
@@ -413,12 +357,12 @@ const StudentsTable = () => {
             {/* <Button color="primary" endContent={<PlusIcon />}>
               Export Excel
             </Button> */}
-            <ExportExcelButton data={items} selectedSubs={selectedSubs} />
+            {/* <ExportExcelButton data={items} selectedSubs={selectedSubs} /> */}
           </div>
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total {data?.length} users
+            Total {data?.length} enrollments
           </span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
@@ -439,7 +383,7 @@ const StudentsTable = () => {
   }, [
     filterValue,
     statusFilter,
-    selectedSubs,
+
     visibleColumns,
     onRowsPerPageChange,
     data?.length,
@@ -505,7 +449,7 @@ const StudentsTable = () => {
   return (
     <>
       <Table
-        aria-label="Students Table, pagination and sorting"
+        aria-label="Enrollments Table, pagination and sorting"
         isHeaderSticky
         color="primary"
         bottomContent={bottomContent}
@@ -534,10 +478,19 @@ const StudentsTable = () => {
         <TableBody
           emptyContent={"No users found"}
           items={items ?? []}
-          isLoading={isLoading}
+          // isLoading={isLoading}
           loadingContent={<Spinner label="Loading..." />}
         >
           {(item) =>
+            item?.enrollmentID ? (
+              <TableRow key={item?.enrollmentID}>
+                {(columnKey) => (
+                  <TableCell>{renderCell(item, columnKey)}</TableCell>
+                )}
+              </TableRow>
+            ) : null
+          }
+          {/* {(item) =>
             item?._id ? (
               <TableRow key={item?._id}>
                 {(columnKey) => (
@@ -545,10 +498,10 @@ const StudentsTable = () => {
                 )}
               </TableRow>
             ) : null
-          }
+          } */}
         </TableBody>
       </Table>
-      <ConfirmDeleteModal
+      {/* <ConfirmDeleteModal
         isOpen={isOpen}
         // onClose={onClose}
         deleteStudent={deleteStudent}
@@ -556,8 +509,24 @@ const StudentsTable = () => {
         userToDelete={userToDelete}
         onOpenChange={onOpenChange}
         deleting={deleting}
-      />
+      /> */}
+
+      <ReusableModal
+        isOpen={isEnrollmentFormOpened}
+        closeModal={closeEnrollmentForm}
+        modalTitle={"New Enrollment"}
+      >
+        {formType == "new" ? (
+          <AddNewEnrollment closeModal={closeEnrollmentForm} />
+        ) : (
+          <UpdateEnrollment
+            data={selectedEnrollment}
+            mutate={mutate}
+            closeModal={closeEnrollmentForm}
+          />
+        )}
+      </ReusableModal>
     </>
   );
 };
-export default StudentsTable;
+export default Enrollments;

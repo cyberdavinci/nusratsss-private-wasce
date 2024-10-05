@@ -50,12 +50,12 @@ export const PATCH = async (request) => {
   //   test_2_score: "",
   //   test_3_score: "",
   // }));
-  console.log(
-    total_test_1_score,
-    total_test_2_score,
-    total_mock_score,
-    conduct
-  );
+  // console.log(
+  //   total_test_1_score,
+  //   total_test_2_score,
+  //   total_mock_score,
+  //   conduct
+  // );
   await connect();
   // const updatedPassword = await bcrypt.hash(password, 5);
   // console.log(`Plain passs ${password} updated-hashed ${updatedPassword}`);

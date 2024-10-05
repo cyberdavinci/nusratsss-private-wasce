@@ -3,19 +3,35 @@ import User from "@/models/User";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../auth/[...nextauth]/route";
-
+import { Enrollment } from "@/models/Enrollment";
+// import { updateStudentsWithEnrollmentID } from "../enrollments/route";
 //
 export const GET = async (request, { params }, res) => {
+  const selectedEnrollment = await request.nextUrl.searchParams.get(
+    "enrollmentId"
+  );
+  // console.log(request.nextUrl.searchParams);
   const session = await getServerSession(authOptions);
   // console.log(session);
   await connect();
   if (session) {
+    const currentEnrollment = await Enrollment.findOne(
+      { status: "Opened" },
+
+      { sort: { _id: -1 } }
+    );
+    // console.log(currentEnrollment);
     const page = request.nextUrl.searchParams.get("page");
 
     const search = request.nextUrl.searchParams.get("search") || "";
     const limit = request.nextUrl.searchParams.get("limit") || "";
     // console.log(page, limit, search);
-    const query = { role: "student" };
+    const query = {
+      role: "student",
+      enrollment: selectedEnrollment
+        ? selectedEnrollment
+        : currentEnrollment?._id,
+    };
     if (search) {
       query.$or = [
         { name: { $regex: new RegExp(search, "i") } },

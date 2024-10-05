@@ -17,10 +17,10 @@ const Register = () => {
 
   const toggleVisibility = () => setIsVisible(!isVisible);
   // console.log(session);
-  useEffect(() => {
-    if (session.status === "authenticated")
-      router.push("/complete-registration");
-  }, [session.status, router]);
+  // useEffect(() => {
+  //   if (session.status === "authenticated")
+  //     router.push("/complete-registration");
+  // }, [session.status, router]);
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,8 +46,7 @@ const Register = () => {
           }),
         });
         //clear form inputs
-        // e.target.reset();
-        // console.log(res);
+
         res.status === 201 &&
           // setIsLoading(() => false),
           (await signIn("credentials", {
@@ -69,7 +68,6 @@ const Register = () => {
       }
     } else {
       // Invalid email address
-      // alert("Please enter a valid email address.");
       setErroMsg(() => "Invalid Email");
       // Prevent the form from being submitted (if used in a form)
       return false;

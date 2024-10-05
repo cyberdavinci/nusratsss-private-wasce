@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+import { Enrollment } from "./Enrollment";
 const userSchema = mongoose.Schema(
   {
     name: {
@@ -29,9 +29,6 @@ const userSchema = mongoose.Schema(
       type: String,
       default: null,
       unique: false,
-      // required: function () {
-      //   return this.router === "register";
-      // },
     },
     subjects: [
       {
@@ -42,6 +39,13 @@ const userSchema = mongoose.Schema(
       type: String,
       default: null,
     },
+    enrollment: { type: mongoose.Schema.Types.ObjectId, ref: "Enrollment" },
+    booksSelected: [
+      {
+        bookName: String,
+        price: Number,
+      },
+    ],
     resetToken: {
       type: String,
       default: null,
@@ -137,12 +141,14 @@ const userSchema = mongoose.Schema(
     },
     registration_ID: {
       type: String,
-      default: "PW0",
+      // required: true,
     },
-    // isNew: {
-    //   type: Boolean,
-    //   default: true,
-    // },
+    booksSelected: [
+      {
+        bookName: String,
+        price: Number,
+      },
+    ],
     assessments: {
       type: Array,
       default: [
@@ -154,9 +160,6 @@ const userSchema = mongoose.Schema(
           mean_score: 0,
           grade: "",
           total_marks_obtained: 0,
-          // total_test_1_score: 0,
-          // total_test_2_score: 0,
-          // total_mock_score: 0,
         },
       ],
     },
@@ -191,32 +194,74 @@ const userSchema = mongoose.Schema(
     attitude: { type: String, default: "Postive" },
   },
 
-  { timestamps: true }
+  { timestamps: true },
+  { createdAt: Date.now }
 );
-userSchema.pre("save", async function (next) {
-  // console.log(this.isNew);
-  if (this?.$isNew) {
-    try {
-      const lastUser = await this?.constructor.findOne(
-        {},
-        { registration_ID: 1 },
-        { sort: { _id: -1 } }
-      );
-      // console.log(lastUser);
-      const lastId = lastUser
-        ? parseInt(lastUser.registration_ID.substring(2), 10)
-        : 0;
-      // console.log(lastId);
-      const newId = (lastId + 1).toString().padStart(6, "0");
-      // console.log("New ID:" + newId);
-      this.registration_ID = `PW${newId}`;
-      this.isNew = true;
-    } catch (error) {
-      console.error("Error in pre-save hook:", error);
-      return next(error);
-    }
-  }
-  next();
-});
+
+//hold here
+// userSchema.pre("save", async function (next) {
+//   // console.log(this.isNew);
+//   if (this?.$isNew) {
+//     try {
+//       const lastUser = await this?.constructor.findOne(
+//         {},
+//         { registration_ID: 1 },
+//         { sort: { _id: -1 } }
+//       );
+//       // console.log(lastUser);
+//       const lastId = lastUser
+//         ? parseInt(lastUser.registration_ID.substring(2), 10)
+//         : 0;
+//       // console.log(lastId);
+//       const newId = (lastId + 1).toString().padStart(6, "0");
+//       // console.log("New ID:" + newId);
+//       this.registration_ID = `PW${newId}`;
+//       this.isNew = true;
+//     } catch (error) {
+//       console.error("Error in pre-save hook:", error);
+//       return next(error);
+//     }
+//   }
+//   next();
+// });
+
+// userSchema.pre("save", async function (next) {
+//   if (this.isNew) {
+//     try {
+//       // Get the current enrollment based on the year or other criteria
+//       const enrollment = await Enrollment.findOne(
+//         { status: "Opened" }, // Use 'Opened' enrollment as current active
+//         // { enrollmentID: 1 },   // Only fetch the enrollmentID field
+//         { sort: { enrollmentDate: -1 } } // Sort to get the latest enrollment if there are multiple 'Opened' enrollments
+//       );
+
+//       if (!enrollment) {
+//         console.log(enrollment);
+//         throw new Error("No active enrollment found");
+//       }
+
+//       // Fetch the last registered student for the given enrollment
+//       const lastUser = await this.constructor.findOne(
+//         { registration_ID: { $regex: `^${enrollment._id}` } }, // Match students from the same enrollment
+//         { registration_ID: 1 },
+//         { sort: { _id: -1 } } // Sort by _id to get the last inserted student
+//       );
+
+//       // Extract last registration ID number, or start from 0 if none found
+//       const lastId = lastUser
+//         ? parseInt(lastUser.registration_ID.split("-")[1], 10)
+//         : 0;
+
+//       // Create a new registration ID
+//       const newId = (lastId + 1).toString().padStart(5, "0"); // 5-digit ID
+//       // use the enrollment prefix field value from enrollment!
+//       this.registration_ID = `${enrollment.enrollmentID}-${enrollment?.studentIdPrefix}${newId}`;
+//     } catch (error) {
+//       console.error("Error in pre-save hook:", error);
+//       return next(error);
+//     }
+//   }
+//   next();
+// });
 
 module.exports = mongoose.models.User || mongoose.model("User", userSchema);

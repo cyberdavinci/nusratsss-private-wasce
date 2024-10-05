@@ -11,12 +11,21 @@ const columns = [
   { name: "REGISTRATION STATUS", uid: "registrationStatus", sortable: true },
   { name: "ACTIONS", uid: "actions" },
 ];
-
+const enrollmentColumns = [
+  { name: "NAME", uid: "name" },
+  { name: "STATUS", uid: "status" },
+  { name: "ACTIONS", uid: "actions" },
+];
+const enrollmentStatusOptions = [
+  { name: "OPENED", uid: "opened" },
+  { name: "CLOSED", uid: "closed" },
+];
 const statusOptions = [
   { name: "Complete", uid: "complete" },
   { name: "Incomplete", uid: "incomplete" },
   { name: "Denied", uid: "denied" },
 ];
+
 const subjectOptions = [
   { name: "Mathematics", uid: "mathematics" },
   { name: "English Language", uid: "english language" },
@@ -38,4 +47,10 @@ const subjectOptions = [
   { name: "Government", uid: "government" },
 ];
 
-export { columns, statusOptions, subjectOptions };
+export {
+  columns,
+  statusOptions,
+  subjectOptions,
+  enrollmentColumns,
+  enrollmentStatusOptions,
+};

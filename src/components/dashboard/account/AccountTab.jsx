@@ -40,6 +40,7 @@ export default function AccountTab() {
   useEffect(() => {
     if (
       data !== undefined &&
+      data !== null &&
       data.registrationStatus === "incomplete" &&
       data?.role === "student"
     )

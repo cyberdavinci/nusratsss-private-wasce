@@ -1,5 +1,5 @@
 import { Button } from "@nextui-org/react";
-import { PlusIcon } from "../tables/PlusIcon";
+import { PlusIcon } from "../icons/PlusIcon";
 import React, { useState } from "react";
 import { read, utils, writeFileXLSX } from "xlsx";
 export const ExportExcelButton = ({ data, selectedSubs }) => {

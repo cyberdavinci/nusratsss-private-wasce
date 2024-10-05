@@ -53,13 +53,13 @@ export const authOptions = {
       session.user._id = token._id;
       session.user.role = token.role;
       session.user.token = token.token;
-      // session.user.subjects = token.subjects;
-      // session.user.registrationStatus = token.registrationStatus;
+
       return session;
     },
   },
   pages: {
-    signOut: "https://nusrat.academiaportal.info",
+    signOut: "/",
+    // signOut: "https://nusrat.academiaportal.info",
     signIn: "/dashboard/account",
   },
 };
