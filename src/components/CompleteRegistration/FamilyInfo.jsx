@@ -36,7 +36,6 @@ const FamilyInfo = ({
           <div className="flex flex-col">
             <Input
               type="text"
-              variant="bordered"
               label={"Parent or guardian name"}
               className="md:w-[200px] w-full"
               isRequired
@@ -67,7 +66,6 @@ const FamilyInfo = ({
           <div className="flex flex-col ">
             <Input
               type="text"
-              variant="bordered"
               // className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none md:w-[200px] w-full"
               // placeholder="address"
               label={"Contact of parent"}
@@ -105,7 +103,6 @@ const FamilyInfo = ({
           <div className="flex flex-col  ">
             <Input
               type="text"
-              variant="bordered"
               // className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none md:w-[200px] w-full"
               // placeholder="address"
               label={"Parent or Guardian name 2"}
@@ -139,7 +136,6 @@ const FamilyInfo = ({
           <div className="flex flex-col  ">
             <Input
               type="text"
-              variant="bordered"
               // className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none md:w-[200px] w-full"
               // placeholder="address"
               label={"Contact of parent"}

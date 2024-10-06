@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   Table,
@@ -79,7 +79,17 @@ const StudentsTable = () => {
   const { mutate } = useSWRConfig();
 
   const enrollments = useSWR(`/api/others/enrollments`, fetcher);
-  // console.log(enrollments.data);
+
+  const setOpenedEnrollment = () => {
+    const enroll = enrollments?.data
+      ? enrollments?.data?.filter((enroll) => enroll.status == "Opened")
+      : "";
+
+    enroll ? setSelectedEnrollment(enroll[0]?._id) : null;
+  };
+  useEffect(() => {
+    setOpenedEnrollment();
+  }, [enrollments?.data, enrollments?.isLoading]);
 
   const { data, isLoading, error } = useSWR(
     `/api/others/students?page=${page}&search=${filterValue}&limit=${rowsPerPage}&enrollmentId=${selectedEnrollment}`,
@@ -93,7 +103,7 @@ const StudentsTable = () => {
     setSelectedEnrollment(e.target.value);
     mutate();
   };
-  console.log(selectedEnrollment);
+  // console.log(selectedEnrollment);
   // console.log(selectedSubs);
   const headerColumns = React.useMemo(() => {
     if (visibleColumns === "all") return columns;
@@ -298,15 +308,20 @@ const StudentsTable = () => {
             <Input
               isClearable
               size="sm"
-              className="w-full sm:max-w-[44%] border-none outline-none"
+              className="w-full sm:max-w-[44%] border-none outline-none bg-transparent"
               placeholder="Search by name..."
               startContent={<SearchIcon />}
               value={filterValue}
               onClear={() => onClear()}
               onValueChange={onSearchChange}
+              variant="bordered"
             />
             <Select
               size="sm"
+              defaultSelectedKeys={[selectedEnrollment]}
+              selectedKeys={[selectedEnrollment]}
+              variant="bordered"
+              className="bg-transparent"
               label={"current enrollment"}
               items={enrollments?.data || []}
               isLoading={enrollments?.isLoading}
@@ -459,10 +474,15 @@ const StudentsTable = () => {
         {pages > 0 ? (
           <div className="flex w-full justify-center">
             <Pagination
+              // classNames={{
+              //   cursor: "bg-foreground text-background",
+              // }}
               isCompact
               showControls
               showShadow
-              color="primary"
+              variant="flat"
+              radius="full"
+              color="success"
               page={page}
               total={pages}
               onChange={(page) => setPage(page)}
@@ -502,17 +522,35 @@ const StudentsTable = () => {
     // items.length,
   }, [selectedKeys, page, pages, hasSearchFilter]);
 
+  const classNames = React.useMemo(
+    () => ({
+      wrapper: ["max-h-[382px]", "max-w-full", "bg-transparent", "w-full"],
+      th: ["bg-transparent", "text-default-500", "border-divider"],
+      td: [
+        // changing the rows border radius
+        // first
+        "group-data-[first=true]:first:before:rounded-none",
+        "group-data-[first=true]:last:before:rounded-none",
+        // middle
+        "group-data-[middle=true]:before:rounded-none",
+        // last
+        "group-data-[last=true]:first:before:rounded-none",
+        "group-data-[last=true]:last:before:rounded-none",
+      ],
+    }),
+    []
+  );
+
   return (
     <>
       <Table
         aria-label="Students Table, pagination and sorting"
         isHeaderSticky
         color="primary"
+        className="bg-slate-950 p-5 rounded-xl"
         bottomContent={bottomContent}
         bottomContentPlacement="outside"
-        classNames={{
-          wrapper: "max-h-[382px] sTable w-full",
-        }}
+        classNames={classNames}
         // selectedKeys={selectedKeys}
         selectionMode="single"
         // selectionBehavior="replace"

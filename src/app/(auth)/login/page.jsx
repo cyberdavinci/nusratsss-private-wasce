@@ -66,14 +66,22 @@ const Login = () => {
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <Input
           type="email"
+          labelPlacement="outside"
           placeholder="Enter your email"
-          className="max-w-xs"
+          className="max-w-xs border-slate-800"
+          classNames={{
+            inputWrapper: "border-slate-800",
+          }}
           variant="bordered"
           label="Email"
           isRequired
         />
         <Input
+          classNames={{
+            inputWrapper: "border-slate-800",
+          }}
           label="Password"
+          labelPlacement="outside"
           variant="bordered"
           placeholder="Enter your password"
           isRequired

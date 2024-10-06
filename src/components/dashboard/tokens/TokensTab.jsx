@@ -29,8 +29,10 @@ export default function TokensTab({
     <div className="flex w-full flex-col">
       <Tabs
         aria-label="Options"
-        color="primary"
-        variant="bordered"
+        color="success"
+        className=" "
+        classNames={{ tabList: "bg-slate-900" }}
+        variant="solid"
         selectedKey={selectedTab}
         onSelectionChange={setSelectedTab}
       >
@@ -68,12 +70,6 @@ export default function TokensTab({
           key="unused"
           title={
             <div className="flex items-center space-x-2">
-              {/* <Image
-                width={30}
-                height={30}
-                src={"/icons/account/security.svg"}
-              /> */}
-              {/* <MusicIcon/> */}
               <span>Unused</span>
             </div>
           }

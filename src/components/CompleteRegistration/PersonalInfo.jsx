@@ -52,9 +52,9 @@ const PersonalInfo = ({
               label="Date of birth"
               // className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none md:w-[200px] w-full"
               // placeholder="Date of birth"
-              variant="bordered"
+              // variant="bordered"
               // color="success"
-              className="md:w-[200px] w-full"
+              className="md:w-[200px] w-full "
               isRequired
               name="date_of_birth"
               value={date_of_birth}
@@ -65,6 +65,7 @@ const PersonalInfo = ({
           <div className="flex flex-col">
             {/* <label htmlFor="">Nationality</label> */}
             <Select
+              // variant="bordered"
               name="nationality"
               label="Select nationality"
               color={nationality ? "success" : null}
@@ -123,7 +124,7 @@ const PersonalInfo = ({
             {/* <label htmlFor="">Address</label> */}
             <Input
               type="text"
-              variant="bordered"
+              // variant="bordered"
               label={"Address"}
               className="md:w-[200px] w-full"
               isRequired
@@ -142,7 +143,7 @@ const PersonalInfo = ({
               className="md:w-[200px] w-full"
               label={"Phone number"}
               // required
-              variant="bordered"
+              // variant="bordered"
               isRequired
               name="mobile"
               value={mobile}
@@ -157,7 +158,7 @@ const PersonalInfo = ({
               name="ethnicity"
               variant="flat"
               value={ethnicity}
-              className="md:w-[200px] w-full  text-slate-900"
+              className="md:w-[200px] w-full  "
               color={ethnicity ? "success" : null}
               label="Select ethnicity"
               isRequired
@@ -170,13 +171,14 @@ const PersonalInfo = ({
               <SelectItem key={"Manjago"}>Manjago</SelectItem>
               <SelectItem key={"Balanta"}>Balanta</SelectItem>
               <SelectItem key={"Serer"}>Serer</SelectItem>
+              <SelectItem key={"Serahuleh"}>Serahule</SelectItem>
               <SelectItem key={"Other"}>Other</SelectItem>
             </Select>
           </div>
           <div className="flex flex-col ">
             <Input
               type="text"
-              variant="bordered"
+              // variant="bordered"
               label={"Occupation"}
               className="md:w-[200px] w-full"
               isRequired

@@ -89,6 +89,9 @@ const Register = () => {
 
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <Input
+          classNames={{
+            inputWrapper: "border-slate-800",
+          }}
           type="text"
           placeholder="Enter your full name"
           className="max-w-xs"
@@ -100,6 +103,9 @@ const Register = () => {
           labelPlacement="outside"
         />
         <Input
+          classNames={{
+            inputWrapper: "border-slate-800",
+          }}
           type="email"
           placeholder="Enter your email"
           className="max-w-xs"
@@ -112,6 +118,9 @@ const Register = () => {
           isInvalid={errMsg?.includes("Email") ? true : false}
         />
         <Input
+          classNames={{
+            inputWrapper: "border-slate-800",
+          }}
           label="Password"
           variant="bordered"
           placeholder="Enter your password"
@@ -136,6 +145,9 @@ const Register = () => {
           isRequired
         />
         <Input
+          classNames={{
+            inputWrapper: "border-slate-800",
+          }}
           type="text"
           placeholder="Enter registration token"
           className="max-w-xs"

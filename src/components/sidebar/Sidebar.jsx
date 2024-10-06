@@ -50,7 +50,7 @@ const Sidebar = ({ children }) => {
           } `}
         >
           {/* bg-[#16181A] */}
-          <nav className="sidebar min-h-screen flex flex-col  border-r  border-slate-800 shadow-sm w-full h-full">
+          <nav className="sidebar bg-slate-950 min-h-screen flex flex-col  border-r  border-slate-800 shadow-sm w-full h-full">
             <div className=" pb-2  w-full float-right  justify-end text-end">
               {/* <Image
             src={"https://img.logoipsum.com/243.svg"}
@@ -74,7 +74,7 @@ const Sidebar = ({ children }) => {
               </button>
             </div>
             {/* <SideBarContext.Provider value={{ expand, currentName, toggleNav }}> */}
-            <ul className="flex-1 px-3">
+            <ul className="flex-1 px-3 mb-4">
               {session?.data?.user?.role === "admin" ||
               session?.data?.user?.role === "subscriber" ? (
                 <>
@@ -130,17 +130,7 @@ const Sidebar = ({ children }) => {
                 routeType={"student"}
               />
             </ul>
-            {/* </SideBarContext.Provider> */}
             <div className="border-t border-slate-800 flex px-1 py-3 justify-center items-center gap-1 w-full ">
-              {/* <Image
-            src={
-              "https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
-            }
-            alt="something..."
-            width={50}
-            height={50}
-            className=" w-10 h-10 rounded-md"
-          /> */}
               <p className=" text-center w-12 h-10 rounded-lg bg-green-500 font-extrabold text-2xl flex items-center justify-center text-white">
                 {shortName?.toUpperCase()}
               </p>
@@ -172,29 +162,55 @@ export function SideBarItem({ icon, text, active, alert, link }) {
   useEffect(() => {}, [expand, toggleNav]);
   return (
     // {routeType ===  ? :}
-    <Link href={link} onClick={() => setExpand(() => false)}>
-      <li
-        className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer  hover:bg-green-500 hover:text-white ${
-          pathName === link ? " bg-green-950 text-green-400" : "  text-gray-400"
+    // <Link href={link} onClick={() => setExpand(() => false)}>
+    //   <li
+    //     className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer  hover:bg-green-500 hover:text-white ${
+    //       pathName === link ? " bg-green-950 text-green-400" : "  text-gray-400"
+    //     }`}
+    //   >
+    //     <Image src={icon} width={25} height={25} alt="some icon" />
+    //     {/* {icon} */}
+    //     <span
+    //       className={`overflow-hidden transition-all`}
+    //       // className={`overflow-hidden transition-all ${
+    //       //   expand ? "w-52 ml-3" : "w-0"
+    //       // }`}
+    //     >
+    //       {text}
+    //     </span>
+    //     {alert && (
+    //       <div
+    //         className={`absolute  w-2 h-2 rounded bg-indigo-400 ${
+    //           expand ? "" : "top-2"
+    //         }`}
+    //       ></div>
+    //     )}
+    //   </li>
+    // </Link>
+
+    <Link
+      key={link}
+      className={`${
+        pathName == link ? ` bg-dark-greylight` : ``
+      }  overflow-x-hidden rounded-full transition-colors hover:bg-dark-secondary flex items-center gap-5 md:justify-center lg:justify-start md:w-fit w-full lg:w-full lg:self-start md:self-center mb-4`}
+      href={link}
+      onClick={() => setExpand(() => false)}
+    >
+      <span
+        className={`text-xl md:text-xl flex justify-center items-center text-center md:p-3 p-3  rounded-full  ${
+          pathName == link
+            ? "text-[#c9d4fc] bg-dark-green "
+            : "bg-dark-greylight"
         }`}
       >
         <Image src={icon} width={25} height={25} alt="some icon" />
-        {/* {icon} */}
-        <span
-          className={`overflow-hidden transition-all`}
-          // className={`overflow-hidden transition-all ${
-          //   expand ? "w-52 ml-3" : "w-0"
-          // }`}
-        >
-          {text}
-        </span>
-        {alert && (
-          <div
-            className={`absolute  w-2 h-2 rounded bg-indigo-400 ${
-              expand ? "" : "top-2"
-            }`}
-          ></div>
-        )}
+      </span>
+      <li
+        className={`lg:block md:hidden block ${
+          pathName == link ? "text-[#d0dbff]" : ""
+        } overflow-hidden`}
+      >
+        {text}
       </li>
     </Link>
   );

@@ -13,8 +13,8 @@ import { ContextProvider } from "@/context/ContextProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Academia Portal",
-  description: "Registration portal",
+  title: "Academia Portal - Nusrat Private Wassce Studies",
+  description: "Registration Portal for Nusrat Private Wascce Studies",
 };
 
 export default async function RootLayout({ children }) {
@@ -27,7 +27,7 @@ export default async function RootLayout({ children }) {
           <AuthProvider>
             <ReduxProvider>
               <UIProvider>
-                <div className=" relative w-full min-h-screen h-full flex gap-8 justify-between">
+                <div className=" relative w-full min-h-screen h-full flex gap-8 justify-between bg-dark-custom-gradient">
                   <Sidebar />
 
                   {/* </Sidebar> */}

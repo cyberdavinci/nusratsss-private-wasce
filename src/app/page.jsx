@@ -8,16 +8,20 @@ import HomeButtons from "@/components/dashboard/home/HomeButtons";
 export default async function Home() {
   return (
     <div className="flex flex-col justify-between items-center h-screen overflow-x-hidden ">
-      <div className="flex items-center justify-between flex-wrap-reverse h-full p-12">
+      <div className="flex items-center justify-between flex-wrap-reverse h-full py-12 px-9 w-full">
         <div className="flex flex-col gap-10 flex-1">
           <h1
             className={`${styles.title} font-bold md:text-6xl text-4xl leading-14`}
           >
-            Welcome to Academia Registration Portal!
+            Welcome to Academia Portal!
+            <br />
+            <span className=" text-3xl">
+              Nusrat Private Registration Portal
+            </span>
           </h1>
-          <p className=" font-semibold text-xl leading-8">
+          {/* <p className=" font-semibold text-xl leading-8">
             Your easy to use online registration portal for study centers.
-          </p>
+          </p> */}
           <HomeButtons />
         </div>
         {/* <Register /> */}

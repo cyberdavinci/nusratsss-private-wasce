@@ -40,7 +40,6 @@ const Education = ({
           <div className="flex flex-col ">
             <Input
               type="text"
-              variant="bordered"
               label={"Previous School"}
               className="md:w-[200px] w-full"
               isRequired
@@ -74,7 +73,6 @@ const Education = ({
           <div className="flex flex-col  ">
             <Input
               type="text"
-              variant="bordered"
               // className=" bg-transparent text-[#bbb] font-extrabold border-teal-700 border-[2px] p-3 rounded-md outline-none md:w-[200px] w-full"
               // placeholder="address"
               label={"Year of completion"}

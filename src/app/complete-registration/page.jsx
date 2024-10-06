@@ -13,7 +13,7 @@ const FinishRegistration = () => {
   const session = useSession();
   const router = useRouter();
   const id = session.data?.user?._id;
-  const [currentForm, setCurrentForm] = useState(1);
+  const [currentForm, setCurrentForm] = useState(5);
   const [selectedSubjects, setSelectedSubjects] = useState([]);
 
   const [totalPrice, setTotalPrice] = useState(0);
@@ -119,7 +119,7 @@ const FinishRegistration = () => {
     }
   };
 
-  if (session.status === "loading" || isLoading)
+  if (session.status == "loading" || isLoading)
     return (
       <div className="w-full h-full flex items-center justify-center p-8">
         <Spinner />

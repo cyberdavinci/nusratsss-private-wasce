@@ -29,9 +29,9 @@ const Preview = ({
       </div>
       {/* newer */}
       <div className="flex flex-wrap justify-start md:justify-around w-full mt-10 md:items-center items-start gap-4 capitalize">
-        <ol className="relative border-l border-gray-200 dark:border-gray-700 h-full max-h-[600px] ">
+        <ol className="relative border-l border-gray-200 dark:border-gray-900 h-full max-h-[600px] ">
           <li className="mb-10 ml-4">
-            <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
+            <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-900"></div>
 
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               Personal Info
@@ -71,7 +71,7 @@ const Preview = ({
             </p>
           </li>
           <li className="mb-10 ml-4">
-            <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
+            <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-900"></div>
 
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               Education
@@ -92,9 +92,9 @@ const Preview = ({
             </p>
           </li>
         </ol>
-        <ol className="relative border-l border-gray-200 dark:border-gray-700 h-full max-h-[600px] ">
+        <ol className="relative border-l border-gray-200 dark:border-gray-900 h-full max-h-[600px] ">
           <li className="mb-10 ml-4">
-            <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
+            <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-900"></div>
 
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               Guardian Info
@@ -130,7 +130,7 @@ const Preview = ({
             </p>
           </li>
           <li className="mb-10 ml-4">
-            <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
+            <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-900"></div>
 
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               Selected Subjects

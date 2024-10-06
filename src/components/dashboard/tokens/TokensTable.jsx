@@ -85,8 +85,8 @@ const TokensTable = ({
   }, []);
   const classNames = React.useMemo(
     () => ({
-      wrapper: ["max-h-[382px]", "w-full", "shadow-xl", "bg-none"],
-      th: ["text-default-500", "shadow-2xl"],
+      wrapper: ["max-h-[382px]", "max-w-full", "bg-transparent", "w-full"],
+      th: ["bg-transparent", "text-default-500", "border-divider"],
       td: [
         // changing the rows border radius
         // first
@@ -106,11 +106,13 @@ const TokensTable = ({
     <div className=" overflow-x-auto " ref={componentRef}>
       <Table
         isCompact
+        isHeaderSticky
+        color="primary"
+        className="bg-slate-950 p-5 rounded-xl"
         // removeWrapper
         aria-label="Example table with custom cells, pagination and sorting"
         // align="right"
         classNames={classNames}
-        // classNames
         // isHeaderSticky
         bottomContentPlacement="outside"
         topContentPlacement="outside"
@@ -119,7 +121,7 @@ const TokensTable = ({
         topContent={
           selectedTab === "all" ? (
             <form
-              className="flex gap-2 flex-wrap w-full"
+              className="flex gap-2 md:flex-row flex-col w-full"
               onSubmit={async (event) => {
                 await generateToken(event);
                 // await mutate(`/api/tokens?filter=${selectedTab}`);
@@ -132,11 +134,13 @@ const TokensTable = ({
                 max={100}
                 min={1}
                 defaultValue={1}
+                size="sm"
                 variant="bordered"
               />
               <Button
                 color="success"
                 variant="ghost"
+                size="lg"
                 className="px-4 md:w-[200px] w-full"
                 type="submit"
                 isLoading={isGeneratingTokens}
@@ -151,6 +155,8 @@ const TokensTable = ({
               <Input
                 className=""
                 type="number"
+                size="sm"
+                variant="bordered"
                 max={500}
                 min={50}
                 value={tokensToExport}
@@ -161,6 +167,7 @@ const TokensTable = ({
                 color="success"
                 variant="flat"
                 className="px-4 "
+                size="lg"
                 type="submit"
                 onClick={exportExcel}
               >
