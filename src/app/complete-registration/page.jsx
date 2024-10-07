@@ -13,7 +13,7 @@ const FinishRegistration = () => {
   const session = useSession();
   const router = useRouter();
   const id = session.data?.user?._id;
-  const [currentForm, setCurrentForm] = useState(5);
+  const [currentForm, setCurrentForm] = useState(1);
   const [selectedSubjects, setSelectedSubjects] = useState([]);
 
   const [totalPrice, setTotalPrice] = useState(0);
