@@ -45,7 +45,7 @@ const StudentAnalytics = () => {
     fetch(...args).then(async (res) => await res.json());
 
   const { data, isLoading, error } = useSWR(`/api/others/students`, fetcher);
-  console.log(error);
+  //   console.log(error);
   const totalSales = React.useMemo(() => {
     return data?.length || 0;
   }, [data]);
@@ -55,12 +55,12 @@ const StudentAnalytics = () => {
   }, [totalSales]);
 
   const academiaSales = React.useMemo(() => {
-    return Math.round(totalSales * 0.72);
+    return Math.round(totalSales * 180);
   }, [totalSales]);
 
   const nusratSales = React.useMemo(() => {
-    return totalSales - academiaSales;
-  }, [totalSales, academiaSales]);
+    return Math.round(totalSales * 70);
+  }, [totalSales]);
 
   const nusratStudents = React.useMemo(() => {
     return data?.filter((student) =>
@@ -149,7 +149,7 @@ const StudentAnalytics = () => {
       (date) => createdDates?.filter((d) => d === date)?.length * 250
     );
     return {
-      labels: uniqueDates,
+      labels: "",
       datasets: [
         {
           label: `Daily Tokens Sales in GMD \n Total Sold GMD${totalAmountSold}`,
@@ -176,29 +176,29 @@ const StudentAnalytics = () => {
 
   return (
     <div className="space-y-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className=" bg-slate-900">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
+        {/* <Card className=" bg-slate-900">
           <CardHeader>
             <h1>Total Sales</h1>
           </CardHeader>
           <CardBody>
             <p className="text-3xl font-bold">{totalSales}</p>
           </CardBody>
-        </Card>
-        <Card className=" bg-slate-900">
+        </Card> */}
+        <Card className=" bg-slate-900 ">
           <CardHeader>
-            <h1>Academia Sales (72%)</h1>
+            <h1>Academia Shares </h1>
           </CardHeader>
           <CardBody>
-            <p className="text-3xl font-bold">{academiaSales}</p>
+            <p className="text-3xl font-bold">GMD {academiaSales}</p>
           </CardBody>
         </Card>
         <Card className=" bg-slate-900">
           <CardHeader>
-            <h1>Nusrat Sales (28%)</h1>
+            <h1>Nusrat Shares </h1>
           </CardHeader>
           <CardBody>
-            <p className="text-3xl font-bold">{nusratSales}</p>
+            <p className="text-3xl font-bold">GMD {nusratSales}</p>
           </CardBody>
         </Card>
         <Card className=" bg-slate-900">
