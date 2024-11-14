@@ -11,6 +11,19 @@ export const POST = async (request) => {
   // console.log(request);
   await connect();
 
+  const isUserExisting = await User.findOne({ email });
+  // console.log(isUserExisting?.email);
+  if (isUserExisting) {
+    return new NextResponse(
+      JSON.stringify({
+        error: "Email already exist",
+        status: 400,
+        message: "Email already exist",
+      }),
+      { status: 400 }
+    );
+  }
+
   const hashedPassword = await bcrypt.hash(password, 5);
 
   // const newUser = new User({
@@ -31,7 +44,13 @@ export const POST = async (request) => {
     );
 
     if (!enrollment) {
-      return new NextResponse("No open enrollment", { status: 400 });
+      return new NextResponse(
+        JSON.stringify({
+          message: "Please create a new enrollment",
+          error: "Error no opened enrollment!",
+          status: 400,
+        })
+      );
     }
     const lastUser = await User.findOne(
       { registration_ID: { $regex: `^${enrollment.enrollmentID}` } }, // Match students from the same enrollment
@@ -69,10 +88,14 @@ export const POST = async (request) => {
     // console.log(isTokenValid);
 
     if (!isTokenValid) {
-      return new NextResponse("Token is already used", {
-        status: 400,
-        message: "Token is already used",
-      });
+      return new NextResponse(
+        JSON.stringify({
+          error: "Token already exist",
+          status: 400,
+          message: "Token already exist",
+        }),
+        { status: 400 }
+      );
     }
 
     await newUser.save();
@@ -86,7 +109,10 @@ export const POST = async (request) => {
     await isTokenValid.save();
 
     // console.log("user created");
-    return new NextResponse("user created", { status: 201 });
+    return new NextResponse(
+      JSON.stringify({ message: "user created", status: 201 }),
+      { status: 201 }
+    );
   } catch (err) {
     console.log(err);
     // if there is an error during registration user will not be saved but token will be
@@ -96,9 +122,13 @@ export const POST = async (request) => {
       { status: "unused" },
       { new: true }
     );
-    return new NextResponse(" error registering, please try again", {
-      status: 400,
-      error: err,
-    });
+    return new NextResponse(
+      JSON.stringify({
+        error: err,
+        status: 500,
+        message: "Error registering please try again or contact admin",
+      }),
+      { status: 500 }
+    );
   }
 };

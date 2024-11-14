@@ -8,7 +8,7 @@ const CompleteRegistration = () => {
   const session = useSession();
   const route = useRouter();
   useEffect(() => {
-    if (!session?.data) return route.push("/register");
+    // if (!session?.data) return route.push("/register");
   }, []);
   const [err, setErr] = useState(false);
   const [errMsg, setErroMsg] = useState("");
@@ -21,6 +21,7 @@ const CompleteRegistration = () => {
     _id: null,
     email: null,
   });
+  // will be removing this
   // const submit = async () => {
   //   try {
   //     const res = await fetch("/api/complete-registration", {
@@ -42,7 +43,7 @@ const CompleteRegistration = () => {
   //     console.log(err);
   //   }
   // };
-  console.log(userInfo);
+  // console.log(userInfo);
   // console.log(userInfo);
 
   return (
