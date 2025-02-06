@@ -9,8 +9,8 @@ const fetcher = (...args) =>
 
 const Tokens = () => {
   const [isGeneratingTokens, setIsGeneratingTokens] = useState(false);
-  const [selectedTab, setSelectedTab] = useState("all");
   const [beforePrintBgColor, setBeforePrintBgColor] = useState("black");
+  const [selectedTab, setSelectedTab] = useState("all");
   const { mutate, cache } = useSWRConfig();
 
   const { data, isLoading, isError } = useSWR(`/api/others/tokens`, fetcher, {

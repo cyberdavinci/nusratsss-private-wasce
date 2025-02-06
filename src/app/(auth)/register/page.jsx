@@ -50,6 +50,7 @@ const Register = () => {
 
       try {
         setIsLoading(() => true);
+
         const res = await fetch("/api/auth/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -62,7 +63,7 @@ const Register = () => {
           }),
         }).then((data) => data.json());
         //clear form inputs
-        console.log(res);
+        // console.log(res);
         res?.status == 201 &&
           // setIsLoading(() => false),
           (await signIn("credentials", {

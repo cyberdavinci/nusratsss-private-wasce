@@ -105,6 +105,7 @@ export const POST = async (request) => {
       { new: true }
     );
     // // console.log(newUser);
+    // What is this bruh??
     isTokenValid.status = "used";
     await isTokenValid.save();
 

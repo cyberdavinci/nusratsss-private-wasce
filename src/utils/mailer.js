@@ -11,9 +11,9 @@ const sendEmail = (emailTo, resetToken) => {
     },
   });
   const mailOptions = {
-    from: "ebrimatouray3937@gmail.com<academiaportal.vercel.app>",
+    from: "ebrimatouray3937@gmail.com<academiaportal.info>",
     to: emailTo,
-    subject: "Password reset request, academiaportal.vercel.app",
+    subject: "Password reset request, academiaportal.info",
     text: `Your password reset token is ${resetToken}`,
   };
 
