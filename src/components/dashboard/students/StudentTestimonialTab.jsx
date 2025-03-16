@@ -4,9 +4,15 @@ import { LuFileEdit } from "react-icons/lu";
 import { Button, useDisclosure } from "@nextui-org/react";
 import EditTestimonialModal from "./EditTestimonialModal";
 import Image from "next/image";
-const StudentTestimonialTab = ({ newData }) => {
+const StudentTestimonialTab = ({
+  newData,
+  setNewData,
+  updateStudentData,
+  updating,
+}) => {
   const [modalTitle, setModalTitle] = useState("");
   const [modalPlaceHolder, setModalPlaceHolder] = useState("");
+  const [modalName, setModalName] = useState("");
   const { onOpen, isOpen, onOpenChange } = useDisclosure();
   const createdAt = new Date(newData["createdAt"]);
   const updatedAt = new Date(newData["updatedAt"]);
@@ -146,6 +152,7 @@ const StudentTestimonialTab = ({ newData }) => {
                   size={30}
                   onClick={() => {
                     setModalTitle("Examination");
+                    setModalName("examination");
                     setModalPlaceHolder("examination details");
                     onOpen();
                   }}
@@ -155,7 +162,7 @@ const StudentTestimonialTab = ({ newData }) => {
               </div>
 
               <br />
-              <span></span>
+              <span>{newData?.testimonial?.examination}</span>
               <hr />
             </div>
             <div>
@@ -165,6 +172,8 @@ const StudentTestimonialTab = ({ newData }) => {
                   size={30}
                   onClick={() => {
                     setModalTitle("Index Number");
+                    setModalName("indexNumber");
+
                     setModalPlaceHolder("index number details");
                     onOpen();
                   }}
@@ -173,7 +182,7 @@ const StudentTestimonialTab = ({ newData }) => {
                 />
               </div>
               <br />
-              <span></span>
+              <span>{newData?.testimonial?.indexNumber}</span>
               <hr />
             </div>
             <div>
@@ -183,6 +192,8 @@ const StudentTestimonialTab = ({ newData }) => {
                   size={30}
                   onClick={() => {
                     setModalTitle("Responsibilty");
+                    setModalName("responsibilty");
+
                     setModalPlaceHolder("responsibility details");
                     onOpen();
                   }}
@@ -191,7 +202,7 @@ const StudentTestimonialTab = ({ newData }) => {
                 />
               </div>
               <br />
-              <span></span>
+              <span>{newData?.testimonial?.responsibilty}</span>
               <hr />
             </div>
             <div>
@@ -201,6 +212,8 @@ const StudentTestimonialTab = ({ newData }) => {
                   size={30}
                   onClick={() => {
                     setModalTitle("ExtraCurricular Activities");
+                    setModalName("extraActivities");
+
                     setModalPlaceHolder("extraCurricular Activities details");
                     onOpen();
                   }}
@@ -209,7 +222,7 @@ const StudentTestimonialTab = ({ newData }) => {
                 />
               </div>
               <br />
-              <span></span>
+              <span>{newData?.testimonial?.extraActivities}</span>
               <hr />
             </div>
           </div>
@@ -223,6 +236,7 @@ const StudentTestimonialTab = ({ newData }) => {
                 size={30}
                 onClick={() => {
                   setModalTitle("Remarks");
+                  setModalName("remarks");
                   setModalPlaceHolder("student remarks");
                   onOpen();
                 }}
@@ -231,7 +245,7 @@ const StudentTestimonialTab = ({ newData }) => {
               />
             </div>
             <br />
-            <span></span>
+            <span>{newData?.testimonial?.remarks}</span>
             <hr />
           </div>
           {/* remarks end here*/}
@@ -245,6 +259,11 @@ const StudentTestimonialTab = ({ newData }) => {
       <EditTestimonialModal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
+        updateStudentData={updateStudentData}
+        setNewData={setNewData}
+        newData={newData}
+        updating={updating}
+        name={modalName}
         modalTitle={modalTitle}
         modalPlaceHolder={modalPlaceHolder}
       />

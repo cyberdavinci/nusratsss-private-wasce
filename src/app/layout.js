@@ -9,6 +9,7 @@ import UIProvider from "../components/NextUiProvider/UIProvider";
 import { ContextProvider } from "@/context/ContextProvider";
 // import { authOptions } from "./api/auth/[...nextauth]/route";
 // import { getServerSession } from "next-auth";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,6 +41,7 @@ export default async function RootLayout({ children }) {
             </ReduxProvider>
           </AuthProvider>
         </ContextProvider>
+        <ToastContainer />
       </body>
     </html>
   );

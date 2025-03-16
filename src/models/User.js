@@ -188,6 +188,13 @@ const userSchema = mongoose.Schema(
       type: String,
       default: "",
     },
+    testimonial: {
+      examination: { type: String },
+      indexNumber: { type: String },
+      responsibility: { type: String },
+      extraActivities: { type: String },
+      remarks: { type: String },
+    },
     conduct: { type: String, default: "Very Good" },
     punctuality: { type: String, default: "Regular" },
     responsibility: { type: String, default: "Nil" },

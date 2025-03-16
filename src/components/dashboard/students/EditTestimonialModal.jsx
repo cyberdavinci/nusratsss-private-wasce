@@ -14,6 +14,11 @@ const EditTestimonialModal = ({
   isOpen,
   onOpenChange,
   modalTitle,
+  setNewData,
+  updateStudentData,
+  updating,
+  name,
+  newData,
   modalPlaceHolder,
 }) => {
   //   const {  } = useDisclosure();
@@ -29,7 +34,18 @@ const EditTestimonialModal = ({
             <ModalBody>
               <Textarea
                 placeholder={modalPlaceHolder}
+                name={name}
+                value={newData?.testimonial[name] || ""}
                 className=" outline-transparent"
+                onChange={(event) =>
+                  setNewData((prev) => ({
+                    ...prev,
+                    testimonial: {
+                      ...prev.testimonial,
+                      [name]: event.target.value,
+                    },
+                  }))
+                }
                 classNames={{
                   input: ["border-none", "font-semibold", "text-lg"],
                 }}
@@ -39,7 +55,13 @@ const EditTestimonialModal = ({
               <Button color="danger" variant="light" onPress={onClose}>
                 Close
               </Button>
-              <Button color="success" onPress={onClose}>
+              <Button
+                isLoading={updating}
+                color="success"
+                onClick={async (event) => {
+                  await updateStudentData(event), onClose();
+                }}
+              >
                 Save
               </Button>
             </ModalFooter>

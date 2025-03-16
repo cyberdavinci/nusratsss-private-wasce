@@ -9,6 +9,7 @@ import StudentSecurityTab from "@/components/dashboard/students/StudentSecurityT
 import UpdatingModal from "@/components/dashboard/UpdatingModal";
 import { useEffect } from "react";
 import StudentTestimonialTab from "@/components/dashboard/students/StudentTestimonialTab";
+import { toast } from "react-toastify";
 
 const Student = () => {
   const fetcher = (...args) =>
@@ -37,6 +38,10 @@ const Student = () => {
       [event.target.name]: event.target.value,
     }));
   };
+
+  const handleTestimonialChange = (key, value) => {
+    setNewData((prev) => ({ ...prev, [key]: value }));
+  };
   // console.log(newData);
   const handleImageChange = (event) => {
     event.preventDefault();
@@ -58,16 +63,20 @@ const Student = () => {
     try {
       const res = await fetch("/api/others/complete-registration", {
         method: "PATCH",
-        headers: { "Content-Type": "application/json",  },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...newData,
           // userImg,
         }),
       });
+      // const data = await res.;
+      // console.log(data);
 
       setUpdatingInfo((prev) => false);
+      toast.success("Updated student success!");
     } catch (err) {
       setUpdatingInfo((prev) => false);
+      toast.error("Error updating student");
       console.log(err);
     }
   };
@@ -108,8 +117,10 @@ const Student = () => {
       });
       // console.log(res);
       setUpdatingTable((prev) => false);
+      toast.success("assessment updated!");
     } catch (err) {
       setUpdatingTable((prev) => false);
+      toast.error("error updating assessment!");
       console.log(err);
     }
   };
@@ -172,6 +183,8 @@ const Student = () => {
               <StudentTestimonialTab
                 newData={newData}
                 setNewData={setNewData}
+                updateStudentData={updateStudentData}
+                updating={updatingInfo}
                 // isLoading={isLoading}
                 // updateAssessmentTable={updateAssessmentTable}
                 // updatingTable={updatingTable}

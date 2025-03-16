@@ -69,7 +69,7 @@ const TranscriptModal = ({
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         scrollBehavior={scrollBehavior}
-        size="5xl"
+        size="full"
         backdrop="blur"
         classNames={{ wrapper: "light text-[#2e3440]" }}
       >
@@ -84,7 +84,7 @@ const TranscriptModal = ({
                   {/* transcript header */}
                   <div className="flex justify-between">
                     {/* about */}
-                    <div className="flex-3 w-fit">
+                    <div className="flex-2 w-fit">
                       <div>
                         {" "}
                         <Image
@@ -92,7 +92,7 @@ const TranscriptModal = ({
                             transcript?.userImg ? transcript?.userImg : imgSrc
                           }
                           alt="user avatar"
-                          className=" w-[175px] h-[200px] rounded-lg mb-2 object-contain"
+                          className=" w-[100px] h-[125px] rounded-lg mb-2 object-contain"
                           width={120}
                           height={150}
                           // fill={true}
@@ -120,7 +120,9 @@ const TranscriptModal = ({
                       <br />
                       {/* school name and address */}
                       <div>
-                        <h2>NUSRAT MANAGEMENT & ACCOUNTANCY TRAINING CENTRE</h2>
+                        <h2 className=" uppercase">
+                          Nusrat Institute of Professional Studies
+                        </h2>
                         <h2>(REMEDIAL CLASSES FOR THE WASSCE PROGRAM)</h2>
                         <p>
                           P.O.Box 603,Banjul, The Gambia, West Africa |
@@ -133,13 +135,13 @@ const TranscriptModal = ({
                       </div>
                     </div>
                     {/* logo */}
-                    <div className="flex-2 mt-2">
-                      <Image
-                        src={"/nmatc.png"}
+                    <div className="flex-2 w-[300px] flex mt-2">
+                      <img
+                        src={"/privatewasscelogo.jpeg"}
                         alt="logo here"
-                        className=" w-[120px] h-[130px] rounded-lg mb-2 object-fit"
-                        width={120}
-                        height={150}
+                        className="mb-2 w-full"
+                        // width={120}
+                        // height={150}
                         // fill={true}
                       />
                     </div>
