@@ -60,8 +60,8 @@ const TranscriptModal = ({
   const handlePrint = useReactToPrint({
     content: () => componentRef?.current,
     documentTitle: `${transcript?.name}-transcript`,
-    // onAfterPrint: () => router.replace("/dashboard/account"),
-    // onBeforeGetContent:()=>
+    // onAfterPrint: () => ,
+    onBeforeGetContent: () => {},
   });
   return (
     <div className="flex flex-col gap-2 w-full">
@@ -84,33 +84,30 @@ const TranscriptModal = ({
                   {/* transcript header */}
                   <div className="flex justify-between">
                     {/* about */}
-                    <div className="flex-2 w-fit">
-                      <div>
-                        {" "}
-                        <Image
-                          src={
-                            transcript?.userImg ? transcript?.userImg : imgSrc
-                          }
-                          alt="user avatar"
-                          className=" w-[100px] h-[125px] rounded-lg mb-2 object-contain"
-                          width={120}
-                          height={150}
-                          // fill={true}
-                        />
-                        <div className="font-semibold">
-                          <p>GR. No. {transcript?.registration_ID}</p>
-                          <p>Name: {transcript?.name}</p>
-                          <p>
-                            Name of parent: {transcript?.parent_guardian_name}
-                          </p>
-                          <p>Date of Birth: {transcript?.date_of_birth}</p>
-                          <p>Date of Joining: {admissionDate}</p>
-                          <p>Date of Living: {graduationDate}</p>
-                        </div>
+                    <div className="flex-1">
+                      <Image
+                        src={transcript?.userImg ? transcript?.userImg : imgSrc}
+                        alt="user avatar"
+                        className=" rounded-lg mb-2 object-contain"
+                        width={120}
+                        height={150}
+                        // fill={true}
+                      />
+                      <br />
+                      <br />
+                      <div className="">
+                        <p>GR. No. {transcript?.registration_ID}</p>
+                        <p>Name: {transcript?.name}</p>
+                        <p>
+                          Name of parent: {transcript?.parent_guardian_name}
+                        </p>
+                        <p>Date of Birth: {transcript?.date_of_birth}</p>
+                        <p>Date of Joining: {admissionDate}</p>
+                        <p>Date of Living: {graduationDate}</p>
                       </div>
                     </div>
                     {/* school info */}
-                    <div className="flex-2 text-center mt-6">
+                    <div className="flex-1 text-center mt-6">
                       {/* school code */}
                       <div className=" italic">
                         <p>In the name of God, the gracious the merciful</p>
@@ -135,13 +132,13 @@ const TranscriptModal = ({
                       </div>
                     </div>
                     {/* logo */}
-                    <div className="flex-2 w-[300px] flex mt-2">
-                      <img
-                        src={"/privatewasscelogo.jpeg"}
+                    <div className="flex-1  flex justify-end relative">
+                      <Image
+                        src={"/nmatc.png"}
                         alt="logo here"
-                        className="mb-2 w-full"
-                        // width={120}
-                        // height={150}
+                        className=" absolute right-[-50px] w-[90%]"
+                        width={180}
+                        height={150}
                         // fill={true}
                       />
                     </div>
