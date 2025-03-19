@@ -79,6 +79,14 @@ const TranscriptModal = ({
     // onAfterPrint: () => ,
     onBeforeGetContent: () => {},
   });
+  //   <Image
+  //   src={transcript?.userImg ? transcript?.userImg : imgSrc}
+  //   alt="user avatar"
+  //   className=" rounded-lg mb-2 object-contain"
+  //   width={120}
+  //   height={150}
+  //   // fill={true}
+  // />
   return (
     <div className="flex flex-col gap-2 w-full">
       <Modal
@@ -96,189 +104,236 @@ const TranscriptModal = ({
                 {transcript?.title}
               </ModalHeader> */}
               <ModalBody>
-                <div ref={componentRef} className="text-[#000] p-3">
-                  {/* transcript header */}
-                  <div className="flex justify-between">
-                    {/* about */}
-                    <div className="flex-1">
-                      <Image
-                        src={transcript?.userImg ? transcript?.userImg : imgSrc}
-                        alt="user avatar"
-                        className=" rounded-lg mb-2 object-contain"
-                        width={120}
-                        height={150}
-                        // fill={true}
-                      />
-                      <br />
-                      <br />
-                      <div className="">
-                        <p>GR. No. {transcript?.registration_ID}</p>
-                        <p>Name: {transcript?.name}</p>
-                        <p>
-                          Name of parent: {transcript?.parent_guardian_name}
-                        </p>
-                        <p>Date of Birth: {transcript?.date_of_birth}</p>
-                        <p>Date of Joining: {transcript?.enrollment_date}</p>
-                        <p>Date of Living: {transcript?.date_of_completion}</p>
+                <div className="min-h-screen bg-gray-100 p-8">
+                  <div
+                    ref={componentRef}
+                    className="max-w-[1000px] mx-auto bg-white shadow-lg rounded-lg p-8"
+                  >
+                    {/* Header Section */}
+                    <div className="grid grid-cols-3 gap-8 mb-8">
+                      {/* Student Photo */}
+                      <div className="space-y-4">
+                        <div className="w-32 h-40  rounded-lg flex items-center justify-center">
+                          <Image
+                            src={
+                              transcript?.userImg ? transcript?.userImg : imgSrc
+                            }
+                            alt="user avatar"
+                            className=" rounded-lg mb-2 object-contain"
+                            width={120}
+                            height={150}
+                            // fill={true}
+                          />
+                        </div>
+                        <div className="space-y-2 text-sm">
+                          <p>
+                            <span className="font-semibold">Student ID</span>{" "}
+                            {transcript?.registration_ID}
+                          </p>
+                          <p>
+                            <span className="font-semibold">Name:</span>{" "}
+                            {transcript?.name}
+                          </p>
+                          <p>
+                            <span className="font-semibold">Parent:</span>{" "}
+                            {transcript?.parent_guardian_name}
+                          </p>
+                          <p>
+                            <span className="font-semibold">DOB:</span>{" "}
+                            {transcript?.date_of_birth}
+                          </p>
+                          <p>
+                            <span className="font-semibold">Enrollment:</span>{" "}
+                            {transcript?.enrollment_date}
+                          </p>
+                          <p>
+                            <span className="font-semibold">Completion:</span>{" "}
+                            {transcript?.date_of_completion}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                    {/* school info */}
-                    <div className="flex-1 text-center mt-6">
-                      {/* school code */}
-                      <div className=" italic">
-                        <p>In the name of God, the gracious the merciful</p>
-                        <p>He who purifies himself shall prosper (Al-Quran)</p>
-                      </div>
-                      <br />
-                      <br />
-                      {/* school name and address */}
-                      <div>
-                        <h2 className=" uppercase">
-                          Nusrat Institute of Professional Studies
+
+                      {/* School Info */}
+                      <div className="text-center space-y-4">
+                        <div className="italic text-gray-600">
+                          <p>In the name of God, the gracious the merciful</p>
+                          <p>
+                            He who purifies himself shall prosper (Al-Quran)
+                          </p>
+                        </div>
+                        <div className="mt-6">
+                          <h1 className="text-xl font-bold">
+                            NUSRAT INSTITUTE OF PROFESSIONAL STUDIES
+                          </h1>
+                          <p className="text-sm mt-2">
+                            (REMEDIAL CLASSES FOR THE WASSCE PROGRAM)
+                          </p>
+                          <p className="text-xs mt-4">
+                            P.O.Box 603, Banjul, The Gambia, West Africa
+                          </p>
+                          <p className="text-xs">
+                            Tel.: (220)4396683 | Email: info@nusratsss.com
+                          </p>
+                        </div>
+                        <h2 className="text-xl font-bold mt-8">
+                          STUDENT'S TRANSCRIPT
                         </h2>
-                        <h2>(REMEDIAL CLASSES FOR THE WASSCE PROGRAM)</h2>
-                        <p>
-                          P.O.Box 603,Banjul, The Gambia, West Africa |
-                          Tel.:(220)4396683 | email info@nusratsss.com
-                        </p>
                       </div>
-                      {/* transcript type title */}
-                      <div className="mt-10 font-semibold text-xl">
-                        <h2>STUDENT'S TRANSCRIPT</h2>
+
+                      {/* School Logo */}
+                      <div className="flex justify-end ">
+                        <div className="w-[300px] h-[300px]   rounded-full flex items-center justify-center">
+                          <Image
+                            src={"/nmatc.png"}
+                            alt="user avatar"
+                            className=" rounded-lg mb-2 object-contain ml-28 mb-28"
+                            width={270}
+                            height={300}
+                            // fill={true
+                          />
+                        </div>
                       </div>
                     </div>
-                    {/* logo */}
-                    <div className="flex-1  flex justify-end relative">
-                      <Image
-                        src={"/nmatc.png"}
-                        alt="logo here"
-                        className=" absolute right-[-50px] w-[300px]"
-                        width={180}
-                        height={150}
-                        // fill={true}
-                      />
-                    </div>
-                  </div>
-                  {/* transcript body*/}
-                  <div className="transcript-table mt-6 flex justify-between gap-4">
-                    <table className="tra-table table-main w-[85%]">
-                      <thead>
-                        <tr>
-                          <th>Class: Private WASSCE 2023</th>
-                          <th>Test 1</th>
-                          <th>Test 2</th>
-                          <th>Mock</th>
-                          <th>Mean Score</th>
-                          <th>Grade</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {asessments?.map((assess, index) => {
-                          // console.log(renderGrade(assess?.mean_score));
-                          return (
-                            <>
-                              <tr key={index}>
-                                <td>{assess?.subject}</td>
-                                <td>{assess?.test_1_score}</td>
-                                <td>{assess?.test_2_score}</td>
-                                <td>{assess?.mock}</td>
-                                <td>{assess?.mean_score}</td>
-                                {/* <td>{assess?.grade}</td> */}
-                                <td>{renderGrade(assess?.mean_score)}</td>
+
+                    {/* Transcript Body */}
+                    <div className="flex gap-6">
+                      {/* Main Grades Table */}
+                      <div className="flex-1">
+                        <table className="w-full border-collapse">
+                          <thead>
+                            <tr className="bg-gray-50">
+                              <th className="border px-4 py-2 text-left">
+                                Subjects
+                              </th>
+                              <th className="border px-4 py-2">Test 1</th>
+                              <th className="border px-4 py-2">Test 2</th>
+                              <th className="border px-4 py-2">Mock</th>
+                              <th className="border px-4 py-2">Mean</th>
+                              <th className="border px-4 py-2">Grade</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {asessments.map((assessment, index) => (
+                              <tr
+                                key={index}
+                                className={index % 2 === 0 ? "bg-gray-50" : ""}
+                              >
+                                <td className="border px-4 py-2">
+                                  {assessment.subject}
+                                </td>
+                                <td className="border px-4 py-2 text-center">
+                                  {assessment.test_1_score}
+                                </td>
+                                <td className="border px-4 py-2 text-center">
+                                  {assessment.test_2_score}
+                                </td>
+                                <td className="border px-4 py-2 text-center">
+                                  {assessment.mock}
+                                </td>
+                                <td className="border px-4 py-2 text-center">
+                                  {assessment.mean_score.toFixed(2)}
+                                </td>
+                                <td className="border px-4 py-2 text-center font-semibold">
+                                  {renderGrade(assessment.mean_score)}
+                                </td>
                               </tr>
-                            </>
-                          );
-                        })}
-                      </tbody>
-                    </table>
-                    {/* // interpretation table */}
-                    <table className="tra-table w-[15%]">
-                      <thead>
-                        <tr className="w-full">
-                          <th className="w-full" colspan="4">
-                            Interpretation
-                          </th>
-                        </tr>
-                        <tr>
-                          <th>Grade</th>
-                          <th>range%</th>
-                          <th>Remarks</th>
-                          <th>result</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>A</td>
-                          <td>{">75"}</td>
-                          <td>Excellent</td>
-                          <td>Credit</td>
-                        </tr>
-                        <tr>
-                          <td>B</td>
-                          <td>66-75</td>
-                          <td>V.Good</td>
-                          <td>Good</td>
-                        </tr>
-                        <tr>
-                          <td>C</td>
-                          <td>56-65</td>
-                          <td>Good</td>
-                          <td>Credit</td>
-                        </tr>
-                        <tr>
-                          <td>D</td>
-                          <td>45-55</td>
-                          <td>Average</td>
-                          <td>Pass</td>
-                        </tr>
-                        <tr>
-                          <td>E</td>
-                          <td>40-44</td>
-                          <td>Week</td>
-                          <td>Pass</td>
-                        </tr>
-                        <tr>
-                          <td>F</td>
-                          <td>{"<40"}</td>
-                          <td>Fail</td>
-                          <td>Fail</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  {/* transcript footer*/}
-                  <div className="mt-4 flex justify-between">
-                    <table className="tra-table">
-                      <tbody>
-                        <tr>
-                          <td>Conduct</td>
-                          <td>{transcript?.conduct}</td>
-                        </tr>
-                        <tr>
-                          <td>Punctuality</td>
-                          <td>{transcript?.punctuality}</td>
-                        </tr>
-                        <tr>
-                          <td>Responsibility</td>
-                          <td>{transcript?.responsibility}</td>
-                        </tr>
-                        <tr>
-                          <td>Attitude</td>
-                          <td>{transcript?.attitude}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    {/* right footer side */}
-                    <div className=" flex flex-col justify-between">
-                      <p className="font-semibold">Principle's Signature:</p>
-                      <hr className=" w-full bg-black h-[2px] " />
-                      <p className="font-semibold">Date: </p>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+
+                      {/* Grade Scale */}
+                      <div className="w-64">
+                        <table className="w-full border-collapse text-sm">
+                          <thead>
+                            <tr>
+                              <th
+                                className="border px-2 py-1 bg-gray-50"
+                                colSpan={4}
+                              >
+                                Interpretation
+                              </th>
+                            </tr>
+                            <tr className="bg-gray-50">
+                              <th className="border px-2 py-1">Grade</th>
+                              <th className="border px-2 py-1">Range%</th>
+                              <th className="border px-2 py-1">Remarks</th>
+                              <th className="border px-2 py-1">Result</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {[
+                              ["A", ">75", "Excellent", "Credit"],
+                              ["B", "66-75", "V.Good", "Good"],
+                              ["C", "56-65", "Good", "Credit"],
+                              ["D", "45-55", "Average", "Pass"],
+                              ["E", "40-44", "Week", "Pass"],
+                              ["F", "<40", "Fail", "Fail"],
+                            ].map(([grade, range, remarks, result], index) => (
+                              <tr
+                                key={index}
+                                className={index % 2 === 0 ? "bg-gray-50" : ""}
+                              >
+                                <td className="border px-2 py-1 text-center">
+                                  {grade}
+                                </td>
+                                <td className="border px-2 py-1 text-center">
+                                  {range}
+                                </td>
+                                <td className="border px-2 py-1 text-center">
+                                  {remarks}
+                                </td>
+                                <td className="border px-2 py-1 text-center">
+                                  {result}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
+
+                    {/* Footer */}
+                    <div className="mt-8 flex justify-between">
+                      <table className="border-collapse text-sm">
+                        <tbody>
+                          {[
+                            ["Conduct", transcript?.conduct],
+                            ["Punctuality", transcript?.punctuality],
+                            ["Responsibility", transcript?.responsibility],
+                            ["Attitude", transcript?.attitude],
+                          ].map(([label, value], index) => (
+                            <tr
+                              key={index}
+                              className={index % 2 === 0 ? "bg-gray-50" : ""}
+                            >
+                              <td className="border px-4 py-2 font-semibold">
+                                {label}
+                              </td>
+                              <td className="border px-4 py-2">{value}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+
+                      <div className="w-64 flex flex-col justify-end">
+                        <div className="space-y-4">
+                          <p className="font-semibold">
+                            Principal's Signature:
+                          </p>
+                          <div className="border-b-2 border-black w-full"></div>
+                          <p className="font-semibold">
+                            Date: {new Date().toLocaleDateString()}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <p className="text-xs text-center mt-8 text-gray-600">
+                      A genuine transcript must bear the seal of the Principal
+                      and a recent photograph of the student
+                    </p>
                   </div>
-                  <p className="text-sm mt-10 text-center">
-                    A genuine transcript must bear the seal of the Principal and
-                    a recent photograph of the student
-                  </p>
                 </div>
               </ModalBody>
               <ModalFooter>

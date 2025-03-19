@@ -203,6 +203,7 @@ const userSchema = mongoose.Schema(
       type: String,
     },
     date_of_completion: { type: String },
+    class_year: { type: String },
   },
 
   { timestamps: true },

@@ -236,18 +236,18 @@ const StudentTranscript = ({
       <>
         <div className="flex justify-between items-center">
           <div className="flex gap-4">
-            <input
-              // size="sm"
+            <Input
+              size="sm"
               type="text"
-              className="bg-slate-950 border border-b-3 border-b-slate-400 w-[200px] rounded-md"
+              className="w-[200px] rounded-md"
               placeholder="Date of enrollment"
               value={newData?.enrollment_date || ""}
               name="enrollment_date"
               onChange={(event) => handleInputChange(event)}
             />
-            <input
-              className="bg-slate-950 border border-b-3 border-b-slate-400 w-[200px] rounded-md"
-              // size="sm"
+            <Input
+              className="w-[200px] rounded-md"
+              size="sm"
               placeholder="Date of completion"
               type="text"
               value={newData?.date_of_completion || ""}
