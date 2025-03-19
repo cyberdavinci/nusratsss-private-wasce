@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 
 export const PATCH = async (request) => {
+  // WHY DID I DO THISSSSSSSSS!
   const {
     _id,
     address,
@@ -42,9 +43,12 @@ export const PATCH = async (request) => {
     responsibility,
     attitude,
     testimonial,
+    enrollment_date,
+    date_of_completion,
     // email,
     // password,
   } = await request.json();
+
   // const assessments = subjects?.map((subject) => ({
   //   subject,
   //   test_1_score: "",
@@ -99,6 +103,8 @@ export const PATCH = async (request) => {
         punctuality,
         responsibility,
         attitude,
+        enrollment_date,
+        date_of_completion,
         testimonial,
         // email,
         // password: updatedPassword,

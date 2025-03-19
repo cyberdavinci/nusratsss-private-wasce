@@ -199,6 +199,10 @@ const userSchema = mongoose.Schema(
     punctuality: { type: String, default: "Regular" },
     responsibility: { type: String, default: "Nil" },
     attitude: { type: String, default: "Postive" },
+    enrollment_date: {
+      type: String,
+    },
+    date_of_completion: { type: String },
   },
 
   { timestamps: true },

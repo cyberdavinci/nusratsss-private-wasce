@@ -21,8 +21,9 @@ const StudentTranscript = ({
   updatingTable,
   mutate,
   id,
-  handleRemarksUpdate,
+  handleInputChange,
 }) => {
+  // console.log(newData);
   const [readOnly, setReadOnly] = useState(true);
   const [updating, setUpdating] = useState(false);
 
@@ -61,7 +62,7 @@ const StudentTranscript = ({
   // console.log(newData);
   //
 
-  const handleInputChange = (e, index) => {
+  const handleRemarksUpdate = (e, index) => {
     // const inputId = e.target.id;
     const fieldName = e.target.name;
     const inputValue = e.target.value;
@@ -129,7 +130,7 @@ const StudentTranscript = ({
   };
   // console.log(remarks);
 
-  const handleUpdate = async () => {
+  const handleUpdate = async (event) => {
     setShowProgress(true);
     setProgress(30);
     totalTestsScores();
@@ -138,7 +139,7 @@ const StudentTranscript = ({
     setUpdating(true);
     // updateRemarks();
     setProgress(70);
-    await updateAssessmentTable(asessments, remarks);
+    await updateAssessmentTable(asessments, remarks, event);
     setProgress(90);
     setUpdating(false);
     mutate(`/api/others/students/${id}`);
@@ -187,7 +188,7 @@ const StudentTranscript = ({
               className={`${
                 readOnly ? "bg-transparent" : null
               } p-2  rounded-lg w-20`}
-              onChange={(e) => handleInputChange(e, index)}
+              onChange={(e) => handleRemarksUpdate(e, index)}
               name={`test_1_score`}
               id={item?.subject}
             />
@@ -200,7 +201,7 @@ const StudentTranscript = ({
               className={`${
                 readOnly ? "bg-transparent" : null
               } p-2  rounded-lg w-20`}
-              onChange={(e) => handleInputChange(e, index)}
+              onChange={(e) => handleRemarksUpdate(e, index)}
               name={`test_2_score`}
               id={item?.subject}
             />
@@ -213,7 +214,7 @@ const StudentTranscript = ({
               className={`${
                 readOnly ? "bg-transparent" : null
               } p-2  rounded-lg w-20`}
-              onChange={(e) => handleInputChange(e, index)}
+              onChange={(e) => handleRemarksUpdate(e, index)}
               name={`mock`}
               id={item?.subject}
             />
@@ -234,43 +235,66 @@ const StudentTranscript = ({
     return (
       <>
         <div className="flex justify-between items-center">
-          <Button onClick={() => onOpen()}>Download Transcript</Button>
-          <div className="flex gap-4  float-right justify-end">
-            <Button
-              // isDisabled={pages === 1}
-              size="lg"
-              variant="ghost"
-              // onPress={onPreviousPage}
-              color="primary"
-              onPress={() => setReadOnly(false)}
-            >
-              edit
+          <div className="flex gap-4">
+            <input
+              // size="sm"
+              type="text"
+              className="bg-slate-950 border border-b-3 border-b-slate-400 w-[200px] rounded-md"
+              placeholder="Date of enrollment"
+              value={newData?.enrollment_date || ""}
+              name="enrollment_date"
+              onChange={(event) => handleInputChange(event)}
+            />
+            <input
+              className="bg-slate-950 border border-b-3 border-b-slate-400 w-[200px] rounded-md"
+              // size="sm"
+              placeholder="Date of completion"
+              type="text"
+              value={newData?.date_of_completion || ""}
+              name="date_of_completion"
+              onChange={(event) => handleInputChange(event)}
+            />
+          </div>
+          <div className="flex gap-2">
+            <Button onClick={() => onOpen()} variant="flat" color="success">
+              Download Transcript
             </Button>
-            <Button
-              // isDisabled={pages === 1}
-              size="lg"
-              variant="flat"
-              color={btnState === "save" ? "default" : "success"}
-              // onPress={onNextPage}
-              onPress={() => {
-                // setBtnState("update");
-                setReadOnly(true);
-              }}
-              isLoading={updating}
-              onClick={async () => {
-                if (btnState === "update") {
-                  updateRemarks();
-                  await handleUpdate();
-                } else {
-                  updateRemarks();
-                  setBtnState("update");
-                }
+            <div className="flex gap-4  float-right justify-end">
+              <Button
+                // isDisabled={pages === 1}
 
-                // btnState === "update" ? await handleUpdate() : null;
-              }}
-            >
-              {updating ? "updating..." : `${btnState}`}
-            </Button>
+                variant="ghost"
+                // onPress={onPreviousPage}
+                color="primary"
+                onPress={() => setReadOnly(false)}
+              >
+                edit
+              </Button>
+              <Button
+                // isDisabled={pages === 1}
+                variant="flat"
+                color={btnState === "save" ? "default" : "success"}
+                // onPress={onNextPage}
+                onPress={() => {
+                  // setBtnState("update");
+                  setReadOnly(true);
+                }}
+                isLoading={updating}
+                onClick={async (event) => {
+                  if (btnState === "update") {
+                    updateRemarks();
+                    await handleUpdate(event);
+                  } else {
+                    updateRemarks();
+                    setBtnState("update");
+                  }
+
+                  // btnState === "update" ? await handleUpdate() : null;
+                }}
+              >
+                {updating ? "updating..." : `${btnState}`}
+              </Button>
+            </div>
           </div>
         </div>
         {showProgress ? (
@@ -286,7 +310,7 @@ const StudentTranscript = ({
         )}
       </>
     );
-  }, [readOnly, showProgress, btnState]);
+  }, [readOnly, showProgress, btnState, newData]);
   return (
     <>
       <Table

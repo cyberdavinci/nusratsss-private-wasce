@@ -11,6 +11,8 @@ import {
   Radio,
 } from "@nextui-org/react";
 import Image from "next/image";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 import { useReactToPrint } from "react-to-print";
 const TranscriptModal = ({
   isOpen,
@@ -55,7 +57,21 @@ const TranscriptModal = ({
   } ${inputDateUpdatedAt.getFullYear()}`;
   // console.log(createdAt);
 
-  const componentRef = useRef();
+  const componentRef = useRef(null);
+  const handleDownloadPDF = async () => {
+    const element = componentRef.current;
+    if (!element) return;
+
+    const canvas = await html2canvas(element, { scale: 2 }); // Higher scale for better quality
+    const imgData = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF("p", "mm", "a4");
+    const imgWidth = 210; // A4 width in mm
+    const imgHeight = (canvas.height * imgWidth) / canvas.width; // Maintain aspect ratio
+
+    pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+    pdf.save(`${transcript?.name}-transcript.pdf`);
+  };
   // const router = useRouter();
   const handlePrint = useReactToPrint({
     content: () => componentRef?.current,
@@ -102,8 +118,8 @@ const TranscriptModal = ({
                           Name of parent: {transcript?.parent_guardian_name}
                         </p>
                         <p>Date of Birth: {transcript?.date_of_birth}</p>
-                        <p>Date of Joining: {admissionDate}</p>
-                        <p>Date of Living: {graduationDate}</p>
+                        <p>Date of Joining: {transcript?.enrollment_date}</p>
+                        <p>Date of Living: {transcript?.date_of_completion}</p>
                       </div>
                     </div>
                     {/* school info */}
@@ -136,7 +152,7 @@ const TranscriptModal = ({
                       <Image
                         src={"/nmatc.png"}
                         alt="logo here"
-                        className=" absolute right-[-50px] w-[90%]"
+                        className=" absolute right-[-50px] w-[300px]"
                         width={180}
                         height={150}
                         // fill={true}
@@ -149,7 +165,6 @@ const TranscriptModal = ({
                       <thead>
                         <tr>
                           <th>Class: Private WASSCE 2023</th>
-                          {/* <td>Class: Private WASSCE 2023</td> */}
                           <th>Test 1</th>
                           <th>Test 2</th>
                           <th>Mock</th>
@@ -271,8 +286,8 @@ const TranscriptModal = ({
                   Close
                 </Button>
 
-                <Button color="primary" onPress={handlePrint}>
-                  Print
+                <Button color="primary" onPress={handleDownloadPDF}>
+                  Save
                 </Button>
               </ModalFooter>
             </>

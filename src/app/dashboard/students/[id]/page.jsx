@@ -32,7 +32,10 @@ const Student = () => {
   const [newData, setNewData] = useState(data ? data : null);
   const [assessments, setAssessments] = useState([]);
 
+  // console.log(data);
+
   const handleInputChange = (event) => {
+    // console.log(event?.target?.name);
     setNewData((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,
@@ -69,8 +72,6 @@ const Student = () => {
           // userImg,
         }),
       });
-      // const data = await res.;
-      // console.log(data);
 
       setUpdatingInfo((prev) => false);
       toast.success("Updated student success!");
@@ -103,8 +104,9 @@ const Student = () => {
     }
   };
 
-  const updateAssessmentTable = async (newDataTable, remarks) => {
+  const updateAssessmentTable = async (newDataTable, remarks, event) => {
     // console.log(remarks);
+
     setUpdatingTable((prev) => true);
     try {
       const res = await fetch("/api/others/complete-registration", {
@@ -116,6 +118,7 @@ const Student = () => {
         }),
       });
       // console.log(res);
+      // await updateStudentData(event);
       setUpdatingTable((prev) => false);
       toast.success("assessment updated!");
     } catch (err) {
@@ -176,7 +179,7 @@ const Student = () => {
                 updatingTable={updatingTable}
                 mutate={mutate}
                 id={id}
-                handleRemarksUpdate={handleInputChange}
+                handleInputChange={handleInputChange}
               />
             </Tab>
             <Tab key={"testimonial"} title={"Testimonial"}>
@@ -191,7 +194,7 @@ const Student = () => {
                 updatingInfo={updatingInfo}
                 mutate={mutate}
                 id={id}
-                handleRemarksUpdate={handleInputChange}
+                handleInputChange={handleInputChange}
               />
             </Tab>
           </Tabs>
