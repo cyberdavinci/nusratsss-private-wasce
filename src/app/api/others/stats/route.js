@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import dbConnect from "@/lib/dbConnect";
 import User from "@/models/User";
 import Enrollment from "@/models/Enrollment";
 import connect from "@/utils/db";
