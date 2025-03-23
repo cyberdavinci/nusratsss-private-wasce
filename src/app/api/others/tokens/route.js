@@ -1,6 +1,8 @@
 import connect from "@/utils/db";
 import Token from "@/models/Token";
 import { NextResponse } from "next/server";
+import { authOptions } from "../../auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
 // Get request
 export const GET = async (request) => {
   let filter = request.nextUrl.searchParams.get("filter");
@@ -8,17 +10,27 @@ export const GET = async (request) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   await connect();
-
-  try {
-    filter = filter === "all" ? "" : filter;
-    // console.log(filter);
-    const tokens = await Token.find({}).sort({ _id: -1 });
-    // const tokens = await Token.find(
-    //   filter !== "" ? { status: filter } : {}
-    // ).sort({ _id: -1 });
-    return new NextResponse(JSON.stringify(tokens), { status: 200 });
-  } catch (err) {
-    return new NextResponse(err, { status: 500 });
+  const session = await getServerSession(authOptions);
+  if (
+    session &&
+    (session?.user?.role == "admin" || session?.user?.role == "subscriber")
+  ) {
+    try {
+      filter = filter === "all" ? "" : filter;
+      // console.log(filter);
+      const tokens = await Token.find({}).sort({ _id: -1 });
+      // const tokens = await Token.find(
+      //   filter !== "" ? { status: filter } : {}
+      // ).sort({ _id: -1 });
+      return new NextResponse(JSON.stringify(tokens), { status: 200 });
+    } catch (err) {
+      return new NextResponse(err, { status: 500 });
+    }
+  } else {
+    return new NextResponse(
+      JSON.stringify({ message: "Sorry you are not allowed to do that" }),
+      { status: 401 }
+    );
   }
 };
 

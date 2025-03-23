@@ -30,13 +30,6 @@ const Sidebar = ({ children }) => {
     setShortName(() => shortName);
   }, [router, session.status, pathName]);
 
-  // console.log(shortName[0][0], shortName[1][1]);
-
-  // useEffect(() => {
-  //   // setPathName(() => pathName);
-  //   setExpand(() => false);
-  // }, []);
-
   return (
     <>
       {session.status === "authenticated" ? (
@@ -49,18 +42,8 @@ const Sidebar = ({ children }) => {
             pathName.includes("print-application") ? "hidden w-0" : ""
           } `}
         >
-          {/* bg-[#16181A] */}
           <nav className="sidebar bg-slate-950 min-h-screen flex flex-col  border-r  border-slate-800 shadow-sm w-full h-full">
             <div className=" pb-2  w-full float-right  justify-end text-end">
-              {/* <Image
-            src={"https://img.logoipsum.com/243.svg"}
-            width={300}
-            height={300}
-            className={` overflow-hidden transition-all ${
-              expand ? "w-52" : "w-0"
-            }`}
-            alt="somesss"
-          /> */}
               <button
                 className={`p-1.5 rounded-lg text-indigo-400 hover:text-indigo-600 ml-3  md:absolute`}
                 onClick={() => toggleNav()}
@@ -73,7 +56,6 @@ const Sidebar = ({ children }) => {
                 )}
               </button>
             </div>
-            {/* <SideBarContext.Provider value={{ expand, currentName, toggleNav }}> */}
             <ul className="flex-1 px-3 mb-4">
               {session?.data?.user?.role === "admin" ||
               session?.data?.user?.role === "subscriber" ? (
@@ -105,13 +87,19 @@ const Sidebar = ({ children }) => {
                   />
 
                   <SideBarItem
+                    text={"Stats"}
+                    // icon={<AiOutlineSetting size={25} />}
+                    icon={"/icons/sidebar/stats.svg"}
+                    link={"/dashboard/stats"}
+                    routeType={"admin"}
+                  />
+                  <SideBarItem
                     text={"Settings"}
                     // icon={<AiOutlineSetting size={25} />}
                     icon={"/icons/sidebar/settings.svg"}
                     link={"/dashboard/settings"}
                     routeType={"admin"}
                   />
-
                   <SideBarItem
                     text={"Announcements"}
                     // icon={<AiOutlineSetting size={25} />}

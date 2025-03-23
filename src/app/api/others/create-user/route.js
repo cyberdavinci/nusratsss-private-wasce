@@ -7,15 +7,25 @@ import { authOptions } from "../../auth/[...nextauth]/route";
 // fetch user
 export const GET = async (request) => {
   await connect();
-
-  try {
-    const users = await User.find({
-      role: { $in: ["admin", "subscriber"] },
-    }).select("-password");
-    // console.log(users);
-    return new NextResponse(JSON.stringify(users), { status: 200 });
-  } catch (error) {
-    return new NextResponse(error, { status: 500 });
+  const session = await getServerSession(authOptions);
+  if (
+    session &&
+    (session?.user?.role == "admin" || session?.user?.role == "subscriber")
+  ) {
+    try {
+      const users = await User.find({
+        role: { $in: ["admin", "subscriber"] },
+      }).select("-password");
+      // console.log(users);
+      return new NextResponse(JSON.stringify(users), { status: 200 });
+    } catch (error) {
+      return new NextResponse(error, { status: 500 });
+    }
+  } else {
+    return new NextResponse(
+      JSON.stringify({ message: "Sorry you are not allowed to do that" }),
+      { status: 401 }
+    );
   }
 };
 
@@ -65,12 +75,23 @@ export const DELETE = async (request) => {
   await connect();
   const id = await request.nextUrl.searchParams.get("id");
 
-  try {
-    await User.findByIdAndDelete(id);
-    return new NextResponse("user deleted successfuly", { status: 200 });
-  } catch (err) {
-    return new NextResponse("server error! cannot delete user", {
-      status: 500,
-    });
+  const session = await getServerSession(authOptions);
+  if (
+    session &&
+    (session?.user?.role == "admin" || session?.user?.role == "subscriber")
+  ) {
+    try {
+      await User.findByIdAndDelete(id);
+      return new NextResponse("user deleted successfuly", { status: 200 });
+    } catch (err) {
+      return new NextResponse("server error! cannot delete user", {
+        status: 500,
+      });
+    }
+  } else {
+    return new NextResponse(
+      JSON.stringify({ message: "Sorry you are not allowed to do that" }),
+      { status: 401 }
+    );
   }
 };

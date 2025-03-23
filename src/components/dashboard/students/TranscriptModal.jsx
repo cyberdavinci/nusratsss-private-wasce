@@ -186,7 +186,7 @@ const TranscriptModal = ({
                           <Image
                             src={"/nmatc.png"}
                             alt="user avatar"
-                            className=" rounded-lg mb-2 object-contain ml-28 mb-28"
+                            className=" rounded-lg  object-contain ml-28 mb-18"
                             width={270}
                             height={300}
                             // fill={true
@@ -319,7 +319,7 @@ const TranscriptModal = ({
                       <div className="w-64 flex flex-col justify-end">
                         <div className="space-y-4">
                           <p className="font-semibold">
-                            Principal's Signature:
+                            Coordinator's Signature:
                           </p>
                           <div className="border-b-2 border-black w-full"></div>
                           <p className="font-semibold">

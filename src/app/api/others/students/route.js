@@ -59,12 +59,23 @@ export const DELETE = async (request) => {
   await connect();
   const id = await request.nextUrl.searchParams.get("id");
 
-  try {
-    await User.findByIdAndDelete(id);
-    return new NextResponse("user deleted successfuly", { status: 200 });
-  } catch (err) {
-    return new NextResponse("server error! cannot delete user", {
-      status: 500,
-    });
+  const session = await getServerSession(authOptions);
+  if (
+    session &&
+    (session?.user?.role == "admin" || session?.user?.role == "subscriber")
+  ) {
+    try {
+      await User.findByIdAndDelete(id);
+      return new NextResponse("user deleted successfuly", { status: 200 });
+    } catch (err) {
+      return new NextResponse("server error! cannot delete user", {
+        status: 500,
+      });
+    }
+  } else {
+    return new NextResponse(
+      JSON.stringify({ message: "Sorry you are not allowed to do that" }),
+      { status: 401 }
+    );
   }
 };
