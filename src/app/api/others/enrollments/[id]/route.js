@@ -19,7 +19,7 @@ export const PATCH = async (req, res) => {
       },
       { new: true }
     );
-    console.log(existingEnrollment);
+    // console.log(existingEnrollment);
     // await existingEnrollment.save();
     return new NextResponse(
       JSON.stringify({ status: 200, message: "Enrollment updated!" })

@@ -2,13 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import User from "@/models/User";
 import Enrollment from "@/models/Enrollment";
+import connect from "@/utils/db";
 
 export const GET = async (req) => {
   try {
-    await dbConnect();
+    await connect();
 
     const { searchParams } = new URL(req.url);
-    const enrollmentID = searchParams.get("enrollmentID");
+    const enrollmentID = searchParams.get("enrollemnt");
 
     const filter = enrollmentID ? { enrollment: enrollmentID } : {};
 

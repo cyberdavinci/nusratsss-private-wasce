@@ -68,6 +68,14 @@ const Sidebar = ({ children }) => {
                     link={"/dashboard"}
                     routeType={"admin"}
                   />
+                  <SideBarItem
+                    text={"Enrollment"}
+                    // icon={<RxDashboard size={25} />}
+                    icon={"/icons/sidebar/dashboard.svg"}
+                    active={true}
+                    link={"/dashboard/enrollment"}
+                    routeType={"admin"}
+                  />
                   {session?.data?.user?.role === "admin" ? (
                     <SideBarItem
                       text={"Tokens"}
