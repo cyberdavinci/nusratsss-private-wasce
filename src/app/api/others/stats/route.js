@@ -52,22 +52,42 @@ export const GET = async (req) => {
     });
 
     // Age groups
-    const ageGroups = await User.aggregate([
-      { $match: filter },
-      {
-        $project: {
-          age: { $subtract: [2025, { $toInt: "$date_of_birth" }] },
-        },
-      },
-      {
-        $bucket: {
-          groupBy: "$age",
-          boundaries: [0, 18, 25, 35, 50, 100],
-          default: "Unknown",
-          output: { count: { $sum: 1 } },
-        },
-      },
-    ]);
+    // const ageGroups = await User.aggregate([
+    //   {
+    //     $match: {
+    //       ...filter,
+    //       date_of_birth: { $exists: true, $ne: "" }, // Ensure `date_of_birth` is not empty
+    //     },
+    //   },
+    //   {
+    //     $project: {
+    //       age: {
+    //         $subtract: [
+    //           2025,
+    //           {
+    //             $convert: {
+    //               input: "$date_of_birth",
+    //               to: "int",
+    //               onError: null, // If conversion fails, return null instead of throwing an error
+    //               onNull: null, // If value is missing, return null
+    //             },
+    //           },
+    //         ],
+    //       },
+    //     },
+    //   },
+    //   {
+    //     $match: { age: { $ne: null } }, // Remove any invalid ages
+    //   },
+    //   {
+    //     $bucket: {
+    //       groupBy: "$age",
+    //       boundaries: [0, 18, 25, 35, 50, 100],
+    //       default: "Unknown",
+    //       output: { count: { $sum: 1 } },
+    //     },
+    //   },
+    // ]);
 
     // Schools distribution
     const schoolStats = await User.aggregate([
@@ -124,7 +144,7 @@ export const GET = async (req) => {
         maleCount,
         femaleCount,
         workingCount,
-        ageGroups,
+        // ageGroups,
         schoolStats,
         monthlyEnrollments,
         topNationalities,

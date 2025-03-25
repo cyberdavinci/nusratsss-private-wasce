@@ -44,6 +44,7 @@
     "react-select": "^5.7.4",
     "react-to-print": "^2.14.13",
     "react-toastify": "^11.0.5",
+    "recharts": "^2.15.1",
     "redux": "^4.2.1",
     "swr": "^2.2.5",
     "tailwind-merge": "^2.6.0",
