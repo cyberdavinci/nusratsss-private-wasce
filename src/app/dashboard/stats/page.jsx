@@ -14,7 +14,7 @@ import UserStatsOverview from "@/components/stats/user-stats-overview";
 
 export default function StatsPage() {
   return (
-    <div className="flex min-h-screen h-full w-full flex-col bg-gray-950 text-gray-100">
+    <div className="flex h-[800px]  w-full flex-col bg-gray-950 text-gray-100">
       <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
         <StatsHeader />
 
